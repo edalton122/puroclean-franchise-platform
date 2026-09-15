@@ -92,7 +92,7 @@
   /* Browser frame */
   .browser-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
   .browser-label{font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
-  #browser-outer{width:620px;background:#1e1e1e;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.06);overflow:hidden;}
+  #browser-outer{width:720px;background:#1e1e1e;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.06);overflow:hidden;}
   .browser-chrome{background:#292929;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.06);}
   .browser-dots{display:flex;gap:6px;}
   .browser-dots span{width:11px;height:11px;border-radius:50%;}
@@ -102,14 +102,29 @@
   .browser-bar{flex:1;background:#3c3c3c;border-radius:6px;padding:5px 12px;display:flex;align-items:center;gap:8px;}
   .browser-bar svg{opacity:0.4;}
   .browser-url{font-size:11px;color:rgba(255,255,255,0.55);font-family:monospace;}
-  #browser-viewport{height:420px;background:#F8FAFC;overflow:hidden;position:relative;}
-  .browser-screen{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);background:#F8FAFC;overflow:hidden;}
+  #browser-viewport{height:450px;background:#F8FAFC;overflow:hidden;position:relative;}
+  .browser-screen{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);background:#F8FAFC;overflow:hidden;display:flex;flex-direction:column;}
   .browser-screen.bs-active{transform:translateX(0);}
   .browser-screen.bs-exiting{transform:translateX(-100%);}
-  /* Salesforce-style top bar in browser screens */
-  .sf-topbar{background:#0274BE;display:flex;align-items:center;padding:0 14px;height:40px;gap:12px;flex-shrink:0;}
-  .sf-topbar-logo{display:flex;align-items:center;gap:6px;}
-  .sf-topbar-logo span{color:white;font-size:12px;font-weight:800;}
+  /* PuroClean-branded top bar in browser screens */
+  .sf-topbar{background:linear-gradient(90deg,#00346D 0%,#004a99 100%);display:flex;align-items:center;padding:0 14px;height:42px;gap:12px;flex-shrink:0;}
+  .sf-topbar-logo{display:flex;align-items:center;gap:7px;}
+  .sf-topbar-logo span{color:white;font-size:12px;font-weight:800;letter-spacing:0.01em;}
+  /* Browser drawer (right-side slide-in panel) */
+  #bs-drawer{position:absolute;right:-320px;top:42px;width:300px;bottom:0;background:white;border-left:1.5px solid #E2E8F0;transition:right 0.32s cubic-bezier(0.4,0,0.2,1);z-index:15;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,0.12);}
+  #bs-drawer.open{right:0;}
+  #bs-drawer-close{position:sticky;top:0;background:white;border-bottom:1px solid #F1F5F9;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;z-index:1;}
+  #bs-drawer-body{padding:12px;}
+  /* Activity timeline (right rail in Screen 3) */
+  .activity-rail{width:230px;flex-shrink:0;border-left:1.5px solid #E2E8F0;overflow-y:auto;background:#FAFBFC;}
+  .activity-rail-header{padding:9px 12px;border-bottom:1px solid #E2E8F0;background:white;font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.06em;position:sticky;top:0;z-index:1;}
+  .activity-item{padding:9px 12px;border-bottom:1px solid #F1F5F9;cursor:pointer;transition:background 0.15s;}
+  .activity-item:hover{background:#F8FAFC;}
+  .activity-item-expanded{background:#F8FAFC;padding:0 12px 10px;border-bottom:1px solid #E2E8F0;font-size:9px;color:#374151;line-height:1.6;display:none;}
+  .activity-item-expanded.open{display:block;}
+  /* File photo grid */
+  .file-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+  .file-photo{border-radius:8px;overflow:hidden;border:1px solid #E2E8F0;cursor:pointer;transition:transform 0.15s;}
   .sf-nav-items{display:flex;gap:0;flex:1;overflow:hidden;}
   .sf-nav-item{padding:0 12px;height:40px;display:flex;align-items:center;font-size:11px;color:rgba(255,255,255,0.75);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
   .sf-nav-item:hover{background:rgba(255,255,255,0.1);color:white;}
@@ -417,12 +432,20 @@
           </div>
           <div id="browser-viewport">
 
+            <!-- Drawer lives inside the viewport so it overlays browser screens correctly -->
+            <div id="bs-drawer" style="position:absolute;right:-320px;top:0;width:300px;bottom:0;background:white;border-left:1.5px solid #E2E8F0;transition:right 0.32s cubic-bezier(0.4,0,0.2,1);z-index:50;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,0.14);display:none;">
+              <div style="position:sticky;top:0;background:white;border-bottom:1px solid #F1F5F9;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;z-index:1;">
+                <span id="bs-drawer-title" style="font-size:10px;font-weight:800;color:#0F172A;flex:1;margin-right:8px;"></span>
+                <button onclick="bsDrawerClose()" style="background:none;border:none;cursor:pointer;font-size:14px;color:#94A3B8;line-height:1;flex-shrink:0;">✕</button>
+              </div>
+              <div id="bs-drawer-body" style="padding:12px 14px;font-size:11px;color:#374151;line-height:1.75;"></div>
+            </div>
+
             <!-- ── Browser Screen 1: Franchise Home Dashboard ── -->
             <div class="browser-screen bs-active" id="bs-screen-1">
               <div class="sf-topbar">
                 <div class="sf-topbar-logo">
-                  <svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg>
-                  <span>Salesforce</span>
+                  <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/>
                 </div>
                 <div class="sf-nav-items">
                   <span class="sf-nav-item active">Home</span>
@@ -475,7 +498,7 @@
             <!-- ── Browser Screen 2: Referral Partner List ── -->
             <div class="browser-screen" id="bs-screen-2">
               <div class="sf-topbar">
-                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-topbar-logo"><img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/></div>
                 <div class="sf-nav-items">
                   <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Home')">Home</span>
                   <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Accounts')">Accounts</span>
@@ -535,83 +558,250 @@
               </div>
             </div>
 
-            <!-- ── Browser Screen 3: Partner Record + Revenue Attribution ── -->
+            <!-- ── Browser Screen 3: Partner Record + Activity Rail ── -->
             <div class="browser-screen" id="bs-screen-3">
               <div class="sf-topbar">
-                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
-                <div class="sf-nav-items"><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Home')">Home</span><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Partners')">← Partners</span></div>
+                <div class="sf-topbar-logo"><img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/></div>
+                <div class="sf-nav-items">
+                  <span class="sf-nav-item secondary-clickable" onclick="navigateToScreen(1)">Home</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="navigateToScreen(1)">← Partners</span>
+                </div>
                 <div class="sf-topbar-user">MW</div>
               </div>
               <!-- Record header -->
-              <div style="padding:10px 14px 6px;background:white;border-bottom:1px solid #F1F5F9;">
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:800;flex-shrink:0;">MS</div>
-                  <div><div style="font-size:13px;font-weight:900;color:#0F172A;">Mike Sullivan</div><div style="font-size:9px;color:#64748B;">Plumber · Sullivan Plumbing Co.</div></div>
-                  <div style="margin-left:auto;background:#FEF2F2;color:#C50A1D;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;">⚠ 31 days since contact</div>
+              <div style="padding:9px 14px 0;background:white;border-bottom:1px solid #E2E8F0;flex-shrink:0;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <div style="width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:800;flex-shrink:0;">MS</div>
+                  <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:900;color:#0F172A;">Mike Sullivan</div>
+                    <div style="font-size:9px;color:#64748B;">Plumber · Sullivan Plumbing Co. · (503) 442-7890</div>
+                  </div>
+                  <div style="background:#FEF2F2;color:#C50A1D;font-size:9px;font-weight:700;padding:4px 10px;border-radius:6px;">⚠ 31 days since contact</div>
                 </div>
-                <!-- Tabs -->
-                <div class="sf-record-tabs" style="margin:0 -14px;padding:0 14px;">
+                <!-- Stat chips -->
+                <div style="display:flex;gap:8px;margin-bottom:8px;">
+                  <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:7px;padding:5px 10px;cursor:pointer;" onclick="bs3TabClick('jobs')">
+                    <div style="font-size:8px;color:#059669;font-weight:700;text-transform:uppercase;">Revenue YTD</div>
+                    <div style="font-size:13px;font-weight:900;color:#059669;">$89,400</div>
+                  </div>
+                  <div style="background:#EFF6FF;border:1px solid #93C5FD;border-radius:7px;padding:5px 10px;cursor:pointer;" onclick="bs3TabClick('jobs')">
+                    <div style="font-size:8px;color:#0274BE;font-weight:700;text-transform:uppercase;">Jobs Referred</div>
+                    <div style="font-size:13px;font-weight:900;color:#0274BE;">14</div>
+                  </div>
+                  <div style="background:rgba(255,105,0,0.08);border:1px solid rgba(255,105,0,0.25);border-radius:7px;padding:5px 10px;cursor:pointer;" onclick="bsDrawerOpen('Relationship Score','Agentforce calculates this score from: contact frequency (31 days = low), job referral volume (14 = high), and referral consistency. Score was 85 last quarter — dropped because contact has lapsed. A single touchpoint this week will start the recovery.')">
+                    <div style="font-size:8px;color:#FF6900;font-weight:700;text-transform:uppercase;">Rel. Score</div>
+                    <div style="font-size:13px;font-weight:900;color:#FF6900;">72 ↓</div>
+                  </div>
+                </div>
+                <!-- Tabs: Details | Jobs | Files (Activity moved to right rail) -->
+                <div style="display:flex;gap:0;border-bottom:none;">
                   <div class="sf-tab active" id="bs3-tab-details" onclick="bs3TabClick('details')">Details</div>
-                  <div class="sf-tab guided-pulse" id="bs3-tab-jobs" onclick="bs3TabClick('jobs')">Jobs (14)</div>
-                  <div class="sf-tab" id="bs3-tab-activity" onclick="bs3TabClick('activity')">Activity</div>
-                  <div class="sf-tab" id="bs3-tab-files" onclick="bs3TabClick('files')">Files</div>
+                  <div class="sf-tab guided-pulse" id="bs3-tab-jobs" onclick="bs3TabClick('jobs')">Jobs (14) ★</div>
+                  <div class="sf-tab" id="bs3-tab-files" onclick="bs3TabClick('files')">Files (6)</div>
                 </div>
               </div>
-              <!-- Tab content area -->
-              <div id="bs3-content" style="flex:1;overflow-y:auto;padding:10px 14px;background:#F8FAFC;">
-                <!-- Details tab (default) -->
-                <div id="bs3-pane-details" style="display:block;">
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Partner Type: Plumber. You can rename this to any field label that makes sense for your business — no code required.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Partner Type</div><div style="font-size:11px;font-weight:700;color:#0F172A;">Plumber</div></div>
-                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Phone: (503) 442-7890 — click to log a call directly from Salesforce')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Phone</div><div style="font-size:11px;font-weight:700;color:#0274BE;">(503) 442-7890</div></div>
-                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Revenue Attributed YTD: $89,400 — this is every dollar Mike Sullivan has sent your way this year')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Revenue Attributed YTD</div><div style="font-size:11px;font-weight:900;color:#059669;">$89,400</div></div>
-                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Relationship Score: 72 — Agentforce calculates this from contact frequency, job volume, and referral consistency')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Relationship Score</div><div style="font-size:11px;font-weight:900;color:#FF6900;">72 / 100</div></div>
-                  </div>
-                  <div style="background:rgba(255,105,0,0.05);border:1px solid rgba(255,105,0,0.2);border-radius:8px;padding:9px 11px;">
-                    <div style="font-size:8px;font-weight:800;color:#FF6900;margin-bottom:3px;">✦ Agentforce Insight</div>
-                    <div style="font-size:9px;color:#374151;line-height:1.5;">Mike's referral rate drops after 3+ weeks without contact. You're at 31 days. <strong>Schedule a touchpoint this week</strong> to protect the $89,400 relationship.</div>
-                  </div>
-                  <div style="margin-top:8px;text-align:center;font-size:9px;color:#94A3B8;">← Click the <strong style="color:#0274BE;">Jobs (14)</strong> tab to see revenue attribution →</div>
-                </div>
-                <!-- Jobs tab (shown when clicked) -->
-                <div id="bs3-pane-jobs" style="display:none;">
-                  <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:8px;">14 Jobs Referred by Mike Sullivan</div>
-                  <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;overflow:hidden;">
-                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:6px 10px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;"><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Job</span><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Type</span><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Value</span></div>
-                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;" class="secondary-clickable" onclick="bsSecondaryClick('Johnson Residence — Water Damage. Completed Sept 3. Revenue: $11,200. Referral source logged to Mike Sullivan automatically.')"><span style="font-size:9px;font-weight:700;color:#0F172A;">Johnson Residence</span><span style="font-size:9px;color:#64748B;">Water</span><span style="font-size:9px;font-weight:800;color:#059669;">$11,200</span></div>
-                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;" class="secondary-clickable" onclick="bsSecondaryClick('Eastside Commercial — Mold Remediation. In Progress. Estimated: $14,800. Highest margin job type in your franchise.')"><span style="font-size:9px;font-weight:700;color:#0F172A;">Eastside Commercial</span><span style="font-size:9px;color:#64748B;">Mold</span><span style="font-size:9px;font-weight:800;color:#FF6900;">$14,800 ↗</span></div>
-                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;" class="secondary-clickable" onclick="bsSecondaryClick('View all 14 jobs from Mike Sullivan. Total: $89,400. This partner drives 22% of your franchise revenue.')"><span style="font-size:9px;color:#0274BE;font-weight:600;">+ 12 more jobs...</span><span></span><span style="font-size:9px;font-weight:800;color:#059669;">$63,400</span></div>
-                  </div>
-                  <!-- Primary advance button in jobs pane -->
-                  <div id="bs3-jobs-next" class="guided-pulse" style="margin-top:10px;background:linear-gradient(135deg,#0274BE,#015A9E);color:white;border-radius:9px;padding:10px 14px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen()">See how emails auto-log from Outlook →</div>
-                </div>
-                <!-- Activity tab -->
-                <div id="bs3-pane-activity" style="display:none;">
-                  <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:6px;">Activity Timeline</div>
-                  <div style="display:flex;flex-direction:column;gap:6px;">
-                    <div style="background:white;border-radius:8px;padding:8px 10px;border-left:3px solid #0274BE;border:1px solid #E2E8F0;border-left:3px solid #0274BE;" class="secondary-clickable" onclick="bsSecondaryClick('Call logged automatically — your BDR Jordan called Mike on Aug 12. Logged from Salesforce mobile. Duration: 6 min.')">
-                      <div style="font-size:9px;font-weight:700;color:#0F172A;">Call Logged</div>
-                      <div style="font-size:8px;color:#64748B;">Jordan — Aug 12 · 6 min · Auto-logged</div>
+              <!-- Two-column body: tab content (left) + activity rail (right) -->
+              <div style="flex:1;min-height:0;display:flex;overflow:hidden;">
+                <!-- Left: tab content -->
+                <div id="bs3-content" style="flex:1;overflow-y:auto;padding:10px 12px;background:#F8FAFC;">
+                  <!-- Details pane -->
+                  <div id="bs3-pane-details" style="display:block;">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:9px;">
+                      <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;cursor:pointer;" onclick="bsDrawerOpen('Partner Type — Plumber','Field labels in PuroClean\'s Salesforce are fully customizable. "Partner Type" can be renamed to "Referral Category," "Trade Partner," or whatever matches your language — no code, drag and drop.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Partner Type</div><div style="font-size:11px;font-weight:700;color:#0F172A;">Plumber 🔧</div></div>
+                      <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;cursor:pointer;" onclick="bsDrawerOpen('Click-to-Call from Salesforce','Click the phone number and Salesforce automatically starts the call and logs it — date, time, duration, and outcome — to this partner record. No manual entry. Doing the work records the work.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Phone</div><div style="font-size:11px;font-weight:700;color:#0274BE;">(503) 442-7890 📞</div></div>
+                      <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;cursor:pointer;" onclick="bsDrawerOpen('Email — mike@sullivanplumbing.com','Clicking email opens Outlook. When Jordan sends the email, the Salesforce Inbox extension auto-logs it here — subject line, send date, and full thread visible right on this record. Melissa called this \"really sick.\"')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Email</div><div style="font-size:11px;font-weight:700;color:#0274BE;">mike@sullivanplumbing.com ✉</div></div>
+                      <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;cursor:pointer;" onclick="bsDrawerOpen('Last Contact — 31 days ago','Agentforce tracks this automatically from the most recent logged activity: call, email, visit, or voice note. When a partner crosses 21 days without contact, Agentforce creates a task. At 30 days, it sends a home screen alert.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Last Contact</div><div style="font-size:11px;font-weight:700;color:#C50A1D;">31 days ago ⚠</div></div>
                     </div>
-                    <div style="background:white;border-radius:8px;padding:8px 10px;border-left:3px solid #059669;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Email auto-logged from Outlook. Jordan sent a thank-you email on July 28. Salesforce captured it automatically — no manual entry.')">
-                      <div style="font-size:9px;font-weight:700;color:#0F172A;">Email Auto-Logged (Outlook)</div>
-                      <div style="font-size:8px;color:#64748B;">Jordan — Jul 28 · Thank you for the referral</div>
+                    <div style="background:rgba(255,105,0,0.05);border:1px solid rgba(255,105,0,0.22);border-radius:9px;padding:10px 12px;margin-bottom:9px;cursor:pointer;" onclick="bsDrawerOpen('Agentforce Insight — Mike Sullivan','Agentforce analyzed Mike\'s referral pattern across 14 months: he averages 1.2 referrals per month when contacted weekly, and drops to 0.3 per month when contact lapses past 3 weeks. At current trajectory, you risk losing $22,000–$31,000 in annual referral revenue from this one relationship. One call this week costs you 10 minutes. Not making it costs you $25,000.')">
+                      <div style="font-size:8.5px;font-weight:800;color:#FF6900;margin-bottom:4px;">✦ Agentforce Insight — click to expand</div>
+                      <div style="font-size:9px;color:#374151;line-height:1.55;">Mike's referral rate drops after 3+ weeks without contact. You're at 31 days. <strong>Schedule a touchpoint this week</strong> to protect the $89,400 relationship.</div>
+                    </div>
+                    <div id="bs3-details-next" class="guided-pulse" style="background:linear-gradient(135deg,#00346D,#004a99);color:white;border-radius:9px;padding:9px 14px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="bs3TabClick('jobs')">See 14 jobs Mike has referred → Revenue attribution</div>
+                  </div>
+                  <!-- Jobs pane -->
+                  <div id="bs3-pane-jobs" style="display:none;">
+                    <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:7px;">14 Jobs Referred by Mike Sullivan</div>
+                    <div style="background:white;border-radius:9px;border:1px solid #E2E8F0;overflow:hidden;margin-bottom:8px;">
+                      <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;padding:6px 10px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;">
+                        <span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Job / Property</span>
+                        <span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Type</span>
+                        <span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Status</span>
+                        <span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Revenue</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;cursor:pointer;" onclick="bsDrawerOpen('Eastside Commercial — Mold Remediation','In Progress. Estimated: $14,800. This is your highest-margin job type — mold remediation from property manager partners averages 52% margin versus 31% for water damage. Mike referred this one after a visit Jordan made on Aug 3. Voice note auto-created a follow-up task. Job opened Aug 12.')">
+                        <span style="font-size:9.5px;font-weight:800;color:#0F172A;">Eastside Commercial</span>
+                        <span style="font-size:9px;color:#059669;font-weight:700;">Mold</span>
+                        <span style="font-size:8px;background:#FEF3C7;color:#D97706;padding:2px 5px;border-radius:4px;height:fit-content;">Active</span>
+                        <span style="font-size:10px;font-weight:900;color:#FF6900;">$14,800 ↗</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;cursor:pointer;" onclick="bsDrawerOpen('Johnson Residence — Water Damage','Completed Sept 3, 2026. Revenue collected: $11,200. Mike mentioned this homeowner during a visit last July — Jordan logged the note on mobile. Job assigned to Crew 2. Photos attached. Insurance claim: Pacific Mutual, handled by Dave Patel.')">
+                        <span style="font-size:9.5px;font-weight:800;color:#0F172A;">Johnson Residence</span>
+                        <span style="font-size:9px;color:#0274BE;font-weight:700;">Water</span>
+                        <span style="font-size:8px;background:#DCFCE7;color:#059669;padding:2px 5px;border-radius:4px;height:fit-content;">Done</span>
+                        <span style="font-size:10px;font-weight:900;color:#059669;">$11,200</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;cursor:pointer;" onclick="bsDrawerOpen('Westfield Apartments — Water Damage','Completed July 19. Revenue: $8,900. 4-unit building. Mike knew the building manager through a plumbing contract. Referred after Jordan called to check in — the call was auto-logged and triggered a task to follow up on pending referrals.')">
+                        <span style="font-size:9.5px;font-weight:800;color:#0F172A;">Westfield Apartments</span>
+                        <span style="font-size:9px;color:#0274BE;font-weight:700;">Water</span>
+                        <span style="font-size:8px;background:#DCFCE7;color:#059669;padding:2px 5px;border-radius:4px;height:fit-content;">Done</span>
+                        <span style="font-size:10px;font-weight:900;color:#059669;">$8,900</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;padding:8px 10px;cursor:pointer;" onclick="bsDrawerOpen('+ 11 more jobs from Mike Sullivan','Total from Mike YTD: $89,400 across 14 jobs. Breakdown by type: Water (8 jobs, $44,800) · Mold (5 jobs, $35,200) · Fire (1 job, $9,400). Average job value: $6,386. Mike is your highest-revenue referral partner — 22% of your total franchise revenue comes through this one relationship.')">
+                        <span style="font-size:9px;color:#0274BE;font-weight:700;">+ 11 more jobs...</span>
+                        <span></span><span></span>
+                        <span style="font-size:10px;font-weight:900;color:#059669;">$54,500</span>
+                      </div>
+                    </div>
+                    <div id="bs3-jobs-next" class="guided-pulse" style="background:linear-gradient(135deg,#FF6900,#C44E00);color:white;border-radius:9px;padding:10px 14px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen()">See how these emails auto-log from Outlook →</div>
+                  </div>
+                  <!-- Files pane with photo mockups -->
+                  <div id="bs3-pane-files" style="display:none;">
+                    <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:7px;">6 Files — Mike Sullivan Jobs</div>
+                    <div class="file-photo-grid">
+                      <div class="file-photo" onclick="bsDrawerOpen('Eastside_Commercial_Mold_001.jpg','Site photo taken by Crew 2 on Aug 14. Shows mold growth along the north wall of Unit 3. Used for scope documentation, insurance estimate, and PuroClean quality review. Auto-attached to the Eastside Commercial job record when uploaded from the mobile app.')">
+                        <div style="background:linear-gradient(135deg,#374151,#1F2937);height:75px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                          <span style="font-size:22px;">🟫</span>
+                          <span style="font-size:7px;color:rgba(255,255,255,0.5);font-weight:700;">MOLD SITE</span>
+                        </div>
+                        <div style="padding:5px 7px;"><div style="font-size:7.5px;font-weight:700;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Eastside_Commercial_Mold_001.jpg</div><div style="font-size:7px;color:#94A3B8;">Aug 14 · 2.4 MB</div></div>
+                      </div>
+                      <div class="file-photo" onclick="bsDrawerOpen('Johnson_Residence_Water_001.jpg','Before photo: water damage on basement drywall at Johnson Residence. Taken by crew lead on arrival, Aug 28. Scope: 340 sq ft affected. Moisture reading: 85%. Auto-linked to Johnson job record and shared with Pacific Mutual for claims processing.')">
+                        <div style="background:linear-gradient(135deg,#1D4ED8,#1E40AF);height:75px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                          <span style="font-size:22px;">💧</span>
+                          <span style="font-size:7px;color:rgba(255,255,255,0.5);font-weight:700;">WATER SITE</span>
+                        </div>
+                        <div style="padding:5px 7px;"><div style="font-size:7.5px;font-weight:700;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Johnson_Residence_Water_001.jpg</div><div style="font-size:7px;color:#94A3B8;">Aug 28 · 3.1 MB</div></div>
+                      </div>
+                      <div class="file-photo" onclick="bsDrawerOpen('Johnson_Residence_Water_002.jpg','After photo: Johnson Residence post-remediation. Taken Sept 3 on job completion. Drywall replaced, dried to 12% moisture. Certificate of completion attached. Customer signed off. Insurance claim submitted same day.')">
+                        <div style="background:linear-gradient(135deg,#059669,#047857);height:75px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                          <span style="font-size:22px;">✅</span>
+                          <span style="font-size:7px;color:rgba(255,255,255,0.5);font-weight:700;">AFTER PHOTO</span>
+                        </div>
+                        <div style="padding:5px 7px;"><div style="font-size:7.5px;font-weight:700;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Johnson_Residence_Water_002.jpg</div><div style="font-size:7px;color:#94A3B8;">Sep 3 · 2.8 MB</div></div>
+                      </div>
+                      <div class="file-photo" onclick="bsDrawerOpen('Mike_Sullivan_Estimate_Aug26.pdf','Estimate document for Eastside Commercial mold job. Prepared by Jordan on Aug 26. Scope: 420 sq ft, 2 walls, containment barriers. Total estimate: $14,800. Approved by Mike Sullivan and property manager. Attached directly to this partner record so the full paper trail lives in one place.')">
+                        <div style="background:linear-gradient(135deg,#7C3AED,#6D28D9);height:75px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
+                          <span style="font-size:22px;">📄</span>
+                          <span style="font-size:7px;color:rgba(255,255,255,0.5);font-weight:700;">ESTIMATE PDF</span>
+                        </div>
+                        <div style="padding:5px 7px;"><div style="font-size:7.5px;font-weight:700;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mike_Sullivan_Estimate_Aug26.pdf</div><div style="font-size:7px;color:#94A3B8;">Aug 26 · 845 KB</div></div>
+                      </div>
+                    </div>
+                    <div style="margin-top:8px;font-size:8.5px;color:#64748B;text-align:center;">All files auto-linked when uploaded from the mobile app on-site · 2 more files</div>
+                    <div style="margin-top:6px;text-align:center;font-size:9px;color:#94A3B8;">← Click <strong style="color:#FF6900;">Jobs (14) ★</strong> to continue the demo</div>
+                  </div>
+                </div>
+
+                <!-- Right: ACTIVITY RAIL (always visible, chronological, expandable) -->
+                <div class="activity-rail">
+                  <div class="activity-rail-header">Activity Timeline</div>
+
+                  <!-- Item 1: Voice note (today) -->
+                  <div class="activity-item" onclick="toggleActivity('a1')">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#FF6900;flex-shrink:0;"></div>
+                      <div style="font-size:8.5px;font-weight:800;color:#FF6900;">🎙 Voice Note</div>
+                      <div style="font-size:7.5px;color:#94A3B8;margin-left:auto;">Today</div>
+                    </div>
+                    <div style="font-size:8px;color:#64748B;padding-left:12px;">Jordan logged — on-site at Mike's shop</div>
+                    <div style="font-size:7.5px;color:#94A3B8;padding-left:12px;margin-top:2px;">▸ Click to read note</div>
+                  </div>
+                  <div class="activity-item-expanded" id="a1-exp">
+                    <div style="background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;border-radius:0 6px 6px 0;padding:7px 9px;font-style:italic;">"Stopped by Mike's shop. He's got 3 jobs coming up this fall — big Eastside property. Wants intro to our mold team."</div>
+                    <div style="margin-top:5px;display:flex;gap:5px;">
+                      <span style="background:#DCFCE7;color:#059669;font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:4px;">✓ Task auto-created</span>
+                      <span style="background:#EFF6FF;color:#0274BE;font-size:7.5px;font-weight:700;padding:2px 6px;border-radius:4px;">Record updated</span>
                     </div>
                   </div>
-                  <div style="margin-top:8px;font-size:9px;color:#94A3B8;text-align:center;">← Go back to <strong style="color:#0274BE;">Jobs (14)</strong> to continue the demo</div>
+
+                  <!-- Item 2: Task created -->
+                  <div class="activity-item" onclick="toggleActivity('a2')">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#059669;flex-shrink:0;"></div>
+                      <div style="font-size:8.5px;font-weight:800;color:#059669;">✅ Task Created</div>
+                      <div style="font-size:7.5px;color:#94A3B8;margin-left:auto;">Today</div>
+                    </div>
+                    <div style="font-size:8px;color:#64748B;padding-left:12px;">Auto-created by Agentforce</div>
+                    <div style="font-size:7.5px;color:#94A3B8;padding-left:12px;margin-top:2px;">▸ Click to view</div>
+                  </div>
+                  <div class="activity-item-expanded" id="a2-exp">
+                    <div style="background:#F0FDF4;border-radius:6px;padding:7px 9px;">
+                      <div style="font-size:8.5px;font-weight:800;color:#059669;margin-bottom:3px;">Follow-up Task</div>
+                      <div style="font-size:8px;color:#374151;margin-bottom:2px;"><strong>Assigned to:</strong> Jordan</div>
+                      <div style="font-size:8px;color:#374151;margin-bottom:2px;"><strong>Due:</strong> Friday, Sep 19</div>
+                      <div style="font-size:8px;color:#374151;">Intro mold team to Mike for Eastside property</div>
+                    </div>
+                    <div style="font-size:7.5px;color:#94A3B8;margin-top:4px;">Created from voice note · No manual entry</div>
+                  </div>
+
+                  <!-- Item 3: Call Aug 12 -->
+                  <div class="activity-item" onclick="toggleActivity('a3')">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#0274BE;flex-shrink:0;"></div>
+                      <div style="font-size:8.5px;font-weight:800;color:#0274BE;">📞 Call Logged</div>
+                      <div style="font-size:7.5px;color:#94A3B8;margin-left:auto;">Aug 12</div>
+                    </div>
+                    <div style="font-size:8px;color:#64748B;padding-left:12px;">Jordan · 6 min · Auto-logged</div>
+                    <div style="font-size:7.5px;color:#94A3B8;padding-left:12px;margin-top:2px;">▸ Click to read notes</div>
+                  </div>
+                  <div class="activity-item-expanded" id="a3-exp">
+                    <div style="background:#EFF6FF;border-radius:6px;padding:7px 9px;">
+                      <div style="font-size:8px;color:#374151;line-height:1.6;">Called to check in. Mike confirmed 3 jobs from Eastside property are likely this fall. Asked about our mold team's availability. Good relationship — hasn't referred anyone in 3 weeks, keep warm.</div>
+                    </div>
+                    <div style="font-size:7.5px;color:#94A3B8;margin-top:4px;">Salesforce Mobile auto-logged · 6:14 duration</div>
+                  </div>
+
+                  <!-- Item 4: Email auto-logged (Outlook) — navigates to Screen 4 on click -->
+                  <div class="activity-item" id="act-email-item" onclick="toggleActivity('a4')" style="border-left:2px solid rgba(5,150,105,0.3);">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#059669;flex-shrink:0;"></div>
+                      <div style="font-size:8.5px;font-weight:800;color:#059669;">📧 Email (Outlook)</div>
+                      <div style="font-size:7.5px;color:#94A3B8;margin-left:auto;">Jul 28</div>
+                    </div>
+                    <div style="font-size:8px;color:#64748B;padding-left:12px;">Auto-logged · Thanks for referral</div>
+                    <div style="font-size:7.5px;color:#059669;padding-left:12px;margin-top:2px;font-weight:700;">▸ Click to see email + reply</div>
+                  </div>
+                  <div class="activity-item-expanded" id="a4-exp">
+                    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:7px;padding:8px 9px;margin-bottom:6px;">
+                      <div style="font-size:7.5px;color:#94A3B8;margin-bottom:2px;">From: Jordan · To: mike@sullivanplumbing.com</div>
+                      <div style="font-size:8px;font-weight:700;color:#0F172A;margin-bottom:4px;">Subject: Thanks for sending the Johnson job over</div>
+                      <div style="font-size:8px;color:#374151;line-height:1.6;">Hey Mike,<br><br>Just wanted to say thanks for sending the Johnson water damage job our way. Crew wrapped it up perfectly. Let us know what else comes your way!<br><br>– Jordan</div>
+                    </div>
+                    <!-- Mike's reply -->
+                    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:7px;padding:8px 9px;margin-bottom:6px;">
+                      <div style="font-size:7.5px;color:#94A3B8;margin-bottom:2px;">Reply from: Mike Sullivan · 2 hrs later</div>
+                      <div style="font-size:8px;color:#374151;line-height:1.6;">Sounds good! Got another one coming up at Eastside — big mold job. Can your team handle it? Let's connect.<br><br>– Mike</div>
+                    </div>
+                    <div style="background:rgba(5,150,105,0.08);border-radius:6px;padding:6px 8px;display:flex;align-items:center;gap:5px;margin-bottom:5px;">
+                      <svg width="10" height="10" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span style="font-size:7.5px;font-weight:700;color:#059669;">Both messages auto-logged from Outlook — no manual entry</span>
+                    </div>
+                    <div style="background:linear-gradient(135deg,#00346D,#004a99);color:white;border-radius:7px;padding:7px 10px;cursor:pointer;font-size:8.5px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen();event.stopPropagation();">See exactly how this auto-logs → Screen 4</div>
+                  </div>
+
+                  <!-- Item 5: Job referred -->
+                  <div class="activity-item" onclick="toggleActivity('a5')">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+                      <div style="width:6px;height:6px;border-radius:50%;background:#7C3AED;flex-shrink:0;"></div>
+                      <div style="font-size:8.5px;font-weight:800;color:#7C3AED;">🏠 Job Referred</div>
+                      <div style="font-size:7.5px;color:#94A3B8;margin-left:auto;">Jul 10</div>
+                    </div>
+                    <div style="font-size:8px;color:#64748B;padding-left:12px;">Eastside Commercial · $14,800</div>
+                  </div>
+                  <div class="activity-item-expanded" id="a5-exp">
+                    <div style="background:#F5F3FF;border-radius:6px;padding:7px 9px;">
+                      <div style="font-size:8.5px;font-weight:800;color:#7C3AED;margin-bottom:3px;">Eastside Commercial Referral</div>
+                      <div style="font-size:8px;color:#374151;line-height:1.6;">Mike connected your franchise with the Eastside property manager. Mold remediation scope: 420 sq ft. Referral automatically attributed to Mike's record when the job was created. Revenue: $14,800 (in progress).</div>
+                    </div>
+                  </div>
                 </div>
-                <!-- Files tab -->
-                <div id="bs3-pane-files" style="display:none;">
-                  <div style="font-size:9px;color:#64748B;text-align:center;padding:20px;">No files attached. You can upload contracts, photos, or estimates directly to this partner record.</div>
-                  <div style="font-size:9px;color:#94A3B8;text-align:center;margin-top:8px;">← Return to <strong style="color:#0274BE;">Jobs (14)</strong> to continue</div>
-                </div>
-              </div>
+              </div><!-- /two-col body -->
             </div>
 
             <!-- ── Browser Screen 4: Email Auto-Logged from Outlook ── -->
             <div class="browser-screen" id="bs-screen-4">
               <div class="sf-topbar">
-                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-topbar-logo"><img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/></div>
                 <div class="sf-nav-items"><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Partners')">← Mike Sullivan</span></div>
                 <div class="sf-topbar-user">MW</div>
               </div>
@@ -650,7 +840,7 @@
             <!-- ── Browser Screen 5: BDR Task Queue + Accountability ── -->
             <div class="browser-screen" id="bs-screen-5">
               <div class="sf-topbar">
-                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-topbar-logo"><img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/></div>
                 <div class="sf-nav-items"><span class="sf-nav-item active">Tasks &amp; Activity</span><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Reports')">Reports</span></div>
                 <div class="sf-topbar-user">MW</div>
               </div>
@@ -685,7 +875,7 @@
             <!-- ── Browser Screen 6: Revenue Forecast + Correlation ── -->
             <div class="browser-screen" id="bs-screen-6">
               <div class="sf-topbar">
-                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-topbar-logo"><img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/></div>
                 <div class="sf-nav-items"><span class="sf-nav-item active">Reports &amp; Dashboards</span></div>
                 <div class="sf-topbar-user">MW</div>
               </div>
@@ -1221,9 +1411,6 @@
   </div>
 </div>
 
-<!-- SECONDARY CLICK TOOLTIP -->
-<div id="secondary-tooltip" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.85);color:white;font-size:12px;padding:10px 18px;border-radius:10px;max-width:380px;text-align:center;z-index:250;opacity:0;pointer-events:none;transition:opacity 0.3s;line-height:1.5;"></div>
-
 <script>
 /* ══════════════════════════════════════════════
    SLIDE NAVIGATION
@@ -1250,21 +1437,74 @@ container.addEventListener('scroll', () => {
 });
 
 /* ══════════════════════════════════════════════
-   SECONDARY CLICK TOOLTIP
+   BROWSER DRAWER — right-side slide-in panel
    ══════════════════════════════════════════════ */
-let tooltipTimer = null;
-function showTooltip(msg) {
-  const t = document.getElementById('secondary-tooltip');
-  t.textContent = msg;
-  t.style.opacity = '1';
-  if (tooltipTimer) clearTimeout(tooltipTimer);
-  tooltipTimer = setTimeout(() => { t.style.opacity = '0'; }, 3200);
+let drawerTimer = null;
+function bsDrawerOpen(title, body) {
+  const drawer = document.getElementById('bs-drawer');
+  const titleEl = document.getElementById('bs-drawer-title');
+  const bodyEl = document.getElementById('bs-drawer-body');
+  if (!drawer) return;
+  drawer.style.display = 'block';
+  // Brief delay so display:block renders before transition
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    drawer.style.right = '0';
+  }));
+  if (titleEl) titleEl.textContent = title;
+  if (bodyEl) bodyEl.innerHTML = '<p>' + body + '</p>';
+  if (drawerTimer) clearTimeout(drawerTimer);
+  drawerTimer = setTimeout(bsDrawerClose, 8000);
+}
+function bsDrawerClose() {
+  const drawer = document.getElementById('bs-drawer');
+  if (!drawer) return;
+  drawer.style.right = '-320px';
+  setTimeout(() => { drawer.style.display = 'none'; }, 340);
 }
 function sfNavClick(el, label) {
-  showTooltip(label + ': This navigation tab would take you to the ' + label + ' object — all your records, list views, and filters for ' + label.toLowerCase() + '.');
+  bsDrawerOpen(label + ' — Navigation', label + ': This tab takes you to the ' + label + ' object in PuroClean\'s Salesforce — all your records, list views, filters, and reports for ' + label.toLowerCase() + '. Every column, filter, and view is customizable without code.');
 }
-function bsSecondaryClick(msg) { showTooltip(msg); }
-function phoneSecondaryClick(msg) { showTooltip(msg); }
+function bsSecondaryClick(msg) {
+  // Smart-split: use first ': ' or '. ' as title/body separator
+  const colonIdx = msg.indexOf(': ');
+  const dotIdx = msg.indexOf('. ');
+  let splitIdx = -1;
+  let sepLen = 2;
+  if (colonIdx > -1 && colonIdx < 55 && (dotIdx === -1 || colonIdx < dotIdx)) { splitIdx = colonIdx; }
+  else if (dotIdx > -1 && dotIdx < 55) { splitIdx = dotIdx; }
+  if (splitIdx > -1) {
+    bsDrawerOpen(msg.substring(0, splitIdx), msg.substring(splitIdx + sepLen));
+  } else {
+    bsDrawerOpen('Detail', msg);
+  }
+}
+function phoneSecondaryClick(msg) { showMobileTooltip(msg); }
+
+/* Mobile demo still uses a subtle tooltip (fits inside phone UX) */
+let mobileTooltipTimer = null;
+function showMobileTooltip(msg) {
+  let t = document.getElementById('mobile-tooltip');
+  if (!t) { t = document.createElement('div'); t.id = 'mobile-tooltip'; t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,52,109,0.9);color:white;font-size:11px;padding:9px 16px;border-radius:10px;max-width:320px;text-align:center;z-index:250;opacity:0;pointer-events:none;transition:opacity 0.3s;line-height:1.5;backdrop-filter:blur(8px);'; document.body.appendChild(t); }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  if (mobileTooltipTimer) clearTimeout(mobileTooltipTimer);
+  mobileTooltipTimer = setTimeout(() => { t.style.opacity = '0'; }, 3000);
+}
+
+/* Navigate directly to a browser screen */
+function navigateToScreen(n) {
+  if (n >= 0 && n <= 5) { browserScreen = n; showBrowserScreen(n); }
+}
+
+/* Activity timeline toggle in the right rail */
+function toggleActivity(id) {
+  const expanded = document.getElementById(id + '-exp');
+  if (!expanded) return;
+  const isOpen = expanded.classList.contains('open');
+  // Close all first
+  document.querySelectorAll('.activity-item-expanded').forEach(el => el.classList.remove('open'));
+  if (!isOpen) expanded.classList.add('open');
+}
 
 /* ══════════════════════════════════════════════
    BROWSER SIMULATOR (DESKTOP)
@@ -1333,17 +1573,23 @@ function showBrowserScreen(n) {
     // Auto-show email modal after 5s on final screen
     setTimeout(() => { if (!sessionStorage.getItem('modalDismissed')) openEmailModal(); }, 5000);
   }
-  // Reset bs3 tabs on screen 3 entry
+  // Reset bs3 tabs on screen 3 entry (no Activity tab anymore)
   if (n === 2) {
+    bsDrawerClose();
     setTimeout(() => {
       document.querySelectorAll('#bs-screen-3 .sf-tab').forEach(t => t.classList.remove('active','guided-pulse'));
-      document.getElementById('bs3-tab-details').classList.add('active');
-      document.getElementById('bs3-tab-jobs').classList.add('guided-pulse');
-      ['bs3-pane-details','bs3-pane-jobs','bs3-pane-activity','bs3-pane-files'].forEach(id => {
+      const detailsTab = document.getElementById('bs3-tab-details');
+      const jobsTab = document.getElementById('bs3-tab-jobs');
+      if (detailsTab) detailsTab.classList.add('active');
+      if (jobsTab) jobsTab.classList.add('guided-pulse');
+      ['bs3-pane-details','bs3-pane-jobs','bs3-pane-files'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'none';
       });
-      document.getElementById('bs3-pane-details').style.display = 'block';
+      const detailsPane = document.getElementById('bs3-pane-details');
+      if (detailsPane) detailsPane.style.display = 'block';
+      // Close any open activity items
+      document.querySelectorAll('.activity-item-expanded').forEach(el => el.classList.remove('open'));
     }, 400);
   }
   // Start hint timer
@@ -1364,13 +1610,15 @@ function showBrowserScreen(n) {
 }
 
 function bs3TabClick(tab) {
+  // Close drawer if open
+  bsDrawerClose();
   document.querySelectorAll('#bs-screen-3 .sf-tab').forEach(t => { t.classList.remove('active', 'guided-pulse'); });
-  document.querySelectorAll('[id^="bs3-pane-"]').forEach(p => { p.style.display = 'none'; });
+  document.querySelectorAll('[id^="bs3-pane-"]').forEach(p => { if (p) p.style.display = 'none'; });
   const tabEl = document.getElementById('bs3-tab-' + tab);
   if (tabEl) tabEl.classList.add('active');
   const pane = document.getElementById('bs3-pane-' + tab);
   if (pane) pane.style.display = 'block';
-  // Re-pulse jobs tab if user wandered to another tab
+  // Re-pulse jobs tab if user is on details or files
   if (tab !== 'jobs') {
     setTimeout(() => {
       const jobsTab = document.getElementById('bs3-tab-jobs');
