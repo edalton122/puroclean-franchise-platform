@@ -205,6 +205,7 @@
   /* ═══════════════════════════════════════════════════
      GUIDED SANDBOX — shared interaction classes
   ═══════════════════════════════════════════════════ */
+  @keyframes shadowPulse{0%,100%{opacity:0.4;transform:translateX(-50%) scaleX(1);}50%{opacity:0.9;transform:translateX(-50%) scaleX(1.35);}}
   @keyframes guidedPulse{
     0%{box-shadow:0 0 0 0 rgba(255,105,0,0.6);}
     60%{box-shadow:0 0 0 8px rgba(255,105,0,0);}
@@ -1001,6 +1002,27 @@
               </div>
 
             </div><!-- /bs-views-wrap -->
+
+            <!-- ══ DESKTOP INTRO OVERLAY — "Click to Begin" gateway ══ -->
+            <div id="browser-intro" onclick="dismissBrowserIntro()" style="position:absolute;inset:0;z-index:90;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,rgba(0,15,55,0.94) 0%,rgba(0,52,109,0.97) 100%);backdrop-filter:blur(3px);transition:opacity 0.5s ease;">
+              <!-- Pulsing cursor indicator -->
+              <div style="position:relative;margin-bottom:18px;">
+                <div style="font-size:42px;animation:bounce 1.1s ease-in-out infinite;filter:drop-shadow(0 6px 16px rgba(255,105,0,0.5));display:block;text-align:center;">🖱️</div>
+                <div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:40px;height:4px;background:radial-gradient(ellipse,rgba(255,105,0,0.5) 0%,transparent 70%);border-radius:50%;animation:shadowPulse 1.1s ease-in-out infinite;"></div>
+              </div>
+              <!-- Card -->
+              <div style="background:white;border-radius:20px;padding:22px 28px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.08);max-width:320px;width:calc(100% - 40px);">
+                <div style="display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px;">
+                  <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:15px;" onerror="this.style.display='none'"/>
+                  <span style="font-size:10px;color:#CBD5E1;font-weight:600;">&#x00D7; Salesforce</span>
+                </div>
+                <div style="display:inline-block;background:rgba(255,105,0,0.1);border:1px solid rgba(255,105,0,0.2);color:#FF6900;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:3px 10px;border-radius:20px;margin-bottom:10px;">Interactive Desktop Demo</div>
+                <div style="font-size:16px;font-weight:900;color:#00346D;margin-bottom:8px;line-height:1.2;">Try the Desktop Demo</div>
+                <div style="font-size:10px;color:#64748B;line-height:1.65;margin-bottom:16px;">Click through a real franchise owner's Salesforce day. Explore freely &#x2014; the demo guides you back with live Agentforce alerts.</div>
+                <div style="padding:11px 28px;background:linear-gradient(135deg,#FF6900,#C44E00);border-radius:12px;font-size:12px;font-weight:800;color:white;box-shadow:0 6px 20px rgba(255,105,0,0.4);display:inline-block;animation:guidedPulse 1.8s ease-out infinite;">Click to Begin &#x2192;</div>
+                <div style="margin-top:10px;font-size:8.5px;color:#CBD5E1;">&#x2022; 6 stops &#x2022; 10 explorable views &#x2022; Live Agentforce alerts</div>
+              </div>
+            </div>
 
             <!-- ══ LIVE NOTIFICATION TOAST ══ -->
             <div id="bs-notif" style="position:absolute;right:12px;top:-220px;z-index:60;width:250px;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.22);overflow:hidden;transition:top 0.42s cubic-bezier(0.4,0,0.2,1);">
@@ -1911,8 +1933,9 @@ window.resetBrowserDemo = function() {
   bsUpdateNav('home');
   const pnav = document.getElementById('bsnav-partners'); if (pnav) pnav.classList.add('guided-pulse');
   [['bs6-bar-water'],['bs6-bar-fire'],['bs6-bar-mold']].forEach(([id]) => { const el = document.getElementById(id); if (el) { el.style.transition = 'none'; el.style.width = '0%'; setTimeout(() => { el.style.transition = 'width 0.8s ease 0.1s'; }, 50); } });
-  // Trigger home notification on reset
-  bsOnEnter('home');
+  // Restore the intro overlay
+  const intro = document.getElementById('browser-intro');
+  if (intro) { intro.style.display = ''; intro.style.opacity = '1'; intro.style.pointerEvents = ''; delete intro.dataset.dismissed; }
 };
 
 /* ══════════════════════════════════════════════
@@ -2244,13 +2267,25 @@ function submitForm(e) {
 }
 
 /* Init */
-// Initialize open world browser
+// Initialize open world browser — home view is ready but don't start notifications until intro is dismissed
 (function() {
   const home = document.getElementById('bsv-home');
   if (home) home.classList.add('v-active');
   bsUpdatePanel('home');
   bsUpdateNav('home');
+  // Intro overlay is already visible by default (z-index:90 covers everything)
 })();
+
+window.dismissBrowserIntro = function() {
+  const intro = document.getElementById('browser-intro');
+  if (!intro || intro.dataset.dismissed) return;
+  intro.dataset.dismissed = '1';
+  intro.style.opacity = '0';
+  intro.style.pointerEvents = 'none';
+  setTimeout(() => { intro.style.display = 'none'; }, 520);
+  // Now start the live notification flow for Home
+  bsOnEnter('home');
+};
 showDemoScreen(0);
 </script>
 </body>
