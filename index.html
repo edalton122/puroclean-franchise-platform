@@ -1746,15 +1746,29 @@ let bsQuestSeen = new Set(['home']);
 
 window.bsNavigate = function(viewName, addToHistory = true) {
   if (viewName === bsCurrentView) return;
-  const prev = document.querySelector('.bs-view.v-active');
+  const prev = document.getElementById('bsv-' + bsCurrentView);
   const next = document.getElementById('bsv-' + viewName);
   if (!next) return;
+
   bsDrawerClose();
+  hideFinale(); // always dismiss finale when navigating anywhere
+
+  // Clean all stale animation classes so rapid clicks don't stack
+  document.querySelectorAll('.bs-view').forEach(v => {
+    if (v !== next) {
+      v.classList.remove('v-active', 'v-exiting');
+    }
+  });
+
+  // Slide out previous view
   if (prev) {
     prev.classList.add('v-exiting');
-    setTimeout(() => prev.classList.remove('v-active','v-exiting'), 400);
+    setTimeout(() => { prev.classList.remove('v-active', 'v-exiting'); }, 420);
   }
+
+  // Slide in new view
   next.classList.add('v-active');
+
   if (addToHistory && bsCurrentView) bsViewHistory.push(bsCurrentView);
   bsCurrentView = viewName;
   if (QUEST_PATH.includes(viewName)) bsQuestSeen.add(viewName);
@@ -1767,6 +1781,11 @@ window.bsBack = function() {
   if (bsViewHistory.length) {
     const prev = bsViewHistory.pop();
     bsNavigate(prev, false);
+  } else {
+    // Default back goes to the natural parent
+    const parentMap = { 'account-johnson':'accounts','partner-mike':'partners','partner-janet':'partners','email-log':'partner-mike','bdr':'email-log' };
+    const parent = parentMap[bsCurrentView];
+    if (parent) bsNavigate(parent, false);
   }
 };
 
@@ -1848,7 +1867,9 @@ function bsClearNotifDelay() {
    FINALE SYSTEM
    ══════════════════════════════════════════════ */
 let bsFinaleTimer = null;
-window.showFinale = function() {
+window.showFinale = function(fromTimer) {
+  // If triggered by the auto-timer, only fire if still on Reports
+  if (fromTimer && bsCurrentView !== 'reports') return;
   const el = document.getElementById('bs-finale');
   if (el) el.style.transform = 'translateY(0)';
 };
@@ -1933,11 +1954,8 @@ function bsOnEnter(view) {
       });
     }, 2500);
 
-    // Finale at 8s (only first time)
-    bsFinaleTimer = setTimeout(() => {
-      if (bsCurrentView !== 'reports') return;
-      showFinale();
-    }, 8000);
+    // Finale at 8s — passes fromTimer=true so showFinale double-checks current view
+    bsFinaleTimer = setTimeout(() => { showFinale(true); }, 8000);
   }
 }
 
