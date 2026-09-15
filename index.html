@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Salesforce for PuroClean Franchises</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --pc-orange:#FF6900;
+    --pc-navy:#00346D;
+    --pc-red:#C50A1D;
+    --pc-light:#F7F4F2;
+    --sf-blue:#0274BE;
+    --brand-primary:#0274BE;
+    --brand-accent:#FF6900;
+    --brand-secondary:#00346D;
+  }
+  html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+  /* ── SLIDES ── */
+  #slides-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;}
+  .slide{height:100vh;scroll-snap-align:start;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+  /* ── STICKY NAV ── */
+  #topnav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:rgba(0,52,109,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);}
+  .nav-logo{display:flex;align-items:center;gap:10px;}
+  .nav-logo img{height:28px;}
+  .nav-actions{display:flex;gap:10px;}
+  .nav-btn{padding:7px 18px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;border:none;text-decoration:none;}
+  .nav-btn-ghost{background:rgba(255,255,255,0.1);color:white;border:1px solid rgba(255,255,255,0.25);}
+  .nav-btn-ghost:hover{background:rgba(255,255,255,0.2);}
+  .nav-btn-primary{background:var(--pc-orange);color:white;}
+  .nav-btn-primary:hover{background:#e55c00;}
+  /* ── NAV DOTS (right edge) ── */
+  #nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:99;display:flex;flex-direction:column;gap:10px;}
+  .nav-dot-item{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:all 0.3s;}
+  .nav-dot-item.active{background:var(--pc-orange);transform:scale(1.4);}
+
+  /* ═══════════════════════════════════════════════════
+     SLIDE 1 — HERO
+  ═══════════════════════════════════════════════════ */
+  #slide-hero{background:linear-gradient(145deg,#00224A 0%,#00346D 50%,#003d82 100%);}
+  #slide-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,105,0,0.04) 1px,transparent 1px);background-size:36px 36px;pointer-events:none;}
+  .hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:80px 60px 40px;text-align:center;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,105,0,0.12);border:1px solid rgba(255,105,0,0.35);border-radius:20px;padding:6px 16px;margin-bottom:24px;}
+  .hero-badge span{font-size:11px;font-weight:800;color:var(--pc-orange);letter-spacing:0.08em;text-transform:uppercase;}
+  .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--pc-orange);animation:pulseSlow 1.2s ease-in-out infinite;}
+  .hero-h1{font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;color:white;line-height:1.1;letter-spacing:-0.02em;margin-bottom:16px;}
+  .hero-h1 span{color:var(--pc-orange);}
+  .hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.65);line-height:1.65;max-width:560px;margin-bottom:36px;}
+  .hero-stats{display:flex;gap:20px;margin-bottom:40px;flex-wrap:wrap;justify-content:center;}
+  .stat-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:18px 24px;text-align:left;min-width:220px;}
+  .stat-card-num{font-size:1.9rem;font-weight:900;color:var(--pc-orange);line-height:1;}
+  .stat-card-label{font-size:11px;color:rgba(255,255,255,0.6);margin-top:5px;line-height:1.4;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;}
+  .hero-cta-btn{padding:14px 28px;border-radius:28px;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.2s;border:none;text-decoration:none;}
+  .hero-cta-primary{background:var(--pc-orange);color:white;box-shadow:0 6px 24px rgba(255,105,0,0.4);}
+  .hero-cta-primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,105,0,0.5);}
+  .hero-cta-ghost{background:transparent;color:white;border:2px solid rgba(255,255,255,0.35);}
+  .hero-cta-ghost:hover{border-color:white;background:rgba(255,255,255,0.08);}
+  .hero-contact-nudge{font-size:12px;color:rgba(255,255,255,0.4);}
+  .hero-contact-nudge a{color:rgba(255,255,255,0.65);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3);}
+  .hero-contact-nudge a:hover{color:white;}
+  .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0.5;}
+  .scroll-hint span{font-size:10px;font-weight:700;color:white;letter-spacing:0.08em;text-transform:uppercase;}
+  .scroll-arrow{width:20px;height:20px;border-right:2px solid white;border-bottom:2px solid white;transform:rotate(45deg);animation:bounce 1.4s ease-in-out infinite;}
+
+  /* ═══════════════════════════════════════════════════
+     SLIDE 2 — DESKTOP BROWSER SIMULATOR
+  ═══════════════════════════════════════════════════ */
+  #slide-desktop{background:linear-gradient(160deg,#001a38 0%,#002952 100%);}
+  #slide-desktop::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(2,116,190,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+  .sim-outer{position:relative;z-index:1;display:flex;flex-direction:column;max-width:1200px;margin:0 auto;height:100%;padding:68px 48px 32px;}
+  .sim-header{flex-shrink:0;margin-bottom:18px;display:flex;justify-content:center;}
+  .sim-badge{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,105,0,0.4);border-radius:14px;padding:11px 28px;}
+  .sim-badge-dot{width:9px;height:9px;border-radius:50%;background:var(--pc-orange);box-shadow:0 0 12px var(--pc-orange);animation:pulseSlow 1s ease-in-out infinite;}
+  .sim-badge-label{font-size:13px;font-weight:900;color:var(--pc-orange);letter-spacing:0.07em;text-transform:uppercase;}
+  .sim-badge-divider{width:1px;height:20px;background:rgba(255,255,255,0.15);}
+  .sim-badge-desc{font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);}
+  .sim-cols{flex:1;min-height:0;display:flex;align-items:center;gap:44px;}
+  /* Left context panel */
+  .sim-ctx{flex:1;min-width:0;}
+  #desk-pill{display:inline-block;background:rgba(255,105,0,0.12);border:1px solid rgba(255,105,0,0.35);color:var(--pc-orange);font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
+  #desk-title{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;color:white;line-height:1.2;margin-bottom:12px;letter-spacing:-0.01em;}
+  #desk-body{font-size:0.85rem;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:18px;max-width:380px;}
+  #desk-hint{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,0.45);font-style:italic;}
+  .desk-dots{display:flex;gap:6px;margin-top:22px;}
+  .desk-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.3s;}
+  .desk-dot.active{background:var(--pc-orange);transform:scale(1.4);}
+  .desk-quote{margin-top:22px;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;max-width:380px;}
+  .desk-quote p{font-size:0.75rem;color:rgba(255,255,255,0.5);line-height:1.6;font-style:italic;}
+  .desk-quote cite{font-size:10px;font-weight:800;color:var(--sf-blue);display:block;margin-top:5px;}
+  /* Browser frame */
+  .browser-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
+  .browser-label{font-size:9px;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:8px;}
+  #browser-outer{width:620px;background:#1e1e1e;border-radius:10px;box-shadow:0 30px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.06);overflow:hidden;}
+  .browser-chrome{background:#292929;padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .browser-dots{display:flex;gap:6px;}
+  .browser-dots span{width:11px;height:11px;border-radius:50%;}
+  .browser-dot-r{background:#FF5F57;}
+  .browser-dot-y{background:#FEBC2E;}
+  .browser-dot-g{background:#28C840;}
+  .browser-bar{flex:1;background:#3c3c3c;border-radius:6px;padding:5px 12px;display:flex;align-items:center;gap:8px;}
+  .browser-bar svg{opacity:0.4;}
+  .browser-url{font-size:11px;color:rgba(255,255,255,0.55);font-family:monospace;}
+  #browser-viewport{height:420px;background:#F8FAFC;overflow:hidden;position:relative;}
+  .browser-screen{position:absolute;inset:0;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);background:#F8FAFC;overflow:hidden;}
+  .browser-screen.bs-active{transform:translateX(0);}
+  .browser-screen.bs-exiting{transform:translateX(-100%);}
+  /* Salesforce-style top bar in browser screens */
+  .sf-topbar{background:#0274BE;display:flex;align-items:center;padding:0 14px;height:40px;gap:12px;flex-shrink:0;}
+  .sf-topbar-logo{display:flex;align-items:center;gap:6px;}
+  .sf-topbar-logo span{color:white;font-size:12px;font-weight:800;}
+  .sf-nav-items{display:flex;gap:0;flex:1;overflow:hidden;}
+  .sf-nav-item{padding:0 12px;height:40px;display:flex;align-items:center;font-size:11px;color:rgba(255,255,255,0.75);cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+  .sf-nav-item:hover{background:rgba(255,255,255,0.1);color:white;}
+  .sf-nav-item.active{color:white;border-bottom:2px solid white;}
+  .sf-topbar-user{width:28px;height:28px;border-radius:50%;background:#FF6900;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:800;cursor:pointer;}
+  /* Salesforce record tabs */
+  .sf-record-tabs{display:flex;border-bottom:1.5px solid #E2E8F0;background:white;padding:0 14px;}
+  .sf-tab{padding:8px 14px;font-size:11px;font-weight:600;color:#64748B;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+  .sf-tab.active{color:#0274BE;border-bottom-color:#0274BE;font-weight:700;}
+  .sf-tab:hover:not(.active){color:#374151;background:rgba(0,0,0,0.02);}
+  .browser-cta-row{margin-top:16px;display:flex;gap:10px;justify-content:center;}
+  .browser-cta-btn{padding:10px 20px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+  .bcta-primary{background:var(--pc-orange);color:white;border:none;}
+  .bcta-primary:hover{background:#e55c00;}
+  .bcta-ghost{background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);}
+  .bcta-ghost:hover{color:white;border-color:rgba(255,255,255,0.5);}
+  /* Restart link */
+  .sim-restart{position:absolute;bottom:12px;right:14px;font-size:10px;color:rgba(255,255,255,0.3);cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s;}
+  .sim-restart:hover{color:rgba(255,255,255,0.6);}
+
+  /* ═══════════════════════════════════════════════════
+     GUIDED SANDBOX — shared interaction classes
+  ═══════════════════════════════════════════════════ */
+  @keyframes guidedPulse{
+    0%{box-shadow:0 0 0 0 rgba(255,105,0,0.6);}
+    60%{box-shadow:0 0 0 8px rgba(255,105,0,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,105,0,0);}
+  }
+  @keyframes guidedPulseStrong{
+    0%{box-shadow:0 0 0 0 rgba(255,105,0,0.9);}
+    50%{box-shadow:0 0 0 12px rgba(255,105,0,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,105,0,0);}
+  }
+  @keyframes spotlightFade{
+    0%{box-shadow:0 0 0 0 rgba(255,105,0,0);}
+    30%{box-shadow:0 0 0 3px rgba(255,105,0,0.8);}
+    70%{box-shadow:0 0 0 3px rgba(255,105,0,0.5);}
+    100%{box-shadow:0 0 0 3px rgba(255,105,0,0.25);}
+  }
+  .guided-pulse{animation:guidedPulse 1.8s ease-out infinite;}
+  .guided-pulse-strong{animation:guidedPulseStrong 1.2s ease-out infinite;}
+  .spotlight{animation:spotlightFade 0.6s ease-out forwards;border-radius:6px;}
+  .secondary-clickable{cursor:pointer;transition:all 0.15s;}
+  .secondary-clickable:hover{filter:brightness(0.92);}
+  /* Tab pulse specifically for SF tabs */
+  .sf-tab.guided-pulse{animation:guidedPulse 1.8s ease-out infinite;border-radius:4px 4px 0 0;}
+  /* Hint tooltip */
+  #hint-tooltip{position:fixed;background:rgba(0,0,0,0.8);color:white;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;pointer-events:none;opacity:0;transition:opacity 0.3s;z-index:200;white-space:nowrap;}
+
+  /* ═══════════════════════════════════════════════════
+     SLIDE 3 — MOBILE PHONE SIMULATOR
+     (using the Mobile Demo Simulator skill pattern)
+  ═══════════════════════════════════════════════════ */
+  #slide-mobile{background:linear-gradient(160deg,var(--brand-secondary) 0%,#011F3D 100%);}
+  #slide-mobile::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(2,116,190,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+  /* phone shell */
+  #phone-outer{width:272px;min-height:560px;background:#1C1C1E;border-radius:44px;padding:12px;box-shadow:0 0 0 1px rgba(255,255,255,0.08),0 30px 80px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.12);position:relative;flex-shrink:0;}
+  #phone-outer::before{content:'';position:absolute;top:20px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#2C2C2E;border-radius:50%;box-shadow:inset 0 0 0 2px #3C3C3E;z-index:2;}
+  #phone-outer::after{content:'';position:absolute;right:-3px;top:90px;width:3px;height:60px;background:#2C2C2E;border-radius:0 3px 3px 0;box-shadow:0 70px 0 #2C2C2E;}
+  #phone-status-bar{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 4px;color:white;font-size:10px;font-weight:700;letter-spacing:0.02em;}
+  #phone-screen{background:#F8FAFC;border-radius:34px;overflow:hidden;position:relative;height:490px;}
+  .demo-screen{position:absolute;inset:0;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.4,0,0.2,1);background:#F8FAFC;overflow:hidden;}
+  .demo-screen.ds-active{transform:translateX(0);}
+  .demo-screen.ds-exiting{transform:translateX(-100%);}
+  #phone-home-bar{height:20px;display:flex;align-items:center;justify-content:center;}
+  #phone-home-bar span{width:120px;height:5px;background:rgba(255,255,255,0.35);border-radius:3px;}
+  .demo-dots{display:flex;justify-content:flex-start;gap:6px;padding:14px 0 4px;}
+  .demo-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);transition:background 0.3s,transform 0.3s;}
+  .demo-dot.active{background:var(--brand-accent);transform:scale(1.3);}
+  /* Phone screen component classes (from Bradley) */
+  .ds-app-bar{background:white;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #F1F5F9;flex-shrink:0;}
+  .ds-greeting{padding:10px 14px 6px;flex-shrink:0;}
+  .ds-af-prompt{background:white;border:1.5px solid rgba(2,116,190,0.25);border-radius:12px;padding:10px 12px;margin:0 12px 8px;cursor:pointer;}
+  .ds-quick-row{display:flex;gap:6px;padding:0 12px 8px;}
+  .ds-quick-btn{background:#F1F5F9;border-radius:8px;padding:5px 10px;font-size:9px;font-weight:700;color:#64748B;cursor:pointer;}
+  .ds-quick-btn:hover{background:#E2E8F0;}
+  .ds-recent-list{padding:0 12px;flex:1;overflow-y:auto;}
+  .ds-recent-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #F8FAFC;}
+  .ds-voice-screen{flex:1;display:flex;flex-direction:column;padding:14px;background:white;}
+  .ds-search-wrap{display:flex;align-items:center;gap:8px;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:9px 12px;margin:8px 0;}
+  .ds-results-header{padding:10px 14px 4px;background:white;border-bottom:1px solid #F1F5F9;flex-shrink:0;}
+  .ds-lead-card{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-bottom:1px solid #F8FAFC;cursor:pointer;}
+  .ds-lead-avatar{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#0274BE,#015A9E);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;flex-shrink:0;}
+  .ds-lead-avatar.sa{background:linear-gradient(135deg,var(--pc-orange),#C44E00);}
+  .ds-lead-avatar.mi{background:linear-gradient(135deg,#7C3AED,#9F67F7);}
+  .ds-score-track{background:#F1F5F9;border-radius:3px;height:4px;overflow:hidden;margin-bottom:3px;}
+  .ds-score-fill{height:100%;width:0%;border-radius:3px;transition:width 0.7s ease;}
+  .ds-badge-sm{font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;}
+  .ds-badge-sm.high{background:#DCFCE7;color:#059669;}
+  .ds-badge-sm.ref{background:#FEF3C7;color:#D97706;}
+  .ds-badge-sm.med{background:#F1F5F9;color:#64748B;}
+  .ds-detail-bar{display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid #F1F5F9;background:white;flex-shrink:0;}
+  .ds-back-btn{background:none;border:none;font-size:10px;color:#0274BE;font-weight:700;cursor:pointer;padding:0;}
+  .ds-record-body{padding:12px 14px;overflow-y:auto;flex:1;}
+  .ds-contact-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #F8FAFC;margin-bottom:8px;}
+  .ds-contact-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#0274BE,#015A9E);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;flex-shrink:0;}
+  .ds-info-row{display:flex;gap:8px;margin-bottom:8px;}
+  .ds-info-chip{flex:1;background:#F8FAFC;border-radius:8px;padding:7px;}
+  .ds-af-insight{background:rgba(2,116,190,0.04);border:1px solid rgba(2,116,190,0.15);border-radius:8px;padding:8px 10px;margin-bottom:8px;}
+  .ds-mic-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--brand-primary),#015A9E);color:white;border:none;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
+  .ds-activity-feed{padding:0 12px;display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
+  .ds-activity-item{display:flex;align-items:center;gap:7px;font-size:9px;color:#374151;font-weight:600;padding:5px 8px;background:#F0FDF4;border-radius:7px;border-left:2.5px solid #059669;}
+  .ds-pipeline-strip{background:linear-gradient(135deg,var(--brand-primary),#015A9E);padding:10px 14px;display:flex;gap:12px;flex-shrink:0;}
+  .ds-cta-schedule{background:linear-gradient(135deg,var(--brand-primary),#015A9E);color:white;border:none;border-radius:10px;cursor:pointer;font-size:9.5px;font-weight:700;padding:11px 14px;width:100%;}
+  .ds-cta-row{display:flex;gap:8px;padding:8px 12px;background:white;flex-shrink:0;}
+  .ds-cta-replay{flex:1;background:#F1F5F9;border:none;border-radius:8px;padding:9px;font-size:9px;font-weight:800;color:#64748B;cursor:pointer;}
+  .ds-cta-book{flex:2;background:linear-gradient(135deg,var(--brand-primary),#015A9E);border:none;border-radius:8px;padding:9px;font-size:9.5px;font-weight:800;color:white;cursor:pointer;}
+  .ds-notification{display:flex;align-items:center;gap:8px;padding:8px 12px;background:white;border-bottom:1px solid #F1F5F9;transform:translateY(-80px);opacity:0;transition:all 0.4s ease;flex-shrink:0;}
+  .ds-thinking{display:flex;align-items:center;gap:4px;background:white;border:1px solid #E2E8F0;border-radius:10px;padding:8px 12px;width:fit-content;margin-top:6px;}
+  .ds-thinking-dot{width:5px;height:5px;border-radius:50%;background:#94A3B8;animation:thinkDot 1.2s ease-in-out infinite;}
+  .ds-thinking-dot:nth-child(2){animation-delay:0.2s;}
+  .ds-thinking-dot:nth-child(3){animation-delay:0.4s;}
+  .ds-wave-bar{width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;}
+  .ds-cursor-blink{display:inline-block;width:1px;height:11px;background:#0274BE;animation:blink 0.9s step-end infinite;vertical-align:text-bottom;}
+  #ds-tw-cursor,#ds-email-cursor,#ds-s4-cursor{animation:blink 0.9s step-end infinite;font-weight:300;color:#64748B;}
+
+  /* ═══════════════════════════════════════════════════
+     SLIDE 4 — CONTACT
+  ═══════════════════════════════════════════════════ */
+  #slide-contact{background:var(--pc-light);}
+  .contact-inner{padding:76px 60px 40px;max-width:1100px;margin:0 auto;height:100%;display:flex;flex-direction:column;}
+  .contact-header{text-align:center;margin-bottom:32px;}
+  .contact-header h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(--pc-navy);margin-bottom:8px;}
+  .contact-header p{font-size:0.95rem;color:#64748B;max-width:500px;margin:0 auto;}
+  .contact-cols{display:flex;gap:32px;flex:1;min-height:0;}
+  /* Form */
+  .contact-form-wrap{flex:1;}
+  .contact-form{display:flex;flex-direction:column;gap:12px;}
+  .form-row{display:flex;gap:12px;}
+  .form-group{display:flex;flex-direction:column;gap:5px;flex:1;}
+  .form-group label{font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.05em;}
+  .form-group input,.form-group select{padding:10px 14px;border:1.5px solid #E2E8F0;border-radius:8px;font-size:13px;color:#0F172A;background:white;transition:border-color 0.2s;outline:none;}
+  .form-group input:focus,.form-group select:focus{border-color:#0274BE;}
+  .form-submit{padding:13px;background:var(--pc-orange);color:white;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;transition:all 0.2s;}
+  .form-submit:hover{background:#e55c00;transform:translateY(-1px);}
+  /* Team cards */
+  .team-cards-wrap{width:320px;flex-shrink:0;}
+  .team-cards-wrap h3{font-size:14px;font-weight:800;color:var(--pc-navy);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.05em;}
+  .team-card{display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .team-photo{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #E2E8F0;}
+  .team-info{flex:1;}
+  .team-name{font-size:13px;font-weight:800;color:#0F172A;}
+  .team-title{font-size:10px;color:#64748B;margin-top:1px;}
+  .team-email-btn{padding:5px 12px;background:var(--pc-navy);color:white;border:none;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;text-decoration:none;margin-top:6px;display:inline-block;transition:all 0.2s;}
+  .team-email-btn:hover{background:#004a99;}
+  .contact-footer{text-align:center;padding-top:20px;border-top:1px solid #E2E8F0;margin-top:auto;}
+  .contact-footer img{height:22px;opacity:0.6;vertical-align:middle;}
+  .contact-footer span{font-size:11px;color:#94A3B8;margin-left:10px;}
+
+  /* ═══════════════════════════════════════════════════
+     MODAL — Auto-pop email
+  ═══════════════════════════════════════════════════ */
+  #email-modal{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity 0.35s ease;}
+  #email-modal.open{opacity:1;pointer-events:all;}
+  .modal-box{background:white;border-radius:20px;padding:32px 36px;max-width:480px;width:90%;box-shadow:0 40px 100px rgba(0,0,0,0.4);transform:translateY(20px);transition:transform 0.35s ease;}
+  #email-modal.open .modal-box{transform:translateY(0);}
+  .modal-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,105,0,0.1);border:2px solid var(--pc-orange);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+  .modal-h{font-size:1.3rem;font-weight:900;color:#0F172A;text-align:center;margin-bottom:6px;}
+  .modal-sub{font-size:13px;color:#64748B;text-align:center;margin-bottom:22px;line-height:1.5;}
+  .modal-email-preview{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px;margin-bottom:20px;}
+  .modal-email-preview .ep-label{font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px;}
+  .modal-email-preview .ep-val{font-size:11px;color:#374151;margin-bottom:8px;}
+  .modal-email-preview .ep-body{font-size:11px;color:#64748B;line-height:1.6;}
+  .modal-btns{display:flex;flex-direction:column;gap:8px;}
+  .modal-btn{padding:13px;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:all 0.2s;}
+  .modal-btn-gmail{background:#EA4335;color:white;}
+  .modal-btn-gmail:hover{background:#c5221f;}
+  .modal-btn-outlook{background:#0078D4;color:white;}
+  .modal-btn-outlook:hover{background:#005fa3;}
+  .modal-btn-mail{background:#F1F5F9;color:#374151;border:1.5px solid #E2E8F0;}
+  .modal-btn-mail:hover{background:#E2E8F0;}
+  .modal-dismiss{text-align:center;margin-top:12px;font-size:11px;color:#94A3B8;cursor:pointer;}
+  .modal-dismiss:hover{color:#64748B;}
+
+  /* ═══════════════════════════════════════════════════
+     SHARED ANIMATIONS
+  ═══════════════════════════════════════════════════ */
+  @keyframes pulseSlow{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(0.85);}}
+  @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+  @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(255,105,0,0.5);}70%{box-shadow:0 0 0 10px rgba(255,105,0,0);}100%{box-shadow:0 0 0 0 rgba(255,105,0,0);}}
+  @keyframes leadCardGlow{0%,100%{box-shadow:0 1px 4px rgba(0,0,0,0.06);border-color:#E2E8F0;}50%{box-shadow:0 0 0 4px rgba(5,150,105,0.18);border-color:rgba(5,150,105,0.55);}}
+  @keyframes voiceBar{0%,100%{height:6px;}50%{height:18px;}}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+  @keyframes thinkDot{0%,80%,100%{transform:scale(0);}40%{transform:scale(1);}}
+  @keyframes rippleAnim{0%{transform:scale(0);opacity:1;}100%{transform:scale(3);opacity:0;}}
+  .ds-pulse{animation:pulseRing 1.6s ease-out infinite;}
+  .ds-lead-pulse{animation:leadCardGlow 1.8s ease-in-out infinite;}
+  .touch-ripple{position:absolute;border-radius:50%;background:rgba(2,116,190,0.25);width:60px;height:60px;margin-left:-30px;margin-top:-30px;animation:rippleAnim 0.55s ease-out forwards;pointer-events:none;}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- HINT TOOLTIP -->
+<div id="hint-tooltip">👆 Click here to continue</div>
+
+<!-- STICKY NAV -->
+<nav id="topnav">
+  <div class="nav-logo">
+    <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" alt="PuroClean" onerror="this.style.display='none'"/>
+    <span style="color:rgba(255,255,255,0.5);font-size:12px;font-weight:400;">× Salesforce</span>
+  </div>
+  <div class="nav-actions">
+    <a href="#slide-contact" onclick="scrollToSlide(3)" class="nav-btn nav-btn-ghost">Contact Us</a>
+    <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Book%20a%20Call%20-%20PuroClean%20Franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20to%20discuss%20Salesforce%20for%20my%20franchise.%0A%0AThanks" class="nav-btn nav-btn-primary">Book a Call</a>
+  </div>
+</nav>
+
+<!-- RIGHT NAV DOTS -->
+<div id="nav-dots">
+  <div class="nav-dot-item active" onclick="scrollToSlide(0)" title="Intro"></div>
+  <div class="nav-dot-item" onclick="scrollToSlide(1)" title="Desktop Demo"></div>
+  <div class="nav-dot-item" onclick="scrollToSlide(2)" title="Mobile Demo"></div>
+  <div class="nav-dot-item" onclick="scrollToSlide(3)" title="Contact"></div>
+</div>
+
+<!-- SLIDES CONTAINER -->
+<div id="slides-container">
+
+<!-- ═══════════════════════ SLIDE 1: HERO ═══════════════════════ -->
+<section class="slide" id="slide-hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>Built for PuroClean Franchise Owners</span>
+    </div>
+    <h1 class="hero-h1">See What Salesforce Looks Like<br><span>for Your Franchise</span></h1>
+    <p class="hero-sub">Two live demos — no sales pitch. See exactly how franchise owners manage referral partners, track estimates, hold their team accountable, and know their numbers.</p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-card-num">240</div>
+        <div class="stat-card-label">average open estimates at a single franchise — revenue sitting on the table</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">+24pts</div>
+        <div class="stat-card-label">close rate improvement when franchises use a CRM to track their pipeline</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-num">11pm</div>
+        <div class="stat-card-label">Agentforce follows up on open estimates automatically — even when you're off the clock</div>
+      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="#" onclick="scrollToSlide(1);return false;" class="hero-cta-btn hero-cta-primary">See the Desktop Demo →</a>
+      <a href="#" onclick="scrollToSlide(2);return false;" class="hero-cta-btn hero-cta-ghost">Try the Mobile Demo →</a>
+    </div>
+    <p class="hero-contact-nudge">Questions before the demo? <a href="mailto:cladow@salesforce.com">Email Corey directly</a></p>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SLIDE 2: DESKTOP BROWSER SIMULATOR ═══════════════════════ -->
+<section class="slide" id="slide-desktop">
+  <div class="sim-outer">
+    <div class="sim-header">
+      <div class="sim-badge">
+        <span class="sim-badge-dot"></span>
+        <span class="sim-badge-label">Desktop Demo</span>
+        <div class="sim-badge-divider"></div>
+        <span class="sim-badge-desc">Click through a real franchise owner's Salesforce day — explore freely, the demo guides you back</span>
+      </div>
+    </div>
+    <div class="sim-cols">
+
+      <!-- Left context panel -->
+      <div class="sim-ctx">
+        <div id="desk-pill">Step 1 of 6</div>
+        <h2 id="desk-title">Who's driving<br>your business?</h2>
+        <p id="desk-body">Most franchise owners don't know which referral partners are actually sending them jobs. Salesforce surfaces it the moment you log in — no digging, no asking.</p>
+        <div id="desk-hint">
+          <span>👆</span>
+          <span>Click into Partner Activity to explore</span>
+        </div>
+        <div class="desk-dots">
+          <div class="desk-dot active"></div>
+          <div class="desk-dot"></div>
+          <div class="desk-dot"></div>
+          <div class="desk-dot"></div>
+          <div class="desk-dot"></div>
+          <div class="desk-dot"></div>
+        </div>
+        <div class="desk-quote">
+          <p>"Doing the work records the work is really big for me. I don't want to pay somebody to tell me what they're doing. I want to pay them to do."</p>
+          <cite>— Melissa W., PuroClean of Pacific NW</cite>
+        </div>
+      </div>
+
+      <!-- Browser frame -->
+      <div class="browser-wrap">
+        <div class="browser-label">Click anywhere to explore · Guided path pulses</div>
+        <div id="browser-outer">
+          <div class="browser-chrome">
+            <div class="browser-dots">
+              <span class="browser-dot-r"></span>
+              <span class="browser-dot-y"></span>
+              <span class="browser-dot-g"></span>
+            </div>
+            <div class="browser-bar">
+              <svg width="10" height="10" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span class="browser-url">salesforce.com / puroclean-franchise</span>
+            </div>
+          </div>
+          <div id="browser-viewport">
+
+            <!-- ── Browser Screen 1: Franchise Home Dashboard ── -->
+            <div class="browser-screen bs-active" id="bs-screen-1">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo">
+                  <svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg>
+                  <span>Salesforce</span>
+                </div>
+                <div class="sf-nav-items">
+                  <span class="sf-nav-item active">Home</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Accounts')">Accounts</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Partners')">Partners</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Estimates')">Estimates</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Reports')">Reports</span>
+                </div>
+                <div class="sf-topbar-user secondary-clickable">MW</div>
+              </div>
+              <div style="padding:12px 16px;background:#F8FAFC;flex:1;overflow-y:auto;">
+                <div style="font-size:12px;font-weight:800;color:#0F172A;margin-bottom:10px;">Good morning, Melissa 👋</div>
+                <!-- Alert card -->
+                <div style="background:linear-gradient(135deg,rgba(255,105,0,0.08),rgba(2,116,190,0.05));border:1.5px solid rgba(255,105,0,0.3);border-radius:10px;padding:10px 12px;margin-bottom:10px;" class="secondary-clickable" onclick="bsSecondaryClick('Agentforce alert — tap to view Mike Sullivan')">
+                  <div style="font-size:9px;font-weight:800;color:#FF6900;margin-bottom:3px;">✦ Agentforce Alert</div>
+                  <div style="font-size:10px;color:#374151;line-height:1.5;">Mike Sullivan (plumber) hasn't been contacted in <strong>31 days</strong> — 3 referrals at risk. Tap to view partner record.</div>
+                </div>
+                <!-- Stat row -->
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+                  <div style="background:white;border:1px solid #E2E8F0;border-radius:8px;padding:9px;text-align:center;" class="secondary-clickable" onclick="bsSecondaryClick('Tasks Today: 3 open — follow-up call with adjuster, visit Mike Sullivan, review estimate for Johnson property')">
+                    <div style="font-size:16px;font-weight:900;color:#0274BE;">3</div>
+                    <div style="font-size:9px;color:#64748B;margin-top:2px;">Tasks Today</div>
+                  </div>
+                  <div id="bs1-partner-btn" class="guided-pulse secondary-clickable" style="background:white;border:1.5px solid rgba(255,105,0,0.4);border-radius:8px;padding:9px;text-align:center;cursor:pointer;" onclick="advanceBrowserScreen()">
+                    <div style="font-size:16px;font-weight:900;color:#FF6900;">12</div>
+                    <div style="font-size:9px;color:#64748B;margin-top:2px;">Partner Activity<br>This Week</div>
+                  </div>
+                  <div style="background:white;border:1px solid #E2E8F0;border-radius:8px;padding:9px;text-align:center;" class="secondary-clickable" onclick="bsSecondaryClick('Open Estimates: 47 — 8 flagged as overdue (72+ hours with no follow-up)')">
+                    <div style="font-size:16px;font-weight:900;color:#059669;">47</div>
+                    <div style="font-size:9px;color:#64748B;margin-top:2px;">Open Estimates</div>
+                  </div>
+                </div>
+                <!-- Recent activity -->
+                <div style="font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;">Recent Activity</div>
+                <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;overflow:hidden;">
+                  <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid #F8FAFC;" class="secondary-clickable" onclick="bsSecondaryClick('Jordan logged: Site visit at Eastside property — water damage assessment complete')">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#059669;flex-shrink:0;"></div>
+                    <div style="font-size:9px;color:#374151;">Jordan logged a site visit — Eastside property</div>
+                    <div style="font-size:8px;color:#94A3B8;margin-left:auto;">2h ago</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;" class="secondary-clickable" onclick="bsSecondaryClick('Email auto-logged: Follow-up sent to Johnson homeowner via Outlook — no manual entry required')">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#0274BE;flex-shrink:0;"></div>
+                    <div style="font-size:9px;color:#374151;">Email auto-logged to Johnson record</div>
+                    <div style="font-size:8px;color:#94A3B8;margin-left:auto;">4h ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Browser Screen 2: Referral Partner List ── -->
+            <div class="browser-screen" id="bs-screen-2">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-nav-items">
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Home')">Home</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Accounts')">Accounts</span>
+                  <span class="sf-nav-item active">Partners</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Estimates')">Estimates</span>
+                  <span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Reports')">Reports</span>
+                </div>
+                <div class="sf-topbar-user secondary-clickable">MW</div>
+              </div>
+              <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between;background:white;border-bottom:1px solid #F1F5F9;">
+                <div style="font-size:12px;font-weight:800;color:#0F172A;">Referral Partners</div>
+                <div style="display:flex;gap:6px;">
+                  <div style="background:#F1F5F9;border-radius:6px;padding:5px 10px;font-size:9px;font-weight:700;color:#64748B;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('Filter: Type = Plumber | Property Manager | Insurance Adjuster — 47 total partners in your network')">Filter</div>
+                  <div style="background:#F1F5F9;border-radius:6px;padding:5px 10px;font-size:9px;font-weight:700;color:#64748B;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('New Partner: Add a referral partner from a business card, spreadsheet, or web form')">+ New</div>
+                </div>
+              </div>
+              <div style="background:white;flex:1;overflow-y:auto;">
+                <!-- Table header -->
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;padding:6px 14px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;">
+                  <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;" class="secondary-clickable" onclick="bsSecondaryClick('Sort by Partner Name A→Z')">Partner Name</div>
+                  <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;" class="secondary-clickable" onclick="bsSecondaryClick('Sort by Last Contact date — shows who needs attention first')">Last Contact</div>
+                  <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;" class="secondary-clickable" onclick="bsSecondaryClick('Jobs Referred YTD: number of jobs this partner has sent you this year')">Jobs YTD</div>
+                  <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;" class="secondary-clickable" onclick="bsSecondaryClick('Revenue Attributed: total dollar value of jobs coming from this partner — sorted high to low by default')">Revenue</div>
+                </div>
+                <!-- Row 1: Mike Sullivan — pulsing (primary target) -->
+                <div id="bs2-mike-row" class="guided-pulse" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;padding:9px 14px;border-bottom:1px solid #F8FAFC;cursor:pointer;background:rgba(255,105,0,0.03);" onclick="advanceBrowserScreen()">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;flex-shrink:0;">MS</div>
+                    <div>
+                      <div style="font-size:11px;font-weight:800;color:#0F172A;">Mike Sullivan</div>
+                      <div style="font-size:9px;color:#64748B;">Plumber · Sullivan Plumbing</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;"><span style="background:#FEF2F2;color:#C50A1D;font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;">31 days</span></div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:700;color:#0F172A;">14</div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:800;color:#059669;">$89,400</div>
+                </div>
+                <!-- Rows 2-4: secondary clickable -->
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;padding:9px 14px;border-bottom:1px solid #F8FAFC;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('Janet Morse — Property Manager at Cascade Properties. 11 jobs, $62,100 revenue. Last contact: 14 days ago. Strong relationship, consistent referrals.')">
+                  <div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#0274BE,#015A9E);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;">JM</div><div><div style="font-size:11px;font-weight:800;color:#0F172A;">Janet Morse</div><div style="font-size:9px;color:#64748B;">Property Mgr · Cascade Properties</div></div></div>
+                  <div style="display:flex;align-items:center;"><span style="background:#F0FDF4;color:#059669;font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;">14 days</span></div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:700;color:#0F172A;">11</div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:800;color:#059669;">$62,100</div>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;padding:9px 14px;border-bottom:1px solid #F8FAFC;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('Dave Patel — Insurance Adjuster at Pacific Mutual. 8 jobs, $44,800 revenue. Mostly water damage claims. Last contact: 7 days ago.')">
+                  <div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#7C3AED,#9F67F7);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;">DP</div><div><div style="font-size:11px;font-weight:800;color:#0F172A;">Dave Patel</div><div style="font-size:9px;color:#64748B;">Insurance Adj. · Pacific Mutual</div></div></div>
+                  <div style="display:flex;align-items:center;"><span style="background:#F0FDF4;color:#059669;font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;">7 days</span></div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:700;color:#0F172A;">8</div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:800;color:#059669;">$44,800</div>
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:0;padding:9px 14px;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('Carlos Rivera — General Contractor. 6 jobs, $31,200. Refers mold and fire restoration jobs primarily. Last contact: 19 days ago.')">
+                  <div style="display:flex;align-items:center;gap:8px;"><div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;color:white;font-size:9px;font-weight:800;">CR</div><div><div style="font-size:11px;font-weight:800;color:#0F172A;">Carlos Rivera</div><div style="font-size:9px;color:#64748B;">General Contractor · Rivera Build</div></div></div>
+                  <div style="display:flex;align-items:center;"><span style="background:#FEF3C7;color:#D97706;font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;">19 days</span></div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:700;color:#0F172A;">6</div>
+                  <div style="display:flex;align-items:center;font-size:11px;font-weight:800;color:#059669;">$31,200</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Browser Screen 3: Partner Record + Revenue Attribution ── -->
+            <div class="browser-screen" id="bs-screen-3">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-nav-items"><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Home')">Home</span><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Partners')">← Partners</span></div>
+                <div class="sf-topbar-user">MW</div>
+              </div>
+              <!-- Record header -->
+              <div style="padding:10px 14px 6px;background:white;border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                  <div style="width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:800;flex-shrink:0;">MS</div>
+                  <div><div style="font-size:13px;font-weight:900;color:#0F172A;">Mike Sullivan</div><div style="font-size:9px;color:#64748B;">Plumber · Sullivan Plumbing Co.</div></div>
+                  <div style="margin-left:auto;background:#FEF2F2;color:#C50A1D;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;">⚠ 31 days since contact</div>
+                </div>
+                <!-- Tabs -->
+                <div class="sf-record-tabs" style="margin:0 -14px;padding:0 14px;">
+                  <div class="sf-tab active" id="bs3-tab-details" onclick="bs3TabClick('details')">Details</div>
+                  <div class="sf-tab guided-pulse" id="bs3-tab-jobs" onclick="bs3TabClick('jobs')">Jobs (14)</div>
+                  <div class="sf-tab" id="bs3-tab-activity" onclick="bs3TabClick('activity')">Activity</div>
+                  <div class="sf-tab" id="bs3-tab-files" onclick="bs3TabClick('files')">Files</div>
+                </div>
+              </div>
+              <!-- Tab content area -->
+              <div id="bs3-content" style="flex:1;overflow-y:auto;padding:10px 14px;background:#F8FAFC;">
+                <!-- Details tab (default) -->
+                <div id="bs3-pane-details" style="display:block;">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Partner Type: Plumber. You can rename this to any field label that makes sense for your business — no code required.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Partner Type</div><div style="font-size:11px;font-weight:700;color:#0F172A;">Plumber</div></div>
+                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Phone: (503) 442-7890 — click to log a call directly from Salesforce')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Phone</div><div style="font-size:11px;font-weight:700;color:#0274BE;">(503) 442-7890</div></div>
+                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Revenue Attributed YTD: $89,400 — this is every dollar Mike Sullivan has sent your way this year')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Revenue Attributed YTD</div><div style="font-size:11px;font-weight:900;color:#059669;">$89,400</div></div>
+                    <div style="background:white;border-radius:8px;padding:9px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Relationship Score: 72 — Agentforce calculates this from contact frequency, job volume, and referral consistency')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Relationship Score</div><div style="font-size:11px;font-weight:900;color:#FF6900;">72 / 100</div></div>
+                  </div>
+                  <div style="background:rgba(255,105,0,0.05);border:1px solid rgba(255,105,0,0.2);border-radius:8px;padding:9px 11px;">
+                    <div style="font-size:8px;font-weight:800;color:#FF6900;margin-bottom:3px;">✦ Agentforce Insight</div>
+                    <div style="font-size:9px;color:#374151;line-height:1.5;">Mike's referral rate drops after 3+ weeks without contact. You're at 31 days. <strong>Schedule a touchpoint this week</strong> to protect the $89,400 relationship.</div>
+                  </div>
+                  <div style="margin-top:8px;text-align:center;font-size:9px;color:#94A3B8;">← Click the <strong style="color:#0274BE;">Jobs (14)</strong> tab to see revenue attribution →</div>
+                </div>
+                <!-- Jobs tab (shown when clicked) -->
+                <div id="bs3-pane-jobs" style="display:none;">
+                  <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:8px;">14 Jobs Referred by Mike Sullivan</div>
+                  <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;overflow:hidden;">
+                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:6px 10px;background:#F8FAFC;border-bottom:1px solid #E2E8F0;"><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Job</span><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Type</span><span style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;">Value</span></div>
+                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;" class="secondary-clickable" onclick="bsSecondaryClick('Johnson Residence — Water Damage. Completed Sept 3. Revenue: $11,200. Referral source logged to Mike Sullivan automatically.')"><span style="font-size:9px;font-weight:700;color:#0F172A;">Johnson Residence</span><span style="font-size:9px;color:#64748B;">Water</span><span style="font-size:9px;font-weight:800;color:#059669;">$11,200</span></div>
+                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;border-bottom:1px solid #F8FAFC;" class="secondary-clickable" onclick="bsSecondaryClick('Eastside Commercial — Mold Remediation. In Progress. Estimated: $14,800. Highest margin job type in your franchise.')"><span style="font-size:9px;font-weight:700;color:#0F172A;">Eastside Commercial</span><span style="font-size:9px;color:#64748B;">Mold</span><span style="font-size:9px;font-weight:800;color:#FF6900;">$14,800 ↗</span></div>
+                    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:8px 10px;" class="secondary-clickable" onclick="bsSecondaryClick('View all 14 jobs from Mike Sullivan. Total: $89,400. This partner drives 22% of your franchise revenue.')"><span style="font-size:9px;color:#0274BE;font-weight:600;">+ 12 more jobs...</span><span></span><span style="font-size:9px;font-weight:800;color:#059669;">$63,400</span></div>
+                  </div>
+                  <!-- Primary advance button in jobs pane -->
+                  <div id="bs3-jobs-next" class="guided-pulse" style="margin-top:10px;background:linear-gradient(135deg,#0274BE,#015A9E);color:white;border-radius:9px;padding:10px 14px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen()">See how emails auto-log from Outlook →</div>
+                </div>
+                <!-- Activity tab -->
+                <div id="bs3-pane-activity" style="display:none;">
+                  <div style="font-size:9px;font-weight:800;color:#0F172A;margin-bottom:6px;">Activity Timeline</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div style="background:white;border-radius:8px;padding:8px 10px;border-left:3px solid #0274BE;border:1px solid #E2E8F0;border-left:3px solid #0274BE;" class="secondary-clickable" onclick="bsSecondaryClick('Call logged automatically — your BDR Jordan called Mike on Aug 12. Logged from Salesforce mobile. Duration: 6 min.')">
+                      <div style="font-size:9px;font-weight:700;color:#0F172A;">Call Logged</div>
+                      <div style="font-size:8px;color:#64748B;">Jordan — Aug 12 · 6 min · Auto-logged</div>
+                    </div>
+                    <div style="background:white;border-radius:8px;padding:8px 10px;border-left:3px solid #059669;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Email auto-logged from Outlook. Jordan sent a thank-you email on July 28. Salesforce captured it automatically — no manual entry.')">
+                      <div style="font-size:9px;font-weight:700;color:#0F172A;">Email Auto-Logged (Outlook)</div>
+                      <div style="font-size:8px;color:#64748B;">Jordan — Jul 28 · Thank you for the referral</div>
+                    </div>
+                  </div>
+                  <div style="margin-top:8px;font-size:9px;color:#94A3B8;text-align:center;">← Go back to <strong style="color:#0274BE;">Jobs (14)</strong> to continue the demo</div>
+                </div>
+                <!-- Files tab -->
+                <div id="bs3-pane-files" style="display:none;">
+                  <div style="font-size:9px;color:#64748B;text-align:center;padding:20px;">No files attached. You can upload contracts, photos, or estimates directly to this partner record.</div>
+                  <div style="font-size:9px;color:#94A3B8;text-align:center;margin-top:8px;">← Return to <strong style="color:#0274BE;">Jobs (14)</strong> to continue</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Browser Screen 4: Email Auto-Logged from Outlook ── -->
+            <div class="browser-screen" id="bs-screen-4">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-nav-items"><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Partners')">← Mike Sullivan</span></div>
+                <div class="sf-topbar-user">MW</div>
+              </div>
+              <div style="flex:1;overflow-y:auto;padding:12px 14px;background:#F8FAFC;">
+                <!-- Auto-log banner -->
+                <div style="background:#F0FDF4;border:1.5px solid #86EFAC;border-radius:10px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:flex-start;gap:8px;">
+                  <svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg>
+                  <div>
+                    <div style="font-size:10px;font-weight:800;color:#059669;">Email Auto-Logged from Outlook</div>
+                    <div style="font-size:9px;color:#374151;line-height:1.5;margin-top:2px;">Jordan sent an email from Outlook. Salesforce captured it automatically and added it to Mike Sullivan's record. No manual entry required.</div>
+                  </div>
+                </div>
+                <!-- Activity timeline with new item highlighted -->
+                <div style="font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Activity Timeline — Mike Sullivan</div>
+                <div id="bs4-new-item" class="spotlight" style="background:white;border-radius:9px;padding:10px 12px;border:1.5px solid rgba(255,105,0,0.4);margin-bottom:6px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                    <div style="font-size:9px;font-weight:800;color:#0274BE;">📧 Email Sent via Outlook</div>
+                    <div style="font-size:8px;color:#94A3B8;">Just now</div>
+                  </div>
+                  <div style="font-size:9px;color:#374151;line-height:1.5;margin-bottom:4px;"><strong>To:</strong> mike@sullivanplumbing.com<br><strong>Subject:</strong> Thanks for sending over the Johnson job</div>
+                  <div style="display:flex;align-items:center;gap:4px;"><span style="width:5px;height:5px;border-radius:50%;background:#059669;flex-shrink:0;"></span><span style="font-size:8px;color:#059669;font-weight:600;">Logged automatically via Salesforce Inbox ← Outlook extension</span></div>
+                </div>
+                <div style="background:white;border-radius:9px;padding:10px 12px;border:1px solid #E2E8F0;margin-bottom:6px;" class="secondary-clickable" onclick="bsSecondaryClick('Call logged by Jordan on Aug 12 — 6 minutes. Salesforce Inbox captured this from the Salesforce mobile app and linked it to Mike\'s record.')">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;"><div style="font-size:9px;font-weight:800;color:#64748B;">📞 Call Logged</div><div style="font-size:8px;color:#94A3B8;">Aug 12</div></div>
+                  <div style="font-size:8.5px;color:#374151;">Jordan — 6 min call. Confirmed 3 upcoming jobs.</div>
+                </div>
+                <!-- Outlook sidebar illustration -->
+                <div style="background:rgba(2,116,190,0.04);border:1px solid rgba(2,116,190,0.15);border-radius:9px;padding:10px 12px;">
+                  <div style="font-size:8px;font-weight:800;color:#0274BE;margin-bottom:4px;">How it works: Salesforce Inbox for Outlook</div>
+                  <div style="font-size:8.5px;color:#374151;line-height:1.5;margin-bottom:6px;">When Jordan sends an email from Outlook, the Salesforce browser extension detects the recipient, matches them to a record, and asks: "Log to Mike Sullivan?" One click. Done.</div>
+                  <div id="bs4-next" class="guided-pulse" style="background:linear-gradient(135deg,#0274BE,#015A9E);color:white;border-radius:8px;padding:9px 12px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen()">See BDR accountability dashboard →</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Browser Screen 5: BDR Task Queue + Accountability ── -->
+            <div class="browser-screen" id="bs-screen-5">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-nav-items"><span class="sf-nav-item active">Tasks &amp; Activity</span><span class="sf-nav-item secondary-clickable" onclick="sfNavClick(this,'Reports')">Reports</span></div>
+                <div class="sf-topbar-user">MW</div>
+              </div>
+              <div style="flex:1;overflow-y:auto;padding:10px 14px;background:#F8FAFC;">
+                <!-- Filter row -->
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="font-size:11px;font-weight:800;color:#0F172A;">Jordan's Tasks Today</div>
+                  <div style="background:#F1F5F9;border-radius:6px;padding:4px 10px;font-size:9px;font-weight:700;color:#0274BE;cursor:pointer;" class="secondary-clickable" onclick="bsSecondaryClick('Switch to: All Reps view. See activity for every team member in your franchise — stack-ranked by calls, emails, visits.')">All Reps ↗</div>
+                </div>
+                <!-- Tasks -->
+                <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px;">
+                  <div style="display:flex;align-items:center;gap:8px;background:white;border-radius:8px;padding:8px 10px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Task completed: Visited Mike Sullivan — logged automatically when voice note was recorded on site.')"><div style="width:14px;height:14px;border-radius:50%;background:#059669;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="7" height="7" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:9.5px;font-weight:700;color:#64748B;text-decoration:line-through;">Visit Mike Sullivan</div><div style="font-size:8px;color:#059669;margin-left:auto;">Done</div></div>
+                  <div style="display:flex;align-items:center;gap:8px;background:white;border-radius:8px;padding:8px 10px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Task completed: Email sent to Dave Patel auto-logged from Outlook — Salesforce captured it and marked the task done.')"><div style="width:14px;height:14px;border-radius:50%;background:#059669;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="7" height="7" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div style="font-size:9.5px;font-weight:700;color:#64748B;text-decoration:line-through;">Email Dave Patel</div><div style="font-size:8px;color:#059669;margin-left:auto;">Done</div></div>
+                  <div style="display:flex;align-items:center;gap:8px;background:white;border-radius:8px;padding:8px 10px;border:1.5px solid #FF6900;" class="secondary-clickable" onclick="bsSecondaryClick('Open Task: Follow up with Johnson homeowner about scope upgrade — due today at 3pm. Auto-created from the voice note Jordan left yesterday.')"><div style="width:14px;height:14px;border-radius:50%;background:white;border:2px solid #FF6900;flex-shrink:0;"></div><div style="font-size:9.5px;font-weight:700;color:#0F172A;">Follow up — Johnson homeowner</div><div style="font-size:8px;color:#FF6900;margin-left:auto;font-weight:700;">Due 3pm</div></div>
+                  <div style="display:flex;align-items:center;gap:8px;background:white;border-radius:8px;padding:8px 10px;border:1px solid #E2E8F0;" class="secondary-clickable" onclick="bsSecondaryClick('Open Task: Call Carlos Rivera — 19 days since last contact. Auto-surfaced by Agentforce before the relationship goes cold.')"><div style="width:14px;height:14px;border-radius:50%;background:white;border:2px solid #E2E8F0;flex-shrink:0;"></div><div style="font-size:9.5px;font-weight:700;color:#0F172A;">Call Carlos Rivera</div><div style="font-size:8px;color:#64748B;margin-left:auto;">Today</div></div>
+                </div>
+                <!-- Activity chart -->
+                <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;padding:10px 12px;margin-bottom:8px;">
+                  <div style="font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;margin-bottom:8px;">This Week — Jordan's Activity</div>
+                  <div style="display:flex;align-items:flex-end;gap:6px;height:50px;margin-bottom:4px;">
+                    <div id="act-bar-calls" style="flex:1;height:0%;background:linear-gradient(180deg,#0274BE,#0288D1);border-radius:3px 3px 0 0;transition:height 0.7s ease;"></div>
+                    <div id="act-bar-emails" style="flex:1;height:0%;background:linear-gradient(180deg,#FF6900,#C44E00);border-radius:3px 3px 0 0;transition:height 0.7s ease 0.15s;"></div>
+                    <div id="act-bar-visits" style="flex:1;height:0%;background:linear-gradient(180deg,#059669,#047857);border-radius:3px 3px 0 0;transition:height 0.7s ease 0.3s;"></div>
+                  </div>
+                  <div style="display:flex;gap:6px;"><div style="flex:1;text-align:center;font-size:8px;color:#94A3B8;font-weight:700;">Calls<br>8</div><div style="flex:1;text-align:center;font-size:8px;color:#94A3B8;font-weight:700;">Emails<br>14</div><div style="flex:1;text-align:center;font-size:8px;color:#94A3B8;font-weight:700;">Visits<br>3</div></div>
+                </div>
+                <!-- Advance -->
+                <div id="bs5-next" class="guided-pulse" style="background:linear-gradient(135deg,#0274BE,#015A9E);color:white;border-radius:9px;padding:10px 14px;cursor:pointer;font-size:10px;font-weight:700;text-align:center;" onclick="advanceBrowserScreen()">See revenue forecast &amp; correlations →</div>
+              </div>
+            </div>
+
+            <!-- ── Browser Screen 6: Revenue Forecast + Correlation ── -->
+            <div class="browser-screen" id="bs-screen-6">
+              <div class="sf-topbar">
+                <div class="sf-topbar-logo"><svg width="18" height="18" fill="white" viewBox="0 0 52 52"><path d="M26 6a10.4 10.4 0 0 1 9.5 6.2A7.8 7.8 0 0 1 44 5.2a7.8 7.8 0 0 1 7.8 7.8 7.8 7.8 0 0 1-.9 3.6A6.5 6.5 0 0 1 51.8 20 6.5 6.5 0 0 1 45.3 26a7.8 7.8 0 0 1 .1 1.3A7.8 7.8 0 0 1 37.6 35a10.4 10.4 0 0 1-9.6 6A10.4 10.4 0 0 1 18.2 34a7.8 7.8 0 0 1-3.8 1A7.8 7.8 0 0 1 7.2 24.2 6.5 6.5 0 0 1 2.6 19 6.5 6.5 0 0 1 9 12.5a6.5 6.5 0 0 1 2 .3A10.4 10.4 0 0 1 26 6z"/></svg><span>Salesforce</span></div>
+                <div class="sf-nav-items"><span class="sf-nav-item active">Reports &amp; Dashboards</span></div>
+                <div class="sf-topbar-user">MW</div>
+              </div>
+              <div style="flex:1;overflow-y:auto;padding:10px 14px;background:#F8FAFC;">
+                <div style="font-size:11px;font-weight:800;color:#0F172A;margin-bottom:8px;">Franchise Intelligence Dashboard</div>
+                <!-- Forecast chips -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
+                  <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;padding:9px;" class="secondary-clickable" onclick="bsSecondaryClick('Revenue Forecast This Month: $48,200. Calculated from your open pipeline × close probability. Updates in real time.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Forecast This Month</div><div style="font-size:14px;font-weight:900;color:#059669;">$48,200</div></div>
+                  <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;padding:9px;" class="secondary-clickable" onclick="bsSecondaryClick('Open Estimates: 47 active. Pipeline value: $187,000. At your current close rate of 41%, expected revenue: $76,670.')"><div style="font-size:8px;color:#94A3B8;font-weight:700;text-transform:uppercase;margin-bottom:3px;">Pipeline Value</div><div style="font-size:14px;font-weight:900;color:#0274BE;">$187K</div></div>
+                </div>
+                <!-- Margin by job type chart -->
+                <div style="background:white;border-radius:8px;border:1px solid #E2E8F0;padding:10px 12px;margin-bottom:8px;">
+                  <div style="font-size:9px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">Avg Margin by Job Type</div>
+                  <div style="margin-bottom:6px;"><div style="display:flex;justify-content:space-between;margin-bottom:2px;"><span style="font-size:9px;color:#64748B;font-weight:600;">Water Damage</span><span style="font-size:9px;font-weight:700;color:#0F172A;">31%</span></div><div style="height:7px;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div id="bs6-bar-water" style="height:100%;width:0%;background:linear-gradient(90deg,#0274BE,#0288D1);border-radius:4px;transition:width 0.8s ease 0.1s;"></div></div></div>
+                  <div style="margin-bottom:6px;"><div style="display:flex;justify-content:space-between;margin-bottom:2px;"><span style="font-size:9px;color:#64748B;font-weight:600;">Fire Damage</span><span style="font-size:9px;font-weight:700;color:#0F172A;">38%</span></div><div style="height:7px;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div id="bs6-bar-fire" style="height:100%;width:0%;background:linear-gradient(90deg,#C50A1D,#EF4444);border-radius:4px;transition:width 0.8s ease 0.25s;"></div></div></div>
+                  <div><div style="display:flex;justify-content:space-between;margin-bottom:2px;"><span style="font-size:9px;color:#64748B;font-weight:600;">Mold Remediation</span><span style="font-size:9px;font-weight:700;color:#FF6900;">52% ★</span></div><div style="height:7px;background:#F1F5F9;border-radius:4px;overflow:hidden;"><div id="bs6-bar-mold" style="height:100%;width:0%;background:linear-gradient(90deg,#FF6900,#C44E00);border-radius:4px;transition:width 0.8s ease 0.4s;"></div></div></div>
+                </div>
+                <!-- Correlation insight -->
+                <div style="background:rgba(255,105,0,0.05);border:1.5px solid rgba(255,105,0,0.25);border-radius:9px;padding:10px 12px;">
+                  <div style="font-size:8px;font-weight:800;color:#FF6900;margin-bottom:4px;">✦ Correlation Discovered by Agentforce</div>
+                  <div style="font-size:9px;color:#374151;line-height:1.6;">"Mold jobs from <strong>property manager partners</strong> close 22% faster and have 31% higher margin than insurance-sourced work. You have 12 property managers in your network with 8+ week touchpoint gaps."</div>
+                  <div style="margin-top:8px;font-size:8px;font-weight:700;color:#94A3B8;font-style:italic;">"That's where you find interesting stuff you didn't realize had a correlation." — Melissa W.</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /browser-viewport -->
+        </div><!-- /browser-outer -->
+        <div class="browser-cta-row">
+          <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Walk%20me%20through%20this%20live&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20a%20live%20walkthrough%20of%20Salesforce%20for%20my%20PuroClean%20franchise.%0A%0AThanks" class="browser-cta-btn bcta-primary">Walk me through this live →</a>
+          <a href="#" onclick="scrollToSlide(2);return false;" class="browser-cta-btn bcta-ghost">Try the Mobile Demo →</a>
+        </div>
+        <div class="sim-restart" onclick="resetBrowserDemo()">↺ Restart desktop demo</div>
+      </div>
+
+    </div><!-- /sim-cols -->
+  </div><!-- /sim-outer -->
+</section>
+
+<!-- ═══════════════════════ SLIDE 3: MOBILE PHONE SIMULATOR ═══════════════════════ -->
+<section class="slide" id="slide-mobile">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(2,116,190,0.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;max-width:1100px;margin:0 auto;height:100%;padding:68px 48px 32px;">
+
+    <!-- Badge -->
+    <div style="flex-shrink:0;margin-bottom:18px;display:flex;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,105,0,0.4);border-radius:14px;padding:11px 28px;">
+        <span style="width:9px;height:9px;border-radius:50%;background:var(--brand-accent);box-shadow:0 0 12px var(--brand-accent);animation:pulseSlow 1s ease-in-out infinite;"></span>
+        <span style="font-size:13px;font-weight:900;color:var(--brand-accent);letter-spacing:0.07em;text-transform:uppercase;">Mobile Demo</span>
+        <div style="width:1px;height:20px;background:rgba(255,255,255,0.15);"></div>
+        <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);">A referral partner relationship, organized in seconds — tap the phone to begin</span>
+        <span style="font-size:18px;animation:bounce 1.3s ease-in-out infinite;">👇</span>
+      </div>
+    </div>
+
+    <!-- Two-column -->
+    <div style="flex:1;min-height:0;display:flex;align-items:center;gap:48px;">
+
+      <!-- Left context -->
+      <div style="flex:1;min-width:0;">
+        <div id="demo-pill" style="display:inline-block;font-size:10px;font-weight:800;color:var(--brand-accent);text-transform:uppercase;letter-spacing:0.1em;border:1px solid rgba(255,105,0,0.3);background:rgba(255,105,0,0.08);padding:4px 12px;border-radius:20px;margin-bottom:16px;">Step 1 of 7</div>
+        <h2 id="demo-title" style="font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:900;color:white;line-height:1.15;margin-bottom:14px;letter-spacing:-0.02em;">Your whole day,<br>before you leave the house.</h2>
+        <p id="demo-body" style="color:rgba(255,255,255,0.6);font-size:0.88rem;line-height:1.75;margin-bottom:20px;max-width:380px;">Agentforce tells you the one thing you must do first — so nothing lives in your head. Mike Sullivan hasn't been contacted in 31 days and 3 referrals are at risk.</p>
+        <div id="demo-hint" style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:18px;">👆</span>
+          <span style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.45);">Tap Ask Agentforce to begin</span>
+        </div>
+        <div class="demo-dots" style="justify-content:flex-start;margin-top:28px;">
+          <div class="demo-dot active"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+        </div>
+        <div style="margin-top:28px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;max-width:380px;">
+          <p style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.65;font-style:italic;">"You don't have to hold stuff in your head. I want to pay them to do, not to tell me."</p>
+          <p style="font-size:10px;font-weight:800;color:var(--brand-primary);margin-top:6px;">— Melissa W., PuroClean of Pacific NW</p>
+        </div>
+      </div>
+
+      <!-- Right: Phone simulator -->
+      <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:10px;opacity:0.6;">
+          <span style="font-size:9px;font-weight:700;color:white;letter-spacing:0.06em;text-transform:uppercase;">Tap anywhere on the screen</span>
+        </div>
+        <div id="phone-outer">
+          <div id="phone-status-bar">
+            <span>9:41</span>
+            <span style="font-size:9px;opacity:0.7;">PuroClean NW</span>
+            <span style="display:flex;align-items:center;gap:3px;">
+              <svg width="11" height="8" fill="white" viewBox="0 0 11 8"><rect x="0" y="2" width="2" height="6" rx="1" opacity="0.4"/><rect x="3" y="1.5" width="2" height="6.5" rx="1" opacity="0.6"/><rect x="6" y="0.5" width="2" height="7.5" rx="1" opacity="0.8"/><rect x="9" y="0" width="2" height="8" rx="1"/></svg>
+              <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x="0.5" y="0.5" width="19" height="10" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="15" height="8" rx="2.5" fill="white"/></svg>
+            </span>
+          </div>
+          <div id="phone-screen">
+
+            <!-- ── Mobile Screen 1: Morning Brief ── -->
+            <div class="demo-screen ds-active" id="ds-screen-1">
+              <div id="demo-invite" onclick="dismissInvite()" style="position:absolute;inset:0;z-index:25;cursor:pointer;border-radius:30px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(0,52,109,0.2) 0%,rgba(0,52,109,0.8) 60%,rgba(0,52,109,0.95) 100%);">
+                <div style="font-size:36px;margin-bottom:10px;animation:bounce 1.1s ease-in-out infinite;">👆</div>
+                <div style="background:white;border-radius:16px;padding:12px 18px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.3);max-width:190px;">
+                  <div style="font-size:11px;font-weight:900;color:#00346D;margin-bottom:3px;">Try the Mobile Demo</div>
+                  <div style="font-size:9px;color:#64748B;line-height:1.5;">Tap anywhere to walk through a real franchise owner's day with Agentforce</div>
+                  <div style="margin-top:8px;padding:6px 14px;background:linear-gradient(135deg,#FF6900,#C44E00);border-radius:8px;font-size:9.5px;font-weight:800;color:white;">Tap to Begin →</div>
+                </div>
+              </div>
+              <div class="ds-app-bar">
+                <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" alt="PuroClean" style="height:16px;" onerror="this.style.display='none'"/>
+                <span style="font-size:10px;font-weight:800;color:#0B2545;">Home</span>
+                <svg width="16" height="16" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="ds-greeting">
+                <p style="font-size:9px;color:#94A3B8;margin-bottom:2px;">Tuesday, Sep 15 · Pacific NW</p>
+                <p style="font-size:13px;font-weight:900;color:#0B2545;margin-bottom:3px;">Good morning, Melissa 👋</p>
+                <p style="font-size:10px;color:#64748B;">3 partner alerts · 2 estimates need follow-up</p>
+              </div>
+              <!-- Agentforce alert card -->
+              <div style="margin:0 12px 8px;background:linear-gradient(135deg,rgba(255,105,0,0.08),rgba(0,52,109,0.05));border:1.5px solid rgba(255,105,0,0.3);border-radius:10px;padding:9px 11px;" class="secondary-clickable" onclick="phoneSecondaryClick('Agentforce Alert: Mike Sullivan has 3 open referrals tied to him — $26,400 at risk if relationship goes cold.')">
+                <div style="font-size:8px;font-weight:800;color:#FF6900;margin-bottom:3px;">✦ Agentforce</div>
+                <div style="font-size:9.5px;color:#374151;line-height:1.45;font-weight:600;">Mike Sullivan — 31 days dark. 3 referrals at risk.</div>
+              </div>
+              <!-- Stat row -->
+              <div style="display:flex;gap:6px;padding:0 12px 8px;">
+                <div style="flex:1;background:white;border:1px solid #E2E8F0;border-radius:8px;padding:8px;text-align:center;" class="secondary-clickable" onclick="phoneSecondaryClick('Tasks Today: 3 — call Mike Sullivan, follow up on Johnson estimate, check Jordan\'s morning activity log.')"><div style="font-size:15px;font-weight:900;color:#0274BE;">3</div><div style="font-size:8px;color:#64748B;margin-top:1px;">Tasks Today</div></div>
+                <div style="flex:1;background:white;border:1px solid #E2E8F0;border-radius:8px;padding:8px;text-align:center;" class="secondary-clickable" onclick="phoneSecondaryClick('2 estimates overdue: Johnson Residence ($8,400) at 72 hours, and Eastside Commercial ($14,800) at 48 hours. Both need follow-up today.')"><div style="font-size:15px;font-weight:900;color:#FF6900;">2</div><div style="font-size:8px;color:#64748B;margin-top:1px;">Estimates<br>Overdue</div></div>
+                <div style="flex:1;background:white;border:1px solid #E2E8F0;border-radius:8px;padding:8px;text-align:center;" class="secondary-clickable" onclick="phoneSecondaryClick('Partner Activity: 12 interactions logged this week by your team. All captured automatically.')"><div style="font-size:15px;font-weight:900;color:#059669;">12</div><div style="font-size:8px;color:#64748B;margin-top:1px;">Partner<br>Activities</div></div>
+              </div>
+              <!-- Ask Agentforce CTA — PRIMARY TARGET -->
+              <div class="ds-af-prompt ds-pulse" onclick="advanceDemoScreen()" style="position:relative;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div style="flex:1;"><div style="font-size:10px;font-weight:800;color:#0B2545;">Ask Agentforce</div><div style="font-size:9px;color:#94A3B8;">What would you like to do?</div></div>
+                  <svg width="12" height="12" fill="none" stroke="#CBD5E1" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+              </div>
+              <div class="ds-quick-row">
+                <div class="ds-quick-btn" onclick="phoneSecondaryClick('Partners: View all 47 referral partners, sorted by last contact date.')">Partners</div>
+                <div class="ds-quick-btn" onclick="phoneSecondaryClick('Estimates: 47 open estimates. 8 flagged as overdue.')">Estimates</div>
+                <div class="ds-quick-btn" onclick="phoneSecondaryClick('Jobs: 6 active jobs in progress. 2 crews dispatched today.')">Jobs</div>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 2: Voice Query (auto-typewriter) ── -->
+            <div class="demo-screen" id="ds-screen-2">
+              <div class="ds-voice-screen">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                  <div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="12" height="12" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  <span style="font-size:11px;font-weight:800;color:#0B2545;">Agentforce</span>
+                </div>
+                <div class="ds-search-wrap">
+                  <svg width="13" height="17" viewBox="0 0 13 17" fill="none"><rect x="3.5" y="0.5" width="6" height="10" rx="3" fill="#FF6900"/><path d="M1 8.5a5.5 5.5 0 0 0 11 0" stroke="#FF6900" stroke-width="1.5" stroke-linecap="round"/><line x1="6.5" y1="14" x2="6.5" y2="16.5" stroke="#FF6900" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span id="ds-typewriter-text" style="font-size:9.5px;color:#0B2545;font-weight:600;flex:1;word-break:break-word;"></span>
+                  <span class="ds-cursor-blink"></span>
+                </div>
+                <div id="ds-thinking" style="display:none;">
+                  <div class="ds-thinking">
+                    <span style="font-size:9px;color:#64748B;margin-right:4px;">Agentforce is thinking</span>
+                    <span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span>
+                  </div>
+                </div>
+                <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;">
+                  <div style="text-align:center;">
+                    <div style="width:48px;height:48px;border-radius:50%;background:rgba(255,105,0,0.1);border:2px solid rgba(255,105,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;animation:pulseRing 1.4s ease-out infinite;">
+                      <svg width="20" height="26" viewBox="0 0 13 17" fill="none"><rect x="3.5" y="0.5" width="6" height="10" rx="3" fill="#FF6900"/><path d="M1 8.5a5.5 5.5 0 0 0 11 0" stroke="#FF6900" stroke-width="1.5" stroke-linecap="round"/><line x1="6.5" y1="14" x2="6.5" y2="16.5" stroke="#FF6900" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    </div>
+                    <p style="font-size:8px;color:#94A3B8;font-weight:600;">Listening…</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 3: AI-Ranked Partner Results ── -->
+            <div class="demo-screen" id="ds-screen-3">
+              <div class="ds-results-header">
+                <p style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Agentforce Results</p>
+                <p style="font-size:11px;font-weight:800;color:#0B2545;">3 partners at risk right now</p>
+              </div>
+              <div style="padding:8px 0 0;">
+                <!-- Card 1 — pulsing tap target -->
+                <div class="ds-lead-card ds-lead-pulse" style="animation-delay:0ms;" onclick="advanceDemoScreen()">
+                  <div class="ds-lead-avatar" style="background:linear-gradient(135deg,#FF6900,#C44E00);">MS</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:10px;font-weight:800;color:#0B2545;margin-bottom:1px;">Mike Sullivan</div>
+                    <div style="font-size:8.5px;color:#64748B;margin-bottom:4px;">Plumber · $89,400 revenue · 31 days dark</div>
+                    <div class="ds-score-track"><div class="ds-score-fill" id="score-fill-1" style="background:#C50A1D;"></div></div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                      <span class="ds-badge-sm" style="background:#FEF2F2;color:#C50A1D;">HIGH RISK</span>
+                      <span style="font-size:8px;font-weight:800;color:#FF6900;">Tap to open →</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="ds-lead-card" onclick="phoneSecondaryClick('Carlos Rivera — General Contractor. 19 days since contact. $31,200 revenue at moderate risk. Mold jobs primarily.')">
+                  <div class="ds-lead-avatar sa">CR</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:10px;font-weight:800;color:#0B2545;margin-bottom:1px;">Carlos Rivera</div>
+                    <div style="font-size:8.5px;color:#64748B;margin-bottom:4px;">General Contractor · $31,200 · 19 days</div>
+                    <div class="ds-score-track"><div class="ds-score-fill" id="score-fill-2" style="background:#FF6900;"></div></div>
+                    <span class="ds-badge-sm ref">MEDIUM RISK</span>
+                  </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="ds-lead-card" onclick="phoneSecondaryClick('Tom Nguyen — HOA Manager. 22 days since contact. $18,900 revenue. Refers water damage claims from condo communities.')">
+                  <div class="ds-lead-avatar mi">TN</div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:10px;font-weight:800;color:#0B2545;margin-bottom:1px;">Tom Nguyen</div>
+                    <div style="font-size:8.5px;color:#64748B;margin-bottom:4px;">HOA Manager · $18,900 · 22 days</div>
+                    <div class="ds-score-track"><div class="ds-score-fill" id="score-fill-3" style="background:#94A3B8;"></div></div>
+                    <span class="ds-badge-sm med">LOW RISK</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 4: Partner Record + Voice Note ── -->
+            <div class="demo-screen" id="ds-screen-4">
+              <div class="ds-detail-bar">
+                <button class="ds-back-btn" onclick="phoneSecondaryClick('Back to partner list — your ranked results are still there')">← Partners</button>
+                <span class="ds-badge-sm" style="background:#FEF2F2;color:#C50A1D;margin-left:auto;">31 days dark</span>
+              </div>
+              <div class="ds-record-body" style="overflow-y:auto;flex:1;">
+                <div style="font-size:13px;font-weight:900;color:#0B2545;margin-bottom:2px;">Mike Sullivan</div>
+                <div style="font-size:9px;color:#94A3B8;margin-bottom:10px;">Plumber · Sullivan Plumbing Co.</div>
+                <div class="ds-contact-row">
+                  <div class="ds-contact-avatar">MS</div>
+                  <div><div style="font-size:10px;font-weight:800;color:#0B2545;">Mike Sullivan</div><div style="font-size:8.5px;color:#64748B;">14 jobs referred · $89,400 revenue</div></div>
+                </div>
+                <div class="ds-info-row">
+                  <div class="ds-info-chip" onclick="phoneSecondaryClick('Revenue Attributed: $89,400 this year. 14 jobs. Average job value: $6,386. This is your highest-value referral partner.')"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Revenue YTD</div><div style="font-size:10px;font-weight:800;color:#059669;margin-top:2px;">$89,400</div></div>
+                  <div class="ds-info-chip" onclick="phoneSecondaryClick('Relationship Score: 72. Calculated by Agentforce from contact frequency, job volume, and referral consistency. Was 85 last quarter.')"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Rel. Score</div><div style="font-size:10px;font-weight:800;color:#FF6900;margin-top:2px;">72 / 100 ↓</div></div>
+                </div>
+                <div class="ds-af-insight">
+                  <div style="font-size:8px;font-weight:800;color:#FF6900;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">★ Agentforce Insight</div>
+                  <div style="font-size:9px;color:#374151;line-height:1.5;">"Mike's referral rate drops after 3+ weeks without contact. You're at 31 days. Schedule a visit or call — same-week touchpoints restore referral volume."</div>
+                </div>
+                <button id="ds-s4-mic-btn" class="ds-mic-btn ds-pulse" onclick="startVoiceNote()">
+                  <svg width="13" height="17" viewBox="0 0 13 17" fill="none"><rect x="3.5" y="0.5" width="6" height="10" rx="3" fill="white"/><path d="M1 8.5a5.5 5.5 0 0 0 11 0" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="6.5" y1="14" x2="6.5" y2="16.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  Log Voice Note
+                </button>
+                <!-- Voice recording panel -->
+                <div id="ds-s4-record-panel" style="display:none;margin-top:10px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(255,105,0,0.25);background:rgba(255,105,0,0.04);">
+                  <div id="ds-s4-rec-header" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,105,0,0.08);border-bottom:1px solid rgba(255,105,0,0.15);">
+                    <span id="ds-s4-rec-dot" style="width:8px;height:8px;border-radius:50%;background:#EF4444;flex-shrink:0;animation:pulseSlow 0.7s ease-in-out infinite;box-shadow:0 0 6px #EF4444;"></span>
+                    <span id="ds-s4-rec-label" style="font-size:9px;font-weight:800;color:#EF4444;letter-spacing:0.06em;text-transform:uppercase;">Recording</span>
+                    <div id="ds-s4-wave" style="display:flex;align-items:center;gap:2px;margin-left:4px;">
+                      <div style="width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;animation-delay:0s;" class="ds-wave-bar"></div>
+                      <div style="width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;animation-delay:0.1s;" class="ds-wave-bar"></div>
+                      <div style="width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;animation-delay:0.2s;" class="ds-wave-bar"></div>
+                      <div style="width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;animation-delay:0.3s;" class="ds-wave-bar"></div>
+                      <div style="width:2px;background:#EF4444;border-radius:2px;animation:voiceBar 0.6s ease-in-out infinite alternate;animation-delay:0.15s;" class="ds-wave-bar"></div>
+                    </div>
+                  </div>
+                  <div style="padding:9px 12px;min-height:52px;">
+                    <div style="font-size:8px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;">Transcription</div>
+                    <div id="ds-s4-transcript" style="font-size:9px;color:#374151;line-height:1.65;font-style:italic;"></div>
+                    <span id="ds-s4-cursor" style="display:none;width:1px;height:10px;background:#EF4444;animation:blink 0.6s step-start infinite;vertical-align:text-bottom;"></span>
+                  </div>
+                  <div id="ds-s4-processing" style="display:none;align-items:center;gap:7px;padding:8px 12px;background:rgba(2,116,190,0.06);border-top:1px solid rgba(2,116,190,0.12);">
+                    <span style="font-size:8.5px;font-weight:700;color:#0274BE;">✦ Agentforce is logging your note</span>
+                    <span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 5: Activity Auto-Logged ── -->
+            <div class="demo-screen" id="ds-screen-5">
+              <div id="ds-notification" class="ds-notification">
+                <div style="width:26px;height:26px;border-radius:7px;background:rgba(5,150,105,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="13" height="13" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div style="flex:1;"><div style="font-size:9px;font-weight:800;color:#0B2545;">3 Actions Logged</div><div style="font-size:8px;color:#64748B;">Mike Sullivan record updated</div></div>
+              </div>
+              <div style="padding:14px 14px 8px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #F1F5F9;">
+                <div style="width:36px;height:36px;border-radius:50%;background:rgba(5,150,105,0.1);border:2px solid #059669;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="16" height="16" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div><div style="font-size:11px;font-weight:900;color:#059669;">Activity Logged</div><div style="font-size:8.5px;color:#64748B;">Voice note saved to Mike Sullivan's record</div></div>
+              </div>
+              <p style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.06em;padding:8px 12px 4px;">3 Actions Completed</p>
+              <div class="ds-activity-feed">
+                <div class="ds-activity-item" onclick="phoneSecondaryClick('Visit logged: Stopped by Mike\'s shop — recorded automatically from your voice note. Date, time, duration all captured.')">📋 Visit logged to Mike Sullivan</div>
+                <div class="ds-activity-item" onclick="phoneSecondaryClick('Follow-up task auto-created: Intro to mold team for Eastside property — due Friday. Agentforce created this from your note.')">✅ Follow-up task created for Friday</div>
+                <div class="ds-activity-item" onclick="phoneSecondaryClick('Partner record updated: Relationship score refreshed, last contact date updated, Agentforce alert dismissed.')">🔄 Partner record updated</div>
+              </div>
+              <div class="ds-pipeline-strip">
+                <div style="flex:1;border-right:1px solid rgba(255,255,255,0.1);padding-right:10px;"><div style="font-size:8px;color:rgba(255,255,255,0.5);text-transform:uppercase;font-weight:700;">Partner Revenue</div><div style="font-size:14px;font-weight:900;color:white;">$89,400</div></div>
+                <div style="flex:1;padding-left:10px;"><div style="font-size:8px;color:rgba(255,255,255,0.5);text-transform:uppercase;font-weight:700;">Relationship</div><div style="font-size:14px;font-weight:900;color:#FF6900;">Protected ✓</div></div>
+              </div>
+              <div style="padding:0 12px 10px;">
+                <div style="font-size:8px;font-weight:700;color:#FF6900;text-transform:uppercase;letter-spacing:0.05em;text-align:center;margin-bottom:5px;">✦ Agentforce Suggestion</div>
+                <button class="ds-cta-schedule ds-pulse" onclick="advanceDemoScreen()">Draft a thank-you email to Mike from your voice notes?</button>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 6: AI Email Draft ── -->
+            <div class="demo-screen" id="ds-screen-6">
+              <div class="ds-app-bar">
+                <svg width="14" height="14" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                <span style="font-size:10px;font-weight:800;color:#0B2545;">Email Draft</span>
+                <span style="font-size:8px;font-weight:700;color:#059669;background:rgba(5,150,105,0.1);padding:2px 7px;border-radius:10px;">AI Generated</span>
+              </div>
+              <div style="padding:8px 14px;display:flex;align-items:center;gap:6px;background:rgba(255,105,0,0.04);border-bottom:1px solid #F1F5F9;">
+                <div style="width:18px;height:18px;border-radius:5px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="10" height="10" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <span style="font-size:8.5px;color:#64748B;">Drafted from your voice note · 2 sec ago</span>
+              </div>
+              <div style="padding:10px 14px;border-bottom:1px solid #F1F5F9;">
+                <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;margin-bottom:1px;">To</div>
+                <div style="font-size:9.5px;font-weight:700;color:#0B2545;">Mike Sullivan &lt;mike@sullivanplumbing.com&gt;</div>
+              </div>
+              <div style="padding:8px 14px;border-bottom:1px solid #F1F5F9;">
+                <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;margin-bottom:1px;">Subject</div>
+                <div style="font-size:9.5px;font-weight:700;color:#0B2545;">Thanks — and introducing our mold team</div>
+              </div>
+              <div id="ds-email-gen-wrap" style="padding:10px 14px;flex:1;overflow:hidden;position:relative;">
+                <div id="ds-email-thinking" style="display:flex;align-items:center;gap:6px;opacity:1;transition:opacity 0.3s;">
+                  <span style="font-size:8.5px;color:#94A3B8;">Agentforce is drafting</span>
+                  <span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span><span class="ds-thinking-dot"></span>
+                </div>
+                <div id="ds-email-body" style="font-size:9px;color:#374151;line-height:1.7;white-space:pre-wrap;display:none;"></div>
+                <span id="ds-email-cursor" style="display:none;width:1px;height:11px;background:#FF6900;animation:blink 0.7s step-start infinite;vertical-align:text-bottom;"></span>
+              </div>
+              <div style="padding:10px 14px;display:flex;gap:8px;border-top:1px solid #F1F5F9;">
+                <button style="flex:1;padding:9px;background:#F1F5F9;border:1.5px solid #E5E7EB;border-radius:10px;font-size:9.5px;font-weight:800;color:#64748B;cursor:default;" onclick="phoneSecondaryClick('Edit Draft: You can modify any part of this email before sending. The subject, body, tone — all editable.')">Edit Draft</button>
+                <button id="s6-send-btn" class="ds-pulse" onclick="sendEmail()" style="flex:2;padding:9px;background:linear-gradient(135deg,#FF6900,#C44E00);border:none;border-radius:10px;font-size:9.5px;font-weight:800;color:white;cursor:pointer;">Send Now ✓</button>
+              </div>
+              <!-- Send overlay -->
+              <div id="s6-overlay" style="position:absolute;inset:0;background:white;transform:translateY(100%);transition:transform 0.45s cubic-bezier(0.34,1.2,0.64,1);z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:28px;">
+                <div id="s6-beat-sent" style="display:flex;flex-direction:column;align-items:center;width:100%;padding:0 16px;">
+                  <div style="width:56px;height:56px;border-radius:50%;background:rgba(5,150,105,0.1);border:2.5px solid #059669;display:flex;align-items:center;justify-content:center;margin-bottom:12px;animation:pulseRing 1.4s ease-out;">
+                    <svg id="s6-check-svg" width="26" height="26" viewBox="0 0 26 26" fill="none"><polyline id="s6-check-path" points="5,13 11,19 21,8" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="30" stroke-dashoffset="30" style="transition:stroke-dashoffset 0.5s ease 0.1s;"/></svg>
+                  </div>
+                  <div style="font-size:13px;font-weight:900;color:#0B2545;margin-bottom:4px;">Email Sent</div>
+                  <div style="font-size:9.5px;color:#64748B;text-align:center;margin-bottom:10px;">Mike Sullivan · Sullivan Plumbing Co.</div>
+                  <div style="width:100%;display:flex;flex-direction:column;gap:5px;">
+                    <div style="display:flex;align-items:center;gap:7px;padding:6px 10px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0;"><svg width="10" height="10" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:8.5px;font-weight:700;color:#065F46;">Activity logged automatically</span></div>
+                    <div style="display:flex;align-items:center;gap:7px;padding:6px 10px;background:#F0FDF4;border-radius:8px;border:1px solid #BBF7D0;"><svg width="10" height="10" fill="none" stroke="#059669" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:8.5px;font-weight:700;color:#065F46;">Partner record updated · Relationship score ↑</span></div>
+                  </div>
+                </div>
+                <div id="s6-beat-bridge" style="width:100%;padding:0 12px;margin-top:14px;transform:translateY(30px);opacity:0;transition:transform 0.4s ease,opacity 0.4s ease;">
+                  <div style="padding:11px 13px;background:linear-gradient(135deg,rgba(255,105,0,0.07),rgba(0,52,109,0.05));border:1.5px solid rgba(255,105,0,0.25);border-radius:12px;">
+                    <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                      <div style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="9" height="9" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                      <span style="font-size:8px;font-weight:800;color:#FF6900;text-transform:uppercase;letter-spacing:0.05em;">★ Agentforce</span>
+                    </div>
+                    <div style="font-size:9.5px;font-weight:700;color:#0B2545;margin-bottom:3px;">Your partner dashboard just updated</div>
+                    <div style="font-size:8.5px;color:#64748B;margin-bottom:9px;">New partner activity metrics are ready. Your forecast has been refreshed.</div>
+                    <button onclick="advanceDemoScreen()" style="width:100%;padding:9px;background:linear-gradient(135deg,#FF6900,#C44E00);border:none;border-radius:9px;font-size:9.5px;font-weight:800;color:white;cursor:pointer;">View Partner Dashboard →</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Mobile Screen 7: Partner + Revenue Dashboard ── -->
+            <div class="demo-screen" id="ds-screen-7">
+              <!-- Dim + notification -->
+              <div id="ds-s7-dim" style="position:absolute;inset:0;background:rgba(0,0,0,0.35);opacity:0;transition:opacity 0.3s ease;z-index:18;pointer-events:none;"></div>
+              <div id="ds-s7-notif" onclick="advanceDemoScreen()" style="position:absolute;top:0;left:0;right:0;transform:translateY(-110px);opacity:0;transition:transform 0.6s cubic-bezier(0.34,1.7,0.64,1),opacity 0.3s ease;z-index:20;cursor:pointer;">
+                <div style="background:linear-gradient(135deg,#FF6900,#C44E00);border-radius:0 0 18px 18px;padding:13px 14px;box-shadow:0 8px 32px rgba(255,105,0,0.5);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><div style="display:flex;align-items:center;gap:5px;"><span style="width:7px;height:7px;border-radius:50%;background:white;display:inline-block;animation:pulseSlow 0.8s ease-in-out infinite;"></span><span style="font-size:8px;font-weight:900;color:white;letter-spacing:0.1em;text-transform:uppercase;">LIVE</span></div><span style="font-size:8px;font-weight:700;color:rgba(255,255,255,0.75);">Just now</span></div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:32px;height:32px;border-radius:9px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.4);"><svg width="14" height="14" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                    <div style="flex:1;min-width:0;"><div style="font-size:10px;font-weight:900;color:white;line-height:1.2;margin-bottom:2px;">Agentforce · Correlation Found</div><div style="font-size:8.5px;color:rgba(255,255,255,0.85);">Mold from property managers = 31% higher margin · Tap to view</div></div>
+                    <div style="background:rgba(255,255,255,0.25);border-radius:6px;padding:4px 8px;font-size:8px;font-weight:800;color:white;white-space:nowrap;">View →</div>
+                  </div>
+                </div>
+              </div>
+              <!-- App bar -->
+              <div class="ds-app-bar"><svg width="14" height="14" fill="none" stroke="#64748B" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg><span style="font-size:10px;font-weight:800;color:#0B2545;">Partner Dashboard</span><span style="font-size:8px;font-weight:700;color:#059669;">● Live</span></div>
+              <!-- Tabs -->
+              <div style="display:flex;border-bottom:1.5px solid #E2E8F0;">
+                <div style="flex:1;padding:7px 0;text-align:center;font-size:8.5px;font-weight:800;color:#FF6900;border-bottom:2px solid #FF6900;margin-bottom:-1.5px;">Partners</div>
+                <div onclick="advanceDashView()" class="ds-pulse" style="flex:1;padding:7px 0;text-align:center;font-size:8.5px;font-weight:700;color:#FF6900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;">
+                  <svg width="8" height="8" fill="none" stroke="#FF6900" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Revenue
+                </div>
+              </div>
+              <!-- View 1: Partner stats -->
+              <div id="s7-view-1" style="position:relative;flex:1;overflow-y:auto;padding:8px 14px;">
+                <div style="display:flex;gap:6px;margin-bottom:8px;">
+                  <div style="flex:1;background:rgba(255,105,0,0.06);border:1px solid rgba(255,105,0,0.15);border-radius:9px;padding:7px 9px;"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Total Partners</div><div style="font-size:13px;font-weight:900;color:#FF6900;">47</div></div>
+                  <div style="flex:1;background:rgba(5,150,105,0.06);border:1px solid rgba(5,150,105,0.15);border-radius:9px;padding:7px 9px;"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Revenue YTD</div><div style="font-size:13px;font-weight:900;color:#059669;">$227K</div></div>
+                </div>
+                <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Top Partners by Revenue</div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <div style="background:white;border-radius:8px;padding:8px 10px;border:1px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between;" onclick="phoneSecondaryClick('Mike Sullivan: $89,400 revenue. 14 jobs. Your #1 referral partner — now re-engaged after today\'s visit.')"><div><div style="font-size:9.5px;font-weight:800;color:#0B2545;">Mike Sullivan</div><div style="font-size:8px;color:#64748B;">Plumber · 14 jobs</div></div><div style="font-size:11px;font-weight:900;color:#059669;">$89,400</div></div>
+                  <div style="background:white;border-radius:8px;padding:8px 10px;border:1px solid #E2E8F0;display:flex;align-items:center;justify-content:space-between;" onclick="phoneSecondaryClick('Janet Morse: $62,100 revenue. 11 jobs. Property manager — primarily mold referrals. Highest margin segment.')"><div><div style="font-size:9.5px;font-weight:800;color:#0B2545;">Janet Morse</div><div style="font-size:8px;color:#64748B;">Property Mgr · 11 jobs</div></div><div style="font-size:11px;font-weight:900;color:#059669;">$62,100</div></div>
+                </div>
+                <div style="margin-top:8px;padding:7px 9px;background:#F8FAFC;border-radius:8px;border-left:3px solid #FF6900;"><div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;margin-bottom:2px;">Watching for signals...</div><div style="font-size:8.5px;color:#64748B;">Tap Revenue → to see the correlation Agentforce found</div></div>
+              </div>
+              <!-- View 2: Revenue & correlation (hidden until tab tapped) -->
+              <div id="s7-view-2" style="position:absolute;top:0;left:0;right:0;bottom:0;transform:translateX(100%);transition:transform 0.4s ease;padding:8px 14px;display:flex;flex-direction:column;gap:6px;overflow-y:auto;">
+                <div style="display:flex;gap:6px;">
+                  <div style="flex:1;background:rgba(255,105,0,0.06);border:1px solid rgba(255,105,0,0.15);border-radius:9px;padding:7px 9px;"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Forecast This Mo.</div><div style="font-size:13px;font-weight:900;color:#FF6900;">$48,200</div></div>
+                  <div style="flex:1;background:rgba(5,150,105,0.06);border:1px solid rgba(5,150,105,0.15);border-radius:9px;padding:7px 9px;"><div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Mold Margin</div><div style="font-size:13px;font-weight:900;color:#059669;">52% ★</div></div>
+                </div>
+                <!-- Velocity bars -->
+                <div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;letter-spacing:0.05em;">Revenue by Job Type (this quarter)</div>
+                <div style="display:flex;align-items:flex-end;gap:5px;height:55px;">
+                  <div id="vel-mon" style="flex:1;height:0%;background:linear-gradient(180deg,#0274BE,#0288D1);border-radius:3px 3px 0 0;" data-h="60%"></div>
+                  <div id="vel-tue" style="flex:1;height:0%;background:linear-gradient(180deg,#C50A1D,#EF4444);border-radius:3px 3px 0 0;" data-h="72%"></div>
+                  <div id="vel-wed" style="flex:1;height:0%;background:linear-gradient(180deg,#FF6900,#C44E00);border-radius:3px 3px 0 0;" data-h="100%"></div>
+                </div>
+                <div style="display:flex;gap:5px;"><div style="flex:1;text-align:center;font-size:7.5px;color:#94A3B8;font-weight:700;">Water</div><div style="flex:1;text-align:center;font-size:7.5px;color:#94A3B8;font-weight:700;">Fire</div><div style="flex:1;text-align:center;font-size:7.5px;font-weight:800;color:#FF6900;">Mold ★</div></div>
+                <div style="padding:8px 10px;background:rgba(255,105,0,0.06);border-radius:9px;border-left:3px solid #FF6900;font-size:8.5px;color:#374151;line-height:1.5;">"Property manager partners drive mold jobs at 31% higher margin. You have 12 property managers with 8+ week gaps." — Agentforce</div>
+                <div style="margin-top:6px;padding:7px 9px;background:#F8FAFC;border-radius:8px;border-left:3px solid #FF6900;"><div style="font-size:8px;font-weight:800;color:#94A3B8;text-transform:uppercase;margin-bottom:2px;">Next Alert</div><div style="font-size:8.5px;color:#64748B;">Watching for signals...</div></div>
+              </div>
+              <!-- Final CTA row -->
+              <div class="ds-cta-row">
+                <button class="ds-cta-replay" onclick="resetDemo()">↺ Again</button>
+                <button class="ds-cta-book" onclick="openEmailModal()">Talk to our team →</button>
+              </div>
+            </div>
+
+          </div><!-- /phone-screen -->
+        </div><!-- /phone-outer -->
+        <div id="phone-home-bar"><span></span></div>
+        <div style="margin-top:12px;display:flex;gap:10px;justify-content:center;">
+          <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Ready%20for%20my%20franchise%20-%20PuroClean&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20mobile%20demo%20and%20I%27d%20like%20to%20talk%20about%20Salesforce%20for%20my%20PuroClean%20franchise.%0A%0AThanks" style="padding:10px 20px;background:var(--pc-orange);color:white;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;">Email Corey →</a>
+          <a href="#" onclick="scrollToSlide(3);return false;" style="padding:10px 20px;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;">Contact Form →</a>
+        </div>
+        <div class="sim-restart" onclick="resetDemo()" style="bottom:8px;">↺ Restart mobile demo</div>
+      </div>
+
+    </div><!-- /two-column -->
+  </div><!-- /outer -->
+</section>
+
+<!-- ═══════════════════════ SLIDE 4: CONTACT ═══════════════════════ -->
+<section class="slide" id="slide-contact">
+  <div class="contact-inner">
+    <div class="contact-header">
+      <h2>Let's Talk About Your Franchise</h2>
+      <p>You've seen the tools. Here's how to get them working for your location.</p>
+    </div>
+    <div class="contact-cols">
+      <!-- Form -->
+      <div class="contact-form-wrap">
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="Melissa Wittig" required/></div>
+            <div class="form-group"><label>Franchise Location</label><input type="text" placeholder="Pacific Northwest" required/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="email" placeholder="you@yourfranchise.com" required/></div>
+            <div class="form-group"><label>Phone</label><input type="tel" placeholder="(555) 555-5555"/></div>
+          </div>
+          <div class="form-group">
+            <label>What matters most to you?</label>
+            <select required>
+              <option value="">Select one...</option>
+              <option>Managing referral partners (plumbers, property managers)</option>
+              <option>Tracking estimates and close rates</option>
+              <option>Holding my team accountable without micromanaging</option>
+              <option>Knowing which jobs make the most money</option>
+              <option>Growing revenue through new channels</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit">Send to Corey &amp; Eric →</button>
+        </form>
+      </div>
+      <!-- Team cards -->
+      <div class="team-cards-wrap">
+        <h3>Your Salesforce Team</h3>
+        <div class="team-card">
+          <img class="team-photo" src="photo-corey.png" alt="Corey LaDow" onerror="this.style.display='none'"/>
+          <div class="team-info">
+            <div class="team-name">Corey LaDow</div>
+            <div class="team-title">Account Executive</div>
+            <a href="mailto:cladow@salesforce.com" class="team-email-btn">Email Corey</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="photo-eric.jpg" alt="Eric Dalton" onerror="this.style.display='none'"/>
+          <div class="team-info">
+            <div class="team-name">Eric Dalton</div>
+            <div class="team-title">Solutions Engineer</div>
+            <a href="mailto:edalton@salesforce.com" class="team-email-btn">Email Eric</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-photo" src="photo-grant.png" alt="Grant Stephens" onerror="this.style.display='none'"/>
+          <div class="team-info">
+            <div class="team-name">Grant Stephens</div>
+            <div class="team-title">Regional VP</div>
+            <a href="mailto:gstephens@salesforce.com" class="team-email-btn">Email Grant</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-footer">
+      <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" alt="PuroClean" onerror="this.style.display='none'"/>
+      <span>× Powered by Salesforce · © 2026 Salesforce, Inc. All rights reserved.</span>
+    </div>
+  </div>
+</section>
+
+</div><!-- /slides-container -->
+
+<!-- ═══════════════════════ EMAIL MODAL ═══════════════════════ -->
+<div id="email-modal">
+  <div class="modal-box">
+    <div class="modal-icon">
+      <svg width="24" height="24" fill="none" stroke="#FF6900" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <div class="modal-h">You're all set — want to keep this going?</div>
+    <div class="modal-sub">Your email client opens pre-filled — subject, body, everything. Just hit Send.</div>
+    <div class="modal-email-preview">
+      <div class="ep-label">To</div>
+      <div class="ep-val">cladow@salesforce.com · edalton@salesforce.com</div>
+      <div class="ep-label">Subject</div>
+      <div class="ep-val">I'd like to learn more about Salesforce for my PuroClean franchise</div>
+      <div class="ep-label">Message preview</div>
+      <div class="ep-body">Hi Corey and Eric — I just finished the demo on your microsite and I'd like to set up a time to talk. Please reach out to schedule some time. Thank you.</div>
+    </div>
+    <div class="modal-btns">
+      <a href="https://mail.google.com/mail/?view=cm&to=cladow%40salesforce.com%2Cedalton%40salesforce.com&su=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0AI%27m%20interested%20in%20learning%20more%20about%20how%20Salesforce%20can%20help%20my%20PuroClean%20franchise.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" target="_blank" class="modal-btn modal-btn-gmail" onclick="dismissModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Open in Gmail
+      </a>
+      <a href="https://outlook.office.com/mail/deeplink/compose?to=cladow%40salesforce.com%2Cedalton%40salesforce.com&subject=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" target="_blank" class="modal-btn modal-btn-outlook" onclick="dismissModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/><rect x="9" y="9" width="6" height="1"/><rect x="9" y="12" width="6" height="1"/><rect x="9" y="15" width="4" height="1"/></svg>
+        Open in Outlook
+      </a>
+      <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" class="modal-btn modal-btn-mail" onclick="dismissModal()">
+        <svg width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Open Email App
+      </a>
+    </div>
+    <div class="modal-dismiss" onclick="dismissModal()">No thanks, I'll reach out later</div>
+  </div>
+</div>
+
+<!-- SECONDARY CLICK TOOLTIP -->
+<div id="secondary-tooltip" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.85);color:white;font-size:12px;padding:10px 18px;border-radius:10px;max-width:380px;text-align:center;z-index:250;opacity:0;pointer-events:none;transition:opacity 0.3s;line-height:1.5;"></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   SLIDE NAVIGATION
+   ══════════════════════════════════════════════ */
+const container = document.getElementById('slides-container');
+const navDots = document.querySelectorAll('.nav-dot-item');
+
+function scrollToSlide(idx) {
+  const slides = document.querySelectorAll('.slide');
+  if (slides[idx]) {
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+container.addEventListener('scroll', () => {
+  const slides = document.querySelectorAll('.slide');
+  const scrollTop = container.scrollTop;
+  const height = container.clientHeight;
+  let active = 0;
+  slides.forEach((s, i) => {
+    if (scrollTop >= s.offsetTop - height / 2) active = i;
+  });
+  navDots.forEach((d, i) => d.classList.toggle('active', i === active));
+});
+
+/* ══════════════════════════════════════════════
+   SECONDARY CLICK TOOLTIP
+   ══════════════════════════════════════════════ */
+let tooltipTimer = null;
+function showTooltip(msg) {
+  const t = document.getElementById('secondary-tooltip');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  if (tooltipTimer) clearTimeout(tooltipTimer);
+  tooltipTimer = setTimeout(() => { t.style.opacity = '0'; }, 3200);
+}
+function sfNavClick(el, label) {
+  showTooltip(label + ': This navigation tab would take you to the ' + label + ' object — all your records, list views, and filters for ' + label.toLowerCase() + '.');
+}
+function bsSecondaryClick(msg) { showTooltip(msg); }
+function phoneSecondaryClick(msg) { showTooltip(msg); }
+
+/* ══════════════════════════════════════════════
+   BROWSER SIMULATOR (DESKTOP)
+   ══════════════════════════════════════════════ */
+let browserScreen = 0;
+const DESK_CONTEXT = [
+  { pill: 'Step 1 of 6', title: "Who's driving<br>your business?", body: "Most franchise owners don't know which referral partners are actually sending them jobs. Salesforce surfaces it the moment you log in — no digging, no asking.", hint: '👆 Click Partner Activity to explore' },
+  { pill: 'Step 2 of 6', title: "Replace the<br>spreadsheet.", body: "Melissa replaced her spreadsheet with this. Every referral partner, every dollar they drove — one view. Her BDR walks in and knows exactly who to call.", hint: '👆 Click Mike Sullivan to open his record' },
+  { pill: 'Step 3 of 6', title: "'Joe the plumber<br>referred me a job.'", body: "Now that relationship has a number on it — $89,400. You know exactly what you'd lose if Mike stopped calling. Click the Jobs tab to see full attribution.", hint: '📋 Click the Jobs (14) tab' },
+  { pill: 'Step 4 of 6', title: "Doing the work<br>records the work.", body: "Melissa's exact words. Her BDR sends an email from Outlook. It shows up here automatically. No manual logging. The system does the recording.", hint: '👆 Click to see the BDR accountability dashboard' },
+  { pill: 'Step 5 of 6', title: "'I want to pay them<br>to do, not to tell me.'", body: "She doesn't ask her BDR what they did. She looks here. This is how you manage a remote team without micromanaging — activity metrics, not status reports.", hint: '👆 Click to see revenue forecast' },
+  { pill: 'Step 6 of 6', title: "'That's where you find<br>interesting stuff.'", body: "Mold jobs from property manager partners close 22% faster and have 31% higher margin. Now you know your highest-margin lane. Go there.", hint: '↓ Now try the mobile demo' }
+];
+let browserHintTimer = null;
+let browserPulseIntensityTimer = null;
+
+function advanceBrowserScreen() {
+  if (browserScreen < 5) {
+    browserScreen++;
+    showBrowserScreen(browserScreen);
+  }
+}
+
+function showBrowserScreen(n) {
+  clearBrowserTimers();
+  const ctx = document.getElementById('desk-pill').parentElement;
+  ctx.style.transition = 'opacity 0.2s ease';
+  ctx.style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('desk-pill').textContent = DESK_CONTEXT[n].pill;
+    document.getElementById('desk-title').innerHTML = DESK_CONTEXT[n].title;
+    document.getElementById('desk-body').textContent = DESK_CONTEXT[n].body;
+    const h = document.getElementById('desk-hint');
+    if (h) { const parts = DESK_CONTEXT[n].hint.split(' '); h.querySelector('span:first-child').textContent = parts[0]; h.querySelector('span:last-child').textContent = parts.slice(1).join(' '); }
+    ctx.style.opacity = '1';
+  }, 200);
+  document.querySelectorAll('.desk-dot').forEach((d, i) => d.classList.toggle('active', i === n));
+  const current = document.querySelector('.browser-screen.bs-active');
+  const target = document.getElementById('bs-screen-' + (n + 1));
+  if (!target) return;
+  if (current && current !== target) {
+    current.classList.add('bs-exiting');
+    current.classList.remove('bs-active');
+    setTimeout(() => { current.classList.remove('bs-exiting'); current.style.transform = 'translateX(100%)'; }, 420);
+  }
+  target.style.transform = '';
+  requestAnimationFrame(() => requestAnimationFrame(() => { target.classList.add('bs-active'); }));
+  // Screen-specific
+  if (n === 4) {
+    setTimeout(() => {
+      ['act-bar-calls','act-bar-emails','act-bar-visits'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        const h = [80, 65, 45][i] + '%';
+        if (el) setTimeout(() => { el.style.height = h; }, i * 150);
+      });
+    }, 300);
+  }
+  if (n === 5) {
+    setTimeout(() => {
+      const data = [{ id: 'bs6-bar-water', pct: 59 }, { id: 'bs6-bar-fire', pct: 72 }, { id: 'bs6-bar-mold', pct: 100 }];
+      data.forEach((d, i) => {
+        const el = document.getElementById(d.id);
+        if (el) setTimeout(() => { el.style.width = d.pct + '%'; }, i * 200);
+      });
+    }, 300);
+    // Auto-show email modal after 5s on final screen
+    setTimeout(() => { if (!sessionStorage.getItem('modalDismissed')) openEmailModal(); }, 5000);
+  }
+  // Reset bs3 tabs on screen 3 entry
+  if (n === 2) {
+    setTimeout(() => {
+      document.querySelectorAll('#bs-screen-3 .sf-tab').forEach(t => t.classList.remove('active','guided-pulse'));
+      document.getElementById('bs3-tab-details').classList.add('active');
+      document.getElementById('bs3-tab-jobs').classList.add('guided-pulse');
+      ['bs3-pane-details','bs3-pane-jobs','bs3-pane-activity','bs3-pane-files'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      document.getElementById('bs3-pane-details').style.display = 'block';
+    }, 400);
+  }
+  // Start hint timer
+  browserHintTimer = setTimeout(() => {
+    const tooltip = document.getElementById('hint-tooltip');
+    if (tooltip) {
+      const primary = target.querySelector('.guided-pulse');
+      if (primary) {
+        const r = primary.getBoundingClientRect();
+        tooltip.style.left = (r.left + r.width / 2) + 'px';
+        tooltip.style.top = (r.top - 40) + 'px';
+        tooltip.style.transform = 'translateX(-50%)';
+        tooltip.style.opacity = '1';
+        setTimeout(() => { tooltip.style.opacity = '0'; }, 2500);
+      }
+    }
+  }, 12000);
+}
+
+function bs3TabClick(tab) {
+  document.querySelectorAll('#bs-screen-3 .sf-tab').forEach(t => { t.classList.remove('active', 'guided-pulse'); });
+  document.querySelectorAll('[id^="bs3-pane-"]').forEach(p => { p.style.display = 'none'; });
+  const tabEl = document.getElementById('bs3-tab-' + tab);
+  if (tabEl) tabEl.classList.add('active');
+  const pane = document.getElementById('bs3-pane-' + tab);
+  if (pane) pane.style.display = 'block';
+  // Re-pulse jobs tab if user wandered to another tab
+  if (tab !== 'jobs') {
+    setTimeout(() => {
+      const jobsTab = document.getElementById('bs3-tab-jobs');
+      if (jobsTab && !jobsTab.classList.contains('active')) jobsTab.classList.add('guided-pulse');
+    }, 3000);
+  }
+}
+
+function clearBrowserTimers() {
+  if (browserHintTimer) { clearTimeout(browserHintTimer); browserHintTimer = null; }
+}
+
+function resetBrowserDemo() {
+  clearBrowserTimers();
+  browserScreen = 0;
+  showBrowserScreen(0);
+  // Reset bar charts
+  ['act-bar-calls','act-bar-emails','act-bar-visits'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.style.height = '0%'; setTimeout(() => { el.style.transition = 'height 0.7s ease'; }, 50); }
+  });
+  ['bs6-bar-water','bs6-bar-fire','bs6-bar-mold'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.style.width = '0%'; setTimeout(() => { el.style.transition = 'width 0.8s ease 0.1s'; }, 50); }
+  });
+}
+
+/* ══════════════════════════════════════════════
+   PHONE SIMULATOR STATE MACHINE
+   ══════════════════════════════════════════════ */
+const DEMO_CONTEXT = [
+  { pill: 'Step 1 of 7', title: "Your whole day,<br>before you leave the house.", body: "Agentforce tells you the one thing you must do first — so nothing lives in your head. Mike Sullivan hasn't been contacted in 31 days and 3 referrals are at risk.", hint: '👆 Tap Ask Agentforce to begin' },
+  { pill: 'Step 2 of 7', title: "Speak.<br>That's it.", body: "You're driving between jobs. You don't open a laptop. You just ask. Melissa asked exactly this question — now she has the answer in 3 seconds.", hint: '🎙️ Listening...' },
+  { pill: 'Step 3 of 7', title: "Not 240 partners.<br>The three that matter.", body: "Ranked by referral risk + revenue at stake. The ones that will cost you money if you don't call today. That's the difference between 41% and 65%.", hint: '👆 Tap Mike Sullivan to open his record' },
+  { pill: 'Step 4 of 7', title: "Tap the mic.<br>Speak. Done.", body: "BDR visits Mike, dictates a note on the way back to the truck. Agentforce logs it, creates the follow-up task, updates the partner record. Doing the work records the work.", hint: '🎙️ Tap the mic to log a voice note' },
+  { pill: 'Step 5 of 7', title: "One voice note.<br>Three CRM actions.", body: "Three things that used to require manual entry. Done automatically. 'I want to pay them to do, not to tell me.' This is how that works.", hint: '✦ Tap to let Agentforce draft the email' },
+  { pill: 'Step 6 of 7', title: "Agentforce<br>writes the email.", body: "Your BDR approves in 5 seconds. Mike feels remembered. Agentforce writes the relationship email. That's how you keep a referral partner loyal.", hint: '👆 Tap Send Now when ready' },
+  { pill: 'Step 7 of 7', title: "Your forecast,<br>your next move.", body: "'That's where you find interesting stuff you didn't realize had a correlation.' Property manager partners drive mold jobs at 31% higher margin. In your pocket, always.", hint: '📊 Tap Revenue to reveal the correlation' }
+];
+
+let demoScreen = 0;
+let demoTypewriterTimer = null;
+const TYPEWRITER_TEXT = 'Which referral partners haven\'t we talked to in 30 days?';
+
+function showDemoScreen(n) {
+  const pillEl = document.getElementById('demo-pill');
+  if (!pillEl) return;
+  const ctxPanel = pillEl.parentElement;
+  ctxPanel.style.transition = 'opacity 0.2s ease';
+  ctxPanel.style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('demo-pill').textContent = DEMO_CONTEXT[n].pill;
+    document.getElementById('demo-title').innerHTML = DEMO_CONTEXT[n].title;
+    document.getElementById('demo-body').textContent = DEMO_CONTEXT[n].body;
+    const hintEl = document.getElementById('demo-hint');
+    if (hintEl) {
+      const parts = DEMO_CONTEXT[n].hint.split(' ');
+      hintEl.querySelector('span:first-child').textContent = parts[0];
+      hintEl.querySelector('span:last-child').textContent = parts.slice(1).join(' ');
+    }
+    ctxPanel.style.opacity = '1';
+  }, 200);
+  document.querySelectorAll('.demo-dot').forEach((dot, i) => dot.classList.toggle('active', i === n));
+  const current = document.querySelector('.demo-screen.ds-active');
+  const target = document.getElementById('ds-screen-' + (n + 1));
+  if (!target) return;
+  if (current && current !== target) {
+    current.classList.add('ds-exiting');
+    current.classList.remove('ds-active');
+    setTimeout(() => { current.classList.remove('ds-exiting'); current.style.transform = 'translateX(100%)'; }, 420);
+  }
+  target.style.transform = '';
+  requestAnimationFrame(() => requestAnimationFrame(() => { target.classList.add('ds-active'); }));
+  if (n === 1) setTimeout(startTypewriter, 300);
+  if (n === 2) {
+    setTimeout(() => {
+      [{ id: 'score-fill-1', pct: 92 }, { id: 'score-fill-2', pct: 68 }, { id: 'score-fill-3', pct: 51 }].forEach((f, i) => {
+        const el = document.getElementById(f.id);
+        if (el) setTimeout(() => { el.style.width = f.pct + '%'; }, i * 160);
+      });
+    }, 250);
+  }
+  if (n === 4) setTimeout(triggerNotificationBanner, 650);
+  if (n === 5) setTimeout(startEmailTypewriter, 400);
+  if (n === 6) {
+    setTimeout(() => {
+      ['vel-mon','vel-tue','vel-wed'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const h = el.getAttribute('data-h') || '60%';
+          setTimeout(() => { el.style.transition = 'height 0.6s ease'; el.style.height = h; }, i * 100);
+        }
+      });
+    }, 300);
+    // Auto-open modal after 5s if not already dismissed
+    setTimeout(() => { if (!sessionStorage.getItem('modalDismissed')) openEmailModal(); }, 5000);
+  }
+}
+
+function startTypewriter() {
+  const el = document.getElementById('ds-typewriter-text');
+  if (!el) return;
+  el.textContent = '';
+  let i = 0;
+  if (demoTypewriterTimer) { clearInterval(demoTypewriterTimer); demoTypewriterTimer = null; }
+  demoTypewriterTimer = setInterval(() => {
+    el.textContent += TYPEWRITER_TEXT[i];
+    i++;
+    if (i >= TYPEWRITER_TEXT.length) {
+      clearInterval(demoTypewriterTimer); demoTypewriterTimer = null;
+      setTimeout(() => {
+        const thinking = document.getElementById('ds-thinking');
+        if (thinking) thinking.style.display = 'flex';
+        setTimeout(() => { demoScreen = 2; showDemoScreen(2); }, 1450);
+      }, 380);
+    }
+  }, 44);
+}
+
+function triggerNotificationBanner() {
+  const banner = document.getElementById('ds-notification');
+  if (!banner) return;
+  banner.style.transform = 'translateY(0)';
+  banner.style.opacity = '1';
+  setTimeout(() => { banner.style.opacity = '0'; setTimeout(() => { banner.style.transform = 'translateY(-80px)'; }, 360); }, 3200);
+}
+
+window.dismissInvite = function() {
+  const inv = document.getElementById('demo-invite');
+  if (!inv) return;
+  inv.style.transition = 'opacity 0.35s ease';
+  inv.style.opacity = '0';
+  setTimeout(() => { inv.style.display = 'none'; }, 360);
+};
+
+const VOICE_NOTE_TEXT = 'Stopped by Mike\'s shop. 3 jobs coming up this fall — Eastside property. Wants intro to mold team.';
+
+let voiceNoteTimer = null;
+window.startVoiceNote = function() {
+  const btn = document.getElementById('ds-s4-mic-btn');
+  const panel = document.getElementById('ds-s4-record-panel');
+  const transcript = document.getElementById('ds-s4-transcript');
+  const cursor = document.getElementById('ds-s4-cursor');
+  const processing = document.getElementById('ds-s4-processing');
+  if (!btn || !panel) return;
+  btn.onclick = null; btn.style.opacity = '0.5'; btn.style.pointerEvents = 'none';
+  panel.style.display = 'block';
+  transcript.textContent = '';
+  if (cursor) { cursor.style.display = 'inline-block'; }
+  if (processing) processing.style.display = 'none';
+  let i = 0;
+  if (voiceNoteTimer) { clearInterval(voiceNoteTimer); voiceNoteTimer = null; }
+  voiceNoteTimer = setInterval(() => {
+    transcript.textContent += VOICE_NOTE_TEXT[i];
+    i++;
+    if (i >= VOICE_NOTE_TEXT.length) {
+      clearInterval(voiceNoteTimer); voiceNoteTimer = null;
+      const recDot = document.getElementById('ds-s4-rec-dot');
+      const recLabel = document.getElementById('ds-s4-rec-label');
+      if (cursor) cursor.style.animation = 'none';
+      if (recDot) { recDot.style.animation = 'none'; recDot.style.background = '#94A3B8'; }
+      if (recLabel) { recLabel.textContent = 'Done'; recLabel.style.color = '#64748B'; }
+      setTimeout(() => {
+        if (processing) processing.style.display = 'flex';
+        setTimeout(() => { advanceDemoScreen(); }, 1400);
+      }, 500);
+    }
+  }, 30);
+};
+
+let emailTypewriterTimer = null;
+const EMAIL_BODY_TEXT = 'Hi Mike,\n\nGreat stopping by today. Looking forward to sending over some mold remediation work your way from the Eastside project.\n\nI\'ll have our mold specialist reach out to you this week.\n\nThanks for everything,\nJordan (PuroClean of Pacific NW)';
+
+function startEmailTypewriter() {
+  const thinking = document.getElementById('ds-email-thinking');
+  const body = document.getElementById('ds-email-body');
+  const cursor = document.getElementById('ds-email-cursor');
+  if (!body) return;
+  if (thinking) { thinking.style.opacity = '1'; thinking.style.display = 'flex'; }
+  if (body) { body.style.display = 'none'; body.textContent = ''; }
+  if (cursor) cursor.style.display = 'none';
+  setTimeout(() => {
+    if (thinking) thinking.style.opacity = '0';
+    setTimeout(() => {
+      if (thinking) thinking.style.display = 'none';
+      if (body) body.style.display = 'block';
+      if (cursor) cursor.style.display = 'inline-block';
+      let i = 0;
+      if (emailTypewriterTimer) { clearInterval(emailTypewriterTimer); emailTypewriterTimer = null; }
+      emailTypewriterTimer = setInterval(() => {
+        body.textContent += EMAIL_BODY_TEXT[i];
+        i++;
+        if (i >= EMAIL_BODY_TEXT.length) {
+          clearInterval(emailTypewriterTimer); emailTypewriterTimer = null;
+          if (cursor) cursor.style.animation = 'none';
+        }
+      }, 22);
+    }, 300);
+  }, 900);
+}
+
+window.sendEmail = function() {
+  const btn = document.getElementById('s6-send-btn');
+  if (btn) { btn.textContent = 'Sending...'; btn.style.opacity = '0.7'; btn.onclick = null; }
+  setTimeout(() => {
+    const overlay = document.getElementById('s6-overlay');
+    if (overlay) overlay.style.transform = 'translateY(0)';
+    setTimeout(() => {
+      const path = document.getElementById('s6-check-path');
+      if (path) path.style.strokeDashoffset = '0';
+    }, 200);
+    setTimeout(() => {
+      const bridge = document.getElementById('s6-beat-bridge');
+      if (bridge) { bridge.style.transform = 'translateY(0)'; bridge.style.opacity = '1'; }
+    }, 1400);
+  }, 550);
+};
+
+let dashView = 1;
+window.advanceDashView = function() {
+  if (dashView === 1) {
+    dashView = 2;
+    const v1 = document.getElementById('s7-view-1');
+    const v2 = document.getElementById('s7-view-2');
+    if (v1) v1.style.transform = 'translateX(-100%)';
+    if (v2) v2.style.transform = 'translateX(0)';
+    setTimeout(() => {
+      ['vel-mon','vel-tue','vel-wed'].forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const h = el.getAttribute('data-h') || '60%';
+        setTimeout(() => { el.style.transition = 'height 0.6s ease'; el.style.height = h; }, i * 80);
+      });
+    }, 300);
+    setTimeout(triggerS7Notification, 1800);
+  }
+};
+
+function triggerS7Notification() {
+  const notif = document.getElementById('ds-s7-notif');
+  const dim = document.getElementById('ds-s7-dim');
+  if (!notif) return;
+  if (dim) { dim.style.opacity = '1'; dim.style.pointerEvents = 'none'; }
+  notif.style.opacity = '1';
+  notif.style.transform = 'translateY(0)';
+}
+
+window.advanceDemoScreen = function() {
+  if (demoScreen === 1) return;
+  if (demoScreen < 6) { demoScreen++; showDemoScreen(demoScreen); }
+};
+
+window.resetDemo = function() {
+  if (demoTypewriterTimer) { clearInterval(demoTypewriterTimer); demoTypewriterTimer = null; }
+  demoScreen = 0;
+  const tw = document.getElementById('ds-typewriter-text');
+  if (tw) tw.textContent = '';
+  const thinking = document.getElementById('ds-thinking');
+  if (thinking) thinking.style.display = 'none';
+  ['score-fill-1','score-fill-2','score-fill-3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.style.width = '0%'; setTimeout(() => { el.style.transition = 'width 0.7s ease'; }, 50); }
+  });
+  const notif = document.getElementById('ds-notification');
+  if (notif) { notif.style.opacity = '0'; notif.style.transform = 'translateY(-80px)'; }
+  const s7notif = document.getElementById('ds-s7-notif');
+  if (s7notif) { s7notif.style.opacity = '0'; s7notif.style.transform = 'translateY(-110px)'; }
+  const s7dim = document.getElementById('ds-s7-dim');
+  if (s7dim) s7dim.style.opacity = '0';
+  dashView = 1;
+  const v1 = document.getElementById('s7-view-1'); const v2 = document.getElementById('s7-view-2');
+  if (v1) v1.style.transform = 'translateX(0)';
+  if (v2) v2.style.transform = 'translateX(100%)';
+  ['vel-mon','vel-tue','vel-wed'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.transition = 'none'; el.style.height = '0%'; setTimeout(() => { el.style.transition = 'height 0.6s ease'; }, 50); }
+  });
+  const s6ov = document.getElementById('s6-overlay');
+  if (s6ov) s6ov.style.transform = 'translateY(100%)';
+  const s6bridge = document.getElementById('s6-beat-bridge');
+  if (s6bridge) { s6bridge.style.transform = 'translateY(30px)'; s6bridge.style.opacity = '0'; }
+  const s6path = document.getElementById('s6-check-path');
+  if (s6path) s6path.style.strokeDashoffset = '30';
+  const sendBtn = document.getElementById('s6-send-btn');
+  if (sendBtn) { sendBtn.textContent = 'Send Now ✓'; sendBtn.style.opacity = '1'; sendBtn.onclick = sendEmail; }
+  const inv = document.getElementById('demo-invite');
+  if (inv) { inv.style.display = 'flex'; inv.style.opacity = '1'; }
+  if (voiceNoteTimer) { clearInterval(voiceNoteTimer); voiceNoteTimer = null; }
+  const s4panel = document.getElementById('ds-s4-record-panel');
+  if (s4panel) s4panel.style.display = 'none';
+  const s4transcript = document.getElementById('ds-s4-transcript');
+  if (s4transcript) s4transcript.textContent = '';
+  const s4cursor = document.getElementById('ds-s4-cursor');
+  if (s4cursor) { s4cursor.style.display = 'none'; s4cursor.style.animation = 'blink 0.6s step-start infinite'; }
+  const s4processing = document.getElementById('ds-s4-processing');
+  if (s4processing) s4processing.style.display = 'none';
+  const s4micBtn = document.getElementById('ds-s4-mic-btn');
+  if (s4micBtn) { s4micBtn.onclick = startVoiceNote; s4micBtn.style.opacity = '1'; s4micBtn.style.pointerEvents = ''; }
+  if (emailTypewriterTimer) { clearInterval(emailTypewriterTimer); emailTypewriterTimer = null; }
+  const emailBody = document.getElementById('ds-email-body');
+  if (emailBody) { emailBody.textContent = ''; emailBody.style.display = 'none'; }
+  const emailThink = document.getElementById('ds-email-thinking');
+  if (emailThink) { emailThink.style.display = 'flex'; emailThink.style.opacity = '1'; }
+  const emailCursor = document.getElementById('ds-email-cursor');
+  if (emailCursor) { emailCursor.style.display = 'none'; emailCursor.style.animation = 'blink 0.7s step-start infinite'; }
+  showDemoScreen(0);
+};
+
+// Touch ripple
+(function initRipple() {
+  const screen = document.getElementById('phone-screen');
+  if (!screen) return;
+  screen.addEventListener('mousedown', function(e) {
+    const rect = this.getBoundingClientRect();
+    const r = document.createElement('div');
+    r.className = 'touch-ripple';
+    r.style.left = (e.clientX - rect.left) + 'px';
+    r.style.top = (e.clientY - rect.top) + 'px';
+    this.appendChild(r);
+    setTimeout(() => r.remove(), 600);
+  });
+})();
+
+/* ══════════════════════════════════════════════
+   EMAIL MODAL
+   ══════════════════════════════════════════════ */
+function openEmailModal() {
+  if (sessionStorage.getItem('modalDismissed')) return;
+  document.getElementById('email-modal').classList.add('open');
+}
+function dismissModal() {
+  document.getElementById('email-modal').classList.remove('open');
+  sessionStorage.setItem('modalDismissed', '1');
+}
+window.openEmailModal = openEmailModal;
+document.getElementById('email-modal').addEventListener('click', function(e) {
+  if (e.target === this) dismissModal();
+});
+
+/* ══════════════════════════════════════════════
+   CONTACT FORM
+   ══════════════════════════════════════════════ */
+function submitForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.querySelector('input[type="text"]').value;
+  const location = form.querySelectorAll('input[type="text"]')[1].value;
+  const email = form.querySelector('input[type="email"]').value;
+  const phone = form.querySelector('input[type="tel"]').value;
+  const interest = form.querySelector('select').value;
+  const body = encodeURIComponent('Name: ' + name + '\nLocation: ' + location + '\nEmail: ' + email + '\nPhone: ' + phone + '\nInterest: ' + interest + '\n\nSent from puroclean-franchise-platform.github.io');
+  const subject = encodeURIComponent('PuroClean Franchise Inquiry — ' + name);
+  window.location.href = 'mailto:cladow@salesforce.com,edalton@salesforce.com?subject=' + subject + '&body=' + body;
+}
+
+/* Init */
+showBrowserScreen(0);
+showDemoScreen(0);
+</script>
+</body>
+</html>
