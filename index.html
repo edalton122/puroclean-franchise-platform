@@ -386,8 +386,8 @@
     <span style="color:rgba(255,255,255,0.5);font-size:12px;font-weight:400;">× Salesforce</span>
   </div>
   <div class="nav-actions">
-    <a href="#slide-contact" onclick="scrollToSlide(3)" class="nav-btn nav-btn-ghost">Contact Us</a>
-    <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Book%20a%20Call%20-%20PuroClean%20Franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20to%20book%20a%20call%20to%20discuss%20Salesforce%20for%20my%20franchise.%0A%0AThanks" class="nav-btn nav-btn-primary">Book a Call</a>
+    <a href="#slide-contact" onclick="scrollToSlide(3)" class="nav-btn nav-btn-ghost">Meet Your Team</a>
+    <a href="#" onclick="openEmailModal();return false;" class="nav-btn nav-btn-primary">Talk to Corey &amp; Eric</a>
   </div>
 </nav>
 
@@ -458,7 +458,7 @@
       <a href="#" onclick="scrollToSlide(1);return false;" class="hero-cta-btn hero-cta-primary">See the Desktop Demo →</a>
       <a href="#" onclick="scrollToSlide(2);return false;" class="hero-cta-btn hero-cta-ghost">Try the Mobile Demo →</a>
     </div>
-    <p class="hero-contact-nudge">Want to chat before the demo? <a href="mailto:cladow@salesforce.com,edalton@salesforce.com">Reach out to Corey &amp; Eric</a></p>
+    <p class="hero-contact-nudge">Not ready to demo yet? <a href="#" onclick="openEmailModal();return false;">Reach Corey &amp; Eric directly</a> — real people, same-day response.</p>
     <div class="scroll-hint">
       <span>Scroll to explore</span>
       <div class="scroll-arrow"></div>
@@ -1078,9 +1078,14 @@
                   <cite style="font-size:8px;color:#FF6900;font-weight:700;">&#x2014; Melissa W., PuroClean of Pacific NW</cite>
                 </div>
                 <!-- CTAs -->
+                <!-- Available badge -->
+                <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;">
+                  <span style="width:7px;height:7px;border-radius:50%;background:#059669;box-shadow:0 0 0 2px rgba(5,150,105,0.3);display:inline-block;animation:pulseSlow 1.5s ease-in-out infinite;"></span>
+                  <span style="font-size:9.5px;font-weight:700;color:rgba(255,255,255,0.75);">Corey &amp; Eric are here — respond within the hour</span>
+                </div>
                 <div style="display:flex;gap:8px;margin-bottom:10px;">
-                  <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Let%27s%20Talk%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20the%20demo%20and%20I%27d%20love%20to%20discuss%20what%20this%20could%20look%20like%20for%20my%20franchise.%0A%0AThanks" style="flex:1;background:#FF6900;color:white;border-radius:20px;padding:10px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;">Let&#x2019;s Discuss This &#x2192;</a>
-                  <a href="#" onclick="scrollToSlide(2);return false;" style="flex:1;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:10px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;">Try Mobile Demo &#x2192;</a>
+                  <a href="#" onclick="hideFinale();openEmailModal();return false;" style="flex:1;background:#FF6900;color:white;border-radius:20px;padding:11px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;box-shadow:0 4px 18px rgba(255,105,0,0.4);">&#x26A1; Get my live walkthrough →</a>
+                  <a href="#" onclick="scrollToSlide(2);return false;" style="flex:1;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:11px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;">Try Mobile Demo &#x2192;</a>
                 </div>
                 <span onclick="hideFinale()" style="font-size:9px;color:rgba(255,255,255,0.3);cursor:pointer;display:block;text-align:center;padding-bottom:4px;">&#x21A9; Keep exploring the demo</span>
               </div>
@@ -1089,7 +1094,7 @@
           </div><!-- /browser-viewport -->
         </div><!-- /browser-outer -->
         <div class="browser-cta-row">
-          <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Walk%20me%20through%20this%20live&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20a%20live%20walkthrough%20of%20Salesforce%20for%20my%20PuroClean%20franchise.%0A%0AThanks" class="browser-cta-btn bcta-primary">Let's Walk Through This Together →</a>
+          <a href="#" onclick="openEmailModal();return false;" class="browser-cta-btn bcta-primary">&#x26A1; Get a live demo from Corey &amp; Eric →</a>
           <a href="#" onclick="scrollToSlide(2);return false;" class="browser-cta-btn bcta-ghost">Try the Mobile Demo →</a>
           <button onclick="resetBrowserDemo()" class="browser-cta-btn" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.15);font-size:11px;font-weight:700;cursor:pointer;" title="Reset demo to beginning">&#x21BA; Reset</button>
         </div>
@@ -1468,7 +1473,7 @@
               <!-- Final CTA row -->
               <div class="ds-cta-row">
                 <button class="ds-cta-replay" onclick="resetDemo()">↺ Again</button>
-                <button class="ds-cta-book" onclick="openEmailModal()">Talk to our team →</button>
+                <button class="ds-cta-book" onclick="openEmailModal()">&#x26A1; Get a live demo →</button>
               </div>
             </div>
 
@@ -1476,8 +1481,8 @@
         </div><!-- /phone-outer -->
         <div id="phone-home-bar"><span></span></div>
         <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;">
-          <button onclick="openEmailModal()" style="padding:10px 22px;background:var(--pc-orange);color:white;border-radius:20px;font-size:12px;font-weight:700;border:none;cursor:pointer;">Let's Discuss This →</button>
-          <a href="#" onclick="scrollToSlide(3);return false;" style="padding:10px 20px;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;">Contact Form →</a>
+          <button onclick="openEmailModal()" style="padding:10px 22px;background:var(--pc-orange);color:white;border-radius:20px;font-size:12px;font-weight:700;border:none;cursor:pointer;">&#x26A1; Get a live demo from Corey &amp; Eric →</button>
+          <a href="#" onclick="scrollToSlide(3);return false;" style="padding:10px 20px;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;">Meet the Team →</a>
         </div>
       </div>
 
@@ -1494,8 +1499,8 @@
         <svg width="10" height="10" fill="none" stroke="#FF6900" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         <span style="font-size:10px;font-weight:800;color:#FF6900;letter-spacing:0.06em;text-transform:uppercase;">Salesforce — PuroClean Technology Partner</span>
       </div>
-      <h2>Let's Talk About Your Franchise</h2>
-      <p>You've seen the tools. Here's how to get them working for your location.</p>
+      <h2>You get us — not a call center.</h2>
+      <p>Send a message and you'll hear back from Corey or Eric directly. We'll set up a live 30-minute walkthrough built around your franchise, your partners, your numbers — not a canned pitch.</p>
     </div>
     <div class="contact-cols">
       <!-- Form -->
@@ -1526,29 +1531,41 @@
       </div>
       <!-- Team cards -->
       <div class="team-cards-wrap">
-        <h3>Your Salesforce Team</h3>
+        <h3>The people you'll actually talk to</h3>
         <div class="team-card">
           <img class="team-photo" src="photo-corey.png" alt="Corey LaDow" onerror="this.style.display='none'"/>
           <div class="team-info">
             <div class="team-name">Corey LaDow</div>
-            <div class="team-title">Account Executive</div>
-            <a href="mailto:cladow@salesforce.com" class="team-email-btn">Let's Connect</a>
+            <div class="team-title">Account Executive · PuroClean Lead</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;">
+              <span style="width:7px;height:7px;border-radius:50%;background:#059669;display:inline-block;animation:pulseSlow 1.5s ease-in-out infinite;"></span>
+              <span style="font-size:9px;color:#059669;font-weight:700;">Available · responds same day</span>
+            </div>
+            <a href="#" onclick="openEmailModal();return false;" class="team-email-btn">Message Corey directly →</a>
           </div>
         </div>
         <div class="team-card">
           <img class="team-photo" src="photo-eric.jpg" alt="Eric Dalton" onerror="this.style.display='none'"/>
           <div class="team-info">
             <div class="team-name">Eric Dalton</div>
-            <div class="team-title">Solutions Engineer</div>
-            <a href="mailto:edalton@salesforce.com" class="team-email-btn">Email Eric</a>
+            <div class="team-title">Solutions Engineer · Built this demo</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;">
+              <span style="width:7px;height:7px;border-radius:50%;background:#059669;display:inline-block;animation:pulseSlow 1.5s ease-in-out infinite;"></span>
+              <span style="font-size:9px;color:#059669;font-weight:700;">Available · deep-dive demo specialist</span>
+            </div>
+            <a href="#" onclick="openEmailModal();return false;" class="team-email-btn">Message Eric directly →</a>
           </div>
         </div>
         <div class="team-card">
           <img class="team-photo" src="photo-grant.png" alt="Grant Stephens" onerror="this.style.display='none'"/>
           <div class="team-info">
             <div class="team-name">Grant Stephens</div>
-            <div class="team-title">Regional VP</div>
-            <a href="mailto:gstephens@salesforce.com" class="team-email-btn">Email Grant</a>
+            <div class="team-title">Regional VP · Restoration &amp; Franchise</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;">
+              <span style="width:7px;height:7px;border-radius:50%;background:#94A3B8;display:inline-block;"></span>
+              <span style="font-size:9px;color:#64748B;font-weight:600;">Strategic partnerships lead</span>
+            </div>
+            <a href="mailto:gstephens@salesforce.com" class="team-email-btn">Message Grant →</a>
           </div>
         </div>
       </div>
@@ -1565,34 +1582,51 @@
 <!-- ═══════════════════════ EMAIL MODAL ═══════════════════════ -->
 <div id="email-modal">
   <div class="modal-box">
-    <div class="modal-icon">
-      <svg width="24" height="24" fill="none" stroke="#FF6900" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <!-- People row — real faces, real names -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;">
+      <div style="text-align:center;">
+        <img src="photo-corey.png" alt="Corey LaDow" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #FF6900;" onerror="this.style.display='none'"/>
+        <div style="font-size:9px;font-weight:800;color:#0B2545;margin-top:4px;">Corey LaDow</div>
+        <div style="font-size:8px;color:#64748B;">Account Executive</div>
+      </div>
+      <div style="font-size:18px;color:#CBD5E1;font-weight:300;">+</div>
+      <div style="text-align:center;">
+        <img src="photo-eric.jpg" alt="Eric Dalton" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #0274BE;" onerror="this.style.display='none'"/>
+        <div style="font-size:9px;font-weight:800;color:#0B2545;margin-top:4px;">Eric Dalton</div>
+        <div style="font-size:8px;color:#64748B;">Solutions Engineer</div>
+      </div>
     </div>
-    <div class="modal-h">You're all set — want to keep this going?</div>
-    <div class="modal-sub">Your email client opens pre-filled — subject, body, everything. Just hit Send.</div>
+    <!-- Availability badge -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;">
+      <span style="width:8px;height:8px;border-radius:50%;background:#059669;box-shadow:0 0 0 2px rgba(5,150,105,0.25);display:inline-block;animation:pulseSlow 1.5s ease-in-out infinite;"></span>
+      <span style="font-size:10px;font-weight:700;color:#059669;">We're here — typically respond within the hour</span>
+    </div>
+    <div class="modal-h" style="font-size:17px;margin-bottom:6px;">Reach us directly.<br>No redirects. No queue.</div>
+    <div class="modal-sub" style="margin-bottom:14px;">You'll get Corey &amp; Eric — the people you just watched build this. Hit send and we'll set up a live 30-minute walkthrough built around your franchise, your partners, your numbers.</div>
+    <!-- Preview -->
     <div class="modal-email-preview">
       <div class="ep-label">To</div>
-      <div class="ep-val">cladow@salesforce.com · edalton@salesforce.com</div>
+      <div class="ep-val">Corey LaDow &lt;cladow@salesforce.com&gt; · Eric Dalton &lt;edalton@salesforce.com&gt;</div>
       <div class="ep-label">Subject</div>
-      <div class="ep-val">I'd like to learn more about Salesforce for my PuroClean franchise</div>
-      <div class="ep-label">Message preview</div>
-      <div class="ep-body">Hi Corey and Eric — I just finished the demo on your microsite and I'd like to set up a time to talk. Please reach out to schedule some time. Thank you.</div>
+      <div class="ep-val">I want a live walkthrough — PuroClean + Salesforce</div>
+      <div class="ep-label">Your message (pre-written)</div>
+      <div class="ep-body">Hi Corey and Eric — I just went through your demo and I want to see what this looks like for my franchise specifically. Can we set up 30 minutes for a live walkthrough?</div>
     </div>
     <div class="modal-btns">
-      <a href="https://mail.google.com/mail/?view=cm&to=cladow%40salesforce.com%2Cedalton%40salesforce.com&su=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0AI%27m%20interested%20in%20learning%20more%20about%20how%20Salesforce%20can%20help%20my%20PuroClean%20franchise.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" target="_blank" class="modal-btn modal-btn-gmail" onclick="dismissModal()">
+      <a href="https://mail.google.com/mail/?view=cm&to=cladow%40salesforce.com%2Cedalton%40salesforce.com&su=I%20want%20a%20live%20walkthrough%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20your%20demo%20and%20I%20want%20to%20see%20what%20this%20looks%20like%20for%20my%20franchise%20specifically.%0A%0ACan%20we%20set%20up%2030%20minutes%20for%20a%20live%20walkthrough%3F%0A%0AThanks" target="_blank" class="modal-btn modal-btn-gmail" onclick="dismissModal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-        Open in Gmail
+        Send via Gmail
       </a>
-      <a href="https://outlook.office.com/mail/deeplink/compose?to=cladow%40salesforce.com%2Cedalton%40salesforce.com&subject=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" target="_blank" class="modal-btn modal-btn-outlook" onclick="dismissModal()">
+      <a href="https://outlook.office.com/mail/deeplink/compose?to=cladow%40salesforce.com%2Cedalton%40salesforce.com&subject=I%20want%20a%20live%20walkthrough%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20your%20demo%20and%20I%20want%20to%20see%20what%20this%20looks%20like%20for%20my%20franchise%20specifically.%0A%0ACan%20we%20set%20up%2030%20minutes%20for%20a%20live%20walkthrough%3F%0A%0AThanks" target="_blank" class="modal-btn modal-btn-outlook" onclick="dismissModal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M7 3h10a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/><rect x="9" y="9" width="6" height="1"/><rect x="9" y="12" width="6" height="1"/><rect x="9" y="15" width="4" height="1"/></svg>
-        Open in Outlook
+        Send via Outlook
       </a>
-      <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=I%27d%20like%20to%20learn%20more%20about%20Salesforce%20for%20my%20PuroClean%20franchise&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20finished%20the%20demo%20on%20your%20microsite%20and%20I%27d%20like%20to%20set%20up%20a%20time%20to%20talk.%0A%0APlease%20reach%20out%20to%20schedule%20some%20time.%0A%0AThank%20you" class="modal-btn modal-btn-mail" onclick="dismissModal()">
+      <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=I%20want%20a%20live%20walkthrough%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20your%20demo%20and%20I%20want%20to%20see%20what%20this%20looks%20like%20for%20my%20franchise%20specifically.%0A%0ACan%20we%20set%20up%2030%20minutes%20for%20a%20live%20walkthrough%3F%0A%0AThanks" class="modal-btn modal-btn-mail" onclick="dismissModal()">
         <svg width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Open Email App
+        Default Email App
       </a>
     </div>
-    <div class="modal-dismiss" onclick="dismissModal()">No thanks, I'll reach out later</div>
+    <div class="modal-dismiss" onclick="dismissModal()">I'll reach out when I'm ready</div>
   </div>
 </div>
 
@@ -2238,7 +2272,7 @@ window.resetDemo = function() {
    EMAIL MODAL
    ══════════════════════════════════════════════ */
 function openEmailModal() {
-  if (sessionStorage.getItem('modalDismissed')) return;
+  // Modal can always be re-opened from explicit CTAs; only skip auto-triggers after dismissal
   document.getElementById('email-modal').classList.add('open');
 }
 function dismissModal() {
@@ -2262,7 +2296,7 @@ function submitForm(e) {
   const phone = form.querySelector('input[type="tel"]').value;
   const interest = form.querySelector('select').value;
   const body = encodeURIComponent('Name: ' + name + '\nLocation: ' + location + '\nEmail: ' + email + '\nPhone: ' + phone + '\nInterest: ' + interest + '\n\nSent from puroclean-franchise-platform.github.io');
-  const subject = encodeURIComponent('PuroClean Franchise Inquiry — ' + name);
+  const subject = encodeURIComponent('I want a live walkthrough — ' + name + ' · PuroClean ' + location);
   window.location.href = 'mailto:cladow@salesforce.com,edalton@salesforce.com?subject=' + subject + '&body=' + body;
 }
 
