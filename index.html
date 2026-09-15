@@ -991,23 +991,86 @@
                       <div style="font-size:8px;font-weight:800;color:#FF6900;margin-bottom:3px;">&#x2736; Agentforce Correlation &#x2014; click to explore</div>
                       <div style="font-size:9px;color:#374151;line-height:1.5;">Property manager partners drive mold jobs at <strong>31% higher margin</strong>. You have 12 property managers with 8+ week gaps. <span style="color:#FF6900;font-weight:700;">View Janet Morse &#x2192;</span></div>
                     </div>
-                    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:9px;padding:10px 12px;text-align:center;">
-                      <div style="font-size:10px;font-weight:900;color:#059669;margin-bottom:3px;">&#x2713; Main Quest Complete</div>
-                      <div style="font-size:8.5px;color:#374151;margin-bottom:8px;">You've seen how the whole system connects &#x2014; partners, jobs, emails, accountability, and revenue. Now explore freely or talk to us.</div>
-                      <button onclick="openEmailModal()" style="background:#FF6900;color:white;border:none;border-radius:20px;padding:8px 20px;font-size:11px;font-weight:800;cursor:pointer;">Let's Discuss This &#x2192;</button>
+                    <div class="guided-pulse" style="background:linear-gradient(135deg,rgba(0,52,109,0.05),rgba(255,105,0,0.06));border:1.5px solid rgba(255,105,0,0.3);border-radius:9px;padding:12px;text-align:center;cursor:pointer;" onclick="showFinale()">
+                      <div style="font-size:10px;font-weight:900;color:#FF6900;margin-bottom:3px;">&#x2605; Demo Complete</div>
+                      <div style="font-size:8.5px;color:#374151;margin-bottom:9px;line-height:1.5;">Partners, jobs, emails, accountability, revenue &#x2014; all connected. See the full picture.</div>
+                      <button onclick="showFinale()" style="background:linear-gradient(135deg,#FF6900,#C44E00);color:white;border:none;border-radius:20px;padding:9px 22px;font-size:11px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(255,105,0,0.3);">&#x1F3C6; See the Finale &#x2192;</button>
                     </div>
                   </div>
                 </div>
               </div>
 
             </div><!-- /bs-views-wrap -->
+
+            <!-- ══ LIVE NOTIFICATION TOAST ══ -->
+            <div id="bs-notif" style="position:absolute;right:12px;top:-220px;z-index:60;width:250px;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.22);overflow:hidden;transition:top 0.42s cubic-bezier(0.4,0,0.2,1);">
+              <div id="bs-notif-header" style="padding:5px 10px;display:flex;align-items:center;gap:6px;">
+                <span id="bs-notif-icon" style="font-size:11px;">✦</span>
+                <span id="bs-notif-label" style="font-size:8px;font-weight:800;color:white;letter-spacing:0.04em;text-transform:uppercase;flex:1;"></span>
+                <button onclick="bsNotifClose()" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:14px;line-height:1;padding:0;">&#x2715;</button>
+              </div>
+              <div style="background:white;padding:9px 11px;">
+                <div id="bs-notif-title" style="font-size:10px;font-weight:800;color:#0B2545;margin-bottom:3px;"></div>
+                <div id="bs-notif-body" style="font-size:8.5px;color:#374151;line-height:1.55;"></div>
+                <div id="bs-notif-cta" style="margin-top:6px;"></div>
+              </div>
+            </div>
+
+            <!-- ══ FINALE OVERLAY ══ -->
+            <div id="bs-finale" style="position:absolute;inset:0;z-index:70;background:linear-gradient(160deg,#00346D 0%,#003a7a 55%,#002a5a 100%);transform:translateY(100%);transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 20px;">
+              <div style="max-width:420px;width:100%;text-align:center;">
+                <!-- Logo row -->
+                <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px;">
+                  <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/>
+                  <span style="color:rgba(255,255,255,0.35);font-size:11px;">&#x00D7; Salesforce</span>
+                </div>
+                <!-- Headline -->
+                <div style="font-size:18px;font-weight:900;color:white;line-height:1.15;margin-bottom:6px;">Now you know what<br>you're building toward.</div>
+                <div style="font-size:9.5px;color:rgba(255,255,255,0.55);margin-bottom:16px;">Here's what you just discovered.</div>
+                <!-- Stat cards -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;text-align:left;">
+                  <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;">
+                    <div style="font-size:7.5px;color:rgba(255,105,0,0.85);font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Top Partner Revenue</div>
+                    <div style="font-size:22px;font-weight:900;color:white;line-height:1;">$89,400</div>
+                    <div style="font-size:7.5px;color:rgba(255,255,255,0.45);margin-top:2px;">From one plumber. Auto-tracked.</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;">
+                    <div style="font-size:7.5px;color:rgba(255,105,0,0.85);font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Open Pipeline</div>
+                    <div style="font-size:22px;font-weight:900;color:white;line-height:1;">$187K</div>
+                    <div style="font-size:7.5px;color:rgba(255,255,255,0.45);margin-top:2px;">47 estimates. All tracked.</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;">
+                    <div style="font-size:7.5px;color:rgba(255,105,0,0.85);font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Highest-Margin Lane</div>
+                    <div style="font-size:22px;font-weight:900;color:#FF6900;line-height:1;">Mold</div>
+                    <div style="font-size:7.5px;color:rgba(255,255,255,0.45);margin-top:2px;">31% higher margin. Agentforce found it.</div>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;">
+                    <div style="font-size:7.5px;color:rgba(255,105,0,0.85);font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:3px;">Manual Entry Eliminated</div>
+                    <div style="font-size:22px;font-weight:900;color:white;line-height:1;">Zero</div>
+                    <div style="font-size:7.5px;color:rgba(255,255,255,0.45);margin-top:2px;">Calls, emails, visits log themselves.</div>
+                  </div>
+                </div>
+                <!-- Quote -->
+                <div style="background:rgba(255,255,255,0.05);border-left:3px solid #FF6900;border-radius:0 8px 8px 0;padding:9px 12px;text-align:left;margin-bottom:14px;">
+                  <p style="font-size:9px;color:rgba(255,255,255,0.75);font-style:italic;line-height:1.6;margin:0 0 4px;">"Doing the work records the work is really big for me. I don't want to pay somebody to tell me what they're doing. I want to pay them to do."</p>
+                  <cite style="font-size:8px;color:#FF6900;font-weight:700;">&#x2014; Melissa W., PuroClean of Pacific NW</cite>
+                </div>
+                <!-- CTAs -->
+                <div style="display:flex;gap:8px;margin-bottom:10px;">
+                  <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Let%27s%20Talk%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20the%20demo%20and%20I%27d%20love%20to%20discuss%20what%20this%20could%20look%20like%20for%20my%20franchise.%0A%0AThanks" style="flex:1;background:#FF6900;color:white;border-radius:20px;padding:10px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;">Let&#x2019;s Discuss This &#x2192;</a>
+                  <a href="#" onclick="scrollToSlide(2);return false;" style="flex:1;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:10px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;">Try Mobile Demo &#x2192;</a>
+                </div>
+                <span onclick="hideFinale()" style="font-size:9px;color:rgba(255,255,255,0.3);cursor:pointer;display:block;text-align:center;padding-bottom:4px;">&#x21A9; Keep exploring the demo</span>
+              </div>
+            </div>
+
           </div><!-- /browser-viewport -->
         </div><!-- /browser-outer -->
         <div class="browser-cta-row">
-            <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Walk%20me%20through%20this%20live&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20a%20live%20walkthrough%20of%20Salesforce%20for%20my%20PuroClean%20franchise.%0A%0AThanks" class="browser-cta-btn bcta-primary">Let's Walk Through This Together →</a>
+          <a href="mailto:cladow@salesforce.com,edalton@salesforce.com?subject=Walk%20me%20through%20this%20live&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%27d%20like%20a%20live%20walkthrough%20of%20Salesforce%20for%20my%20PuroClean%20franchise.%0A%0AThanks" class="browser-cta-btn bcta-primary">Let's Walk Through This Together →</a>
           <a href="#" onclick="scrollToSlide(2);return false;" class="browser-cta-btn bcta-ghost">Try the Mobile Demo →</a>
+          <button onclick="resetBrowserDemo()" class="browser-cta-btn" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.15);font-size:11px;font-weight:700;cursor:pointer;" title="Reset demo to beginning">&#x21BA; Reset</button>
         </div>
-        <div class="sim-restart" onclick="resetBrowserDemo()">↺ Restart desktop demo</div>
       </div>
 
     </div><!-- /sim-cols -->
@@ -1689,7 +1752,60 @@ function bsUpdatePanel(view) {
   if (badge) badge.classList.toggle('eb-show', !d.quest);
 }
 
+/* ══════════════════════════════════════════════
+   LIVE NOTIFICATION SYSTEM
+   ══════════════════════════════════════════════ */
+let bsNotifTimer = null;
+let bsNotifDelayTimer = null;
+const bsNotifShown = new Set(); // prevents re-showing same notif
+
+function showBsNotif({ icon='✦', label='Agentforce', headerColor='#FF6900', title, body, cta, ctaFn }) {
+  const el = document.getElementById('bs-notif');
+  if (!el) return;
+  const header = document.getElementById('bs-notif-header');
+  if (header) header.style.background = headerColor;
+  const iconEl = document.getElementById('bs-notif-icon'); if (iconEl) iconEl.textContent = icon;
+  const labelEl = document.getElementById('bs-notif-label'); if (labelEl) labelEl.textContent = label;
+  const titleEl = document.getElementById('bs-notif-title'); if (titleEl) titleEl.textContent = title;
+  const bodyEl = document.getElementById('bs-notif-body'); if (bodyEl) bodyEl.innerHTML = body;
+  const ctaEl = document.getElementById('bs-notif-cta');
+  if (ctaEl && cta && ctaFn) {
+    ctaEl.innerHTML = '<span style="color:#FF6900;font-size:8.5px;font-weight:800;cursor:pointer;" onclick="(' + ctaFn.toString() + ')()">' + cta + ' &#x2192;</span>';
+  } else if (ctaEl) { ctaEl.innerHTML = ''; }
+  el.style.top = '52px';
+  if (bsNotifTimer) clearTimeout(bsNotifTimer);
+  bsNotifTimer = setTimeout(bsNotifClose, 8000);
+}
+
+function bsNotifClose() {
+  const el = document.getElementById('bs-notif');
+  if (el) el.style.top = '-220px';
+  if (bsNotifTimer) { clearTimeout(bsNotifTimer); bsNotifTimer = null; }
+}
+window.bsNotifClose = bsNotifClose;
+
+function bsClearNotifDelay() {
+  if (bsNotifDelayTimer) { clearTimeout(bsNotifDelayTimer); bsNotifDelayTimer = null; }
+}
+
+/* ══════════════════════════════════════════════
+   FINALE SYSTEM
+   ══════════════════════════════════════════════ */
+let bsFinaleTimer = null;
+window.showFinale = function() {
+  const el = document.getElementById('bs-finale');
+  if (el) el.style.transform = 'translateY(0)';
+};
+window.hideFinale = function() {
+  const el = document.getElementById('bs-finale');
+  if (el) el.style.transform = 'translateY(100%)';
+};
+
 function bsOnEnter(view) {
+  bsClearNotifDelay();
+  if (bsFinaleTimer) { clearTimeout(bsFinaleTimer); bsFinaleTimer = null; }
+
+  // ── Partner-Mike: reset tabs ──
   if (view === 'partner-mike') {
     document.querySelectorAll('#bsv-partner-mike .sf-tab').forEach(t => t.classList.remove('active','guided-pulse'));
     const dt = document.getElementById('bs3-tab-details'); if (dt) dt.classList.add('active');
@@ -1698,6 +1814,50 @@ function bsOnEnter(view) {
     const dp = document.getElementById('bs3-pane-details'); if (dp) dp.style.display = 'block';
     document.querySelectorAll('.activity-item-expanded').forEach(e => e.classList.remove('open'));
   }
+
+  // ── HOME: Outlook email notification after 4s ──
+  if (view === 'home' && !bsNotifShown.has('home-email')) {
+    bsNotifDelayTimer = setTimeout(() => {
+      if (bsCurrentView !== 'home') return;
+      bsNotifShown.add('home-email');
+      showBsNotif({
+        icon: '📧', label: 'Outlook — New Email', headerColor: '#0078D4',
+        title: 'Mike Sullivan: "Can your mold team handle this?"',
+        body: 'Re: Eastside Commercial — asking about mold team availability for a large property job.',
+        cta: 'View partner record', ctaFn: function() { bsNavigate('partner-mike'); bsNotifClose(); }
+      });
+    }, 4500);
+  }
+
+  // ── PARTNERS: Agentforce alert ──
+  if (view === 'partners' && !bsNotifShown.has('partners-alert')) {
+    bsNotifDelayTimer = setTimeout(() => {
+      if (bsCurrentView !== 'partners') return;
+      bsNotifShown.add('partners-alert');
+      showBsNotif({
+        icon: '✦', label: 'Agentforce Alert', headerColor: '#FF6900',
+        title: 'Mike Sullivan — 31 days dark',
+        body: 'Referral rate drops 74% after 3 weeks without contact. This relationship is at risk.',
+        cta: 'Open his record', ctaFn: function() { bsNavigate('partner-mike'); bsNotifClose(); }
+      });
+    }, 3500);
+  }
+
+  // ── EMAIL-LOG: Outlook auto-log pulse ──
+  if (view === 'email-log' && !bsNotifShown.has('email-log')) {
+    bsNotifDelayTimer = setTimeout(() => {
+      if (bsCurrentView !== 'email-log') return;
+      bsNotifShown.add('email-log');
+      showBsNotif({
+        icon: '✅', label: 'Salesforce Inbox', headerColor: '#059669',
+        title: 'Email logged to Mike Sullivan',
+        body: 'Jordan\'s Outlook email was captured automatically. No manual entry. Record updated.',
+        cta: 'See BDR dashboard', ctaFn: function() { bsNavigate('bdr'); bsNotifClose(); }
+      });
+    }, 1800);
+  }
+
+  // ── REPORTS: Agentforce correlation + finale ──
   if (view === 'reports') {
     setTimeout(() => {
       [['bs6-bar-water',59],['bs6-bar-fire',72],['bs6-bar-mold',100]].forEach(([id,pct],i) => {
@@ -1705,7 +1865,23 @@ function bsOnEnter(view) {
         if (el) setTimeout(() => { el.style.width = pct + '%'; }, i * 200);
       });
     }, 300);
-    setTimeout(() => { if (!sessionStorage.getItem('modalDismissed')) openEmailModal(); }, 6000);
+
+    // Live correlation notification at 2.5s
+    bsNotifDelayTimer = setTimeout(() => {
+      if (bsCurrentView !== 'reports') return;
+      showBsNotif({
+        icon: '✦', label: 'Agentforce — Correlation Found', headerColor: '#7C3AED',
+        title: 'Mold jobs from property managers: +31% margin',
+        body: 'You have 12 property managers with 8+ week contact gaps. This is your highest-margin lane.',
+        cta: 'View Janet Morse', ctaFn: function() { bsNavigate('partner-janet'); bsNotifClose(); }
+      });
+    }, 2500);
+
+    // Finale at 8s (only first time)
+    bsFinaleTimer = setTimeout(() => {
+      if (bsCurrentView !== 'reports') return;
+      showFinale();
+    }, 8000);
   }
 }
 
@@ -1723,14 +1899,20 @@ function bs3TabClick(tab) {
 window.resetBrowserDemo = function() {
   bsViewHistory = [];
   bsQuestSeen = new Set(['home']);
+  bsNotifShown.clear();
+  bsClearNotifDelay();
+  bsNotifClose();
+  hideFinale();
+  bsDrawerClose();
   document.querySelectorAll('.bs-view').forEach(v => v.classList.remove('v-active','v-exiting'));
   const home = document.getElementById('bsv-home'); if (home) home.classList.add('v-active');
   bsCurrentView = 'home';
   bsUpdatePanel('home');
   bsUpdateNav('home');
-  bsDrawerClose();
   const pnav = document.getElementById('bsnav-partners'); if (pnav) pnav.classList.add('guided-pulse');
   [['bs6-bar-water'],['bs6-bar-fire'],['bs6-bar-mold']].forEach(([id]) => { const el = document.getElementById(id); if (el) { el.style.transition = 'none'; el.style.width = '0%'; setTimeout(() => { el.style.transition = 'width 0.8s ease 0.1s'; }, 50); } });
+  // Trigger home notification on reset
+  bsOnEnter('home');
 };
 
 /* ══════════════════════════════════════════════
