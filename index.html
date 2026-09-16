@@ -126,6 +126,14 @@
   .desk-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.3s;}
   .desk-dot.active{background:#FF6900;box-shadow:0 0 6px #FF6900;}
   .desk-dot.done{background:rgba(255,105,0,0.45);}
+  /* 5-phase journey list */
+  .desk-phases{display:flex;flex-direction:column;gap:3px;margin-top:12px;}
+  .desk-phase{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.28);padding:3px 0;transition:color 0.3s;}
+  .desk-phase .dp-n{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:800;flex-shrink:0;transition:all 0.3s;}
+  .desk-phase.dp-active{color:#fff;font-weight:800;}
+  .desk-phase.dp-active .dp-n{background:#FF6900;color:#fff;box-shadow:0 0 8px rgba(255,105,0,0.6);}
+  .desk-phase.dp-done{color:rgba(255,255,255,0.5);}
+  .desk-phase.dp-done .dp-n{background:rgba(255,105,0,0.35);color:rgba(255,255,255,0.85);}
   /* Browser chrome */
   .browser-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
   .browser-label{font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
@@ -266,6 +274,25 @@
   .slds-scoped-notif.success{background:#EEF7EE;border-color:#A8D5A2;}
   .slds-scoped-notif.warning{background:#FFF3E0;border-color:#F0C68B;}
   /* ── SLDS KANBAN ── */
+  /* ── PHASE 2 SPLIT: Kanban on top, Task Queue below ── */
+  #browser-viewport .sf-pipeline-split{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+  #browser-viewport .sf-pipeline-split .sf-kanban{flex:0 1 auto;max-height:264px;padding:7px 10px 6px;}
+  #browser-viewport .sf-pipeline-split .sf-kanban-col{flex:0 0 186px;max-height:252px;}
+  #browser-viewport .sf-pipeline-split .sf-kanban-cards{max-height:168px;}
+  #browser-viewport .sf-pipeline-tasks{flex:0 0 auto;padding:0 10px 9px;min-height:0;overflow:hidden;}
+  #browser-viewport .sf-pipeline-tasks .slds-card{max-height:158px;display:flex;flex-direction:column;}
+  #browser-viewport .sf-pipeline-tasks .sf-task-scroll{overflow-y:auto;min-height:0;}
+
+  /* ── REVENUE GAUGE (Phase 1 embedded analytics) ── */
+  .sf-gauge-wrap{display:flex;align-items:center;gap:10px;}
+  .sf-gauge{position:relative;width:62px;height:62px;flex-shrink:0;}
+  .sf-gauge svg{transform:rotate(-90deg);}
+  .sf-gauge-ring{fill:none;stroke:#E5E5E5;stroke-width:7;}
+  .sf-gauge-fill{fill:none;stroke:#2E844A;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(0.4,0,0.2,1);}
+  .sf-gauge-ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .sf-gauge-pct{font-size:12px;font-weight:900;color:#2E844A;line-height:1;}
+  .sf-gauge-lbl{font-size:6px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-top:1px;}
+
   .sf-kanban{display:flex;gap:7px;padding:8px 10px 10px;overflow-x:auto;flex:1;align-items:flex-start;min-height:0;}
   .sf-kanban-col{flex:0 0 190px;display:flex;flex-direction:column;background:#EEF1F6;border-radius:4px;overflow:hidden;max-height:100%;}
   .sf-kanban-col-hdr{background:#fff;padding:6px 9px;border-top:3px solid #0176D3;border-bottom:1px solid #DDDBDA;flex-shrink:0;}
@@ -357,6 +384,23 @@
   .slds-tl-quote{background:#EFF8FF;border-left:2px solid #0176D3;padding:4px 7px;border-radius:0 3px 3px 0;font-style:italic;font-size:7.5px;color:#1C274C;margin:3px 0;}
   .slds-tl-quote-who{font-style:normal;font-weight:700;color:#0176D3;margin-top:3px;font-size:7px;display:block;}
   .slds-tl-sub{font-size:8px;color:#374151;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:4px;padding:5px 8px;margin-top:2px;margin-left:28px;}
+  /* ── FINALE HEADSHOTS + AVAILABILITY BADGE ── */
+  .fin-people{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px;}
+  .fin-person{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .fin-shot{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 4px 14px rgba(0,0,0,0.3);}
+  .fin-shot.pc-orange-ring{border-color:#FF6900;}
+  .fin-shot.sf-blue-ring{border-color:#00A1E0;}
+  .fin-name{font-size:9px;font-weight:800;color:#fff;line-height:1.2;}
+  .fin-role{font-size:7.5px;color:rgba(255,255,255,0.5);line-height:1.2;}
+  .fin-online{display:inline-flex;align-items:center;gap:6px;background:rgba(34,197,94,0.14);border:1px solid rgba(34,197,94,0.4);border-radius:20px;padding:4px 12px;margin-bottom:12px;}
+  .fin-online-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulseSlow 2s ease-in-out infinite;flex-shrink:0;}
+  .fin-online-txt{font-size:8.5px;font-weight:800;color:#4ADE80;letter-spacing:0.01em;}
+  .fin-send-row{display:flex;gap:7px;margin-bottom:8px;}
+  .fin-send-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:9px;padding:9px 10px;font-size:9.5px;font-weight:800;text-decoration:none;transition:transform 0.15s,box-shadow 0.15s;}
+  .fin-send-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,0.25);}
+  .fin-send-gmail{background:#fff;color:#C5221F;}
+  .fin-send-outlook{background:#0078D4;color:#fff;}
+
   /* ── GUIDED PULSE (primary progression target) ── */
   @keyframes guidedPulse{
     0%{box-shadow:0 0 0 0 rgba(255,105,0,0.6);}
@@ -713,25 +757,27 @@
 
       <!-- Left context panel -->
       <div class="sim-ctx">
-        <div id="desk-pill">Step 1 of 10</div>
-        <h2 id="desk-title">Morning Briefing</h2>
-        <p id="desk-body">Salesforce starts your day by organizing your pipeline. Agentforce automatically flags the one referral partner who needs your attention today.</p>
-        <div id="desk-hint">⚡ Click the pulsing Agentforce flag in Today's Priorities</div>
+        <div id="desk-pill">Phase 1 of 5 · Morning Control</div>
+        <h2 id="desk-title">Morning Control</h2>
+        <p id="desk-body">Your Lightning Home page is assembled before you wake up. Live gauges, pipeline charts, and job volume by service line — then Agentforce ranks the one thing that costs you money if you ignore it.</p>
+        <div id="desk-hint">⚡ Click the pulsing Agentforce Alert in Today's Priorities</div>
         <div class="desk-dots" id="desk-dots-wrap">
-          <div class="desk-dot active" id="ddot-0"></div>
-          <div class="desk-dot" id="ddot-1"></div>
+          <div class="desk-dot active" id="ddot-1"></div>
           <div class="desk-dot" id="ddot-2"></div>
           <div class="desk-dot" id="ddot-3"></div>
           <div class="desk-dot" id="ddot-4"></div>
           <div class="desk-dot" id="ddot-5"></div>
-          <div class="desk-dot" id="ddot-6"></div>
-          <div class="desk-dot" id="ddot-7"></div>
-          <div class="desk-dot" id="ddot-8"></div>
-          <div class="desk-dot" id="ddot-9"></div>
         </div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
+        <div class="desk-phases">
+          <div class="desk-phase" id="dphase-1"><span class="dp-n">1</span> Morning Control</div>
+          <div class="desk-phase" id="dphase-2"><span class="dp-n">2</span> Revenue Pipeline</div>
+          <div class="desk-phase" id="dphase-3"><span class="dp-n">3</span> Field &amp; Claim Execution</div>
+          <div class="desk-phase" id="dphase-4"><span class="dp-n">4</span> Partner Engine</div>
+          <div class="desk-phase" id="dphase-5"><span class="dp-n">5</span> Business Health</div>
+        </div>
+        <div style="margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,0.1);">
           <div style="font-size:8.5px;color:rgba(255,255,255,0.3);line-height:1.6;">
-            <strong style="color:rgba(255,255,255,0.5);">Explore freely.</strong> Click any field, tile, chart, or row for a plain-English explanation. The pulsing element always moves the story forward.
+            <strong style="color:rgba(255,255,255,0.5);">Explore freely.</strong> Click any field, tile, chart, or row for a plain-English explanation of what it does for your franchise. The pulsing element always moves the story forward.
           </div>
         </div>
       </div>
@@ -788,7 +834,7 @@
                   </div>
 
                   <div style="display:flex;gap:8px;flex-shrink:0;">
-                    <div class="slds-card" style="flex:1.45;">
+                    <div class="slds-card" style="flex:1.15;">
                       <div class="slds-card-hdr"><span class="slds-card-title">Revenue by Month</span><span class="slds-card-meta">FY26</span></div>
                       <div class="slds-card-body" style="padding:9px 11px 7px;">
                         <div class="sf-bar-chart" data-explain="Revenue by Month|$48.2K in September|Your best month this year. September is the front edge of mold season, which carries your highest margin.">
@@ -798,6 +844,28 @@
                           <div class="sf-bar-col"><div class="sf-bar" data-h="61%"></div><div class="sf-bar-lbl">Jul</div></div>
                           <div class="sf-bar-col"><div class="sf-bar" data-h="74%"></div><div class="sf-bar-lbl">Aug</div></div>
                           <div class="sf-bar-col"><div class="sf-bar bar-orange" data-h="98%"></div><div class="sf-bar-lbl" style="font-weight:800;color:#C44E00;">Sep</div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="slds-card" style="flex:0.62;">
+                      <div class="slds-card-hdr"><span class="slds-card-title">Annual Goal</span><span class="slds-card-meta">Live</span></div>
+                      <div class="slds-card-body" style="padding:7px 9px;">
+                        <div class="sf-gauge-wrap" data-explain="Revenue Gauge|$312.4K of $380K goal|A live Lightning gauge component reading closed-won revenue in real time. No spreadsheet, no month-end wait — this moves the moment a job closes.">
+                          <div class="sf-gauge">
+                            <svg width="62" height="62" viewBox="0 0 62 62">
+                              <circle class="sf-gauge-ring" cx="31" cy="31" r="26"></circle>
+                              <circle class="sf-gauge-fill" id="home-gauge" cx="31" cy="31" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4" data-pct="82"></circle>
+                            </svg>
+                            <div class="sf-gauge-ctr">
+                              <div class="sf-gauge-pct">82%</div>
+                              <div class="sf-gauge-lbl">of goal</div>
+                            </div>
+                          </div>
+                          <div style="min-width:0;">
+                            <div style="font-size:8px;color:#706E6B;">Closed YTD</div>
+                            <div style="font-size:12px;font-weight:900;color:#2E844A;line-height:1.15;">$312.4K</div>
+                            <div style="font-size:7.5px;color:#706E6B;margin-top:2px;">Goal $380K &middot; <span style="color:#2E844A;font-weight:700;">on pace</span></div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -822,12 +890,13 @@
                     <div style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:5px 11px;background:#FAFAF9;border-bottom:1px solid #DDDBDA;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#706E6B;">
                       <span></span><span>Priority</span><span>At Stake</span><span>Status</span>
                     </div>
+                    <!-- PHASE 1 PRIMARY TARGET -->
                     <div class="guided-pulse" data-advance="1" style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;">
                       <span style="font-size:11px;">&#x2726;</span>
                       <span>
-                        <span style="font-size:9.5px;font-weight:800;color:#C44E00;">Agentforce Flag:</span>
+                        <span style="font-size:9.5px;font-weight:800;color:#C44E00;">Agentforce Alert:</span>
                         <span class="slds-link" style="font-size:9.5px;">Mike Sullivan</span>
-                        <span style="font-size:9px;color:#514F4D;"> (Plumber) &mdash; 31 days dark</span>
+                        <span style="font-size:9px;color:#514F4D;"> &mdash; 31 days dark &middot; $89.4K annual referral revenue at risk</span>
                         <span class="gp-cue">&#x25B8; Click to review</span>
                       </span>
                       <span style="font-size:10px;font-weight:900;color:#C23934;">$89.4K</span>
@@ -856,84 +925,6 @@
               </div>
             </div>
 
-            <!-- ═══════════════════════════════════════════════
-                 STEP 2 — AGENTFORCE AI RISK REVIEW
-            ═══════════════════════════════════════════════ -->
-            <div class="demo-screen" id="ds-risk">
-              <div class="sf-chrome" data-active="Partners"></div>
-              <div class="sf-record-page">
-                <div class="sf-crumb"><span class="cl">Partners</span><span class="cs">&rsaquo;</span><span class="cc">Agentforce Risk Review</span></div>
-                <div class="sf-one-col">
-                  <div class="af-panel">
-                    <div class="af-panel-hdr">
-                      <span style="font-size:11px;color:#fff;">&#x2726;</span>
-                      <span class="af-panel-hdr-t">Agentforce &mdash; Partner Risk Analysis</span>
-                      <span class="af-panel-hdr-s">Refreshed 6:02 AM &middot; 240 partners scanned</span>
-                    </div>
-                    <div class="af-insight" data-explain="Ranking model|Revenue impact, not recency|Most CRMs sort your contact list alphabetically or by last activity. Agentforce sorts by what it costs you to do nothing.">
-                      <div class="af-spark">&#x2726;</div>
-                      <div style="font-size:9px;color:#3E3E3C;line-height:1.6;">
-                        <strong style="color:#080707;">3 referral partners crossed their risk threshold.</strong> Ranked by revenue at stake &mdash; not by who emailed last. Mike Sullivan alone drives <strong>22% of your franchise revenue</strong>.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="slds-card guided-pulse" data-advance="2" style="border-left:3px solid #FF6900;">
-                    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;">
-                      <div style="width:36px;height:36px;border-radius:4px;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;flex-shrink:0;">MS</div>
-                      <div style="flex:1;min-width:0;">
-                        <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
-                          <span style="font-size:12.5px;font-weight:800;color:#0176D3;">Mike Sullivan</span>
-                          <span class="slds-badge slds-badge-error">High Risk</span>
-                          <span style="font-size:8px;font-weight:800;color:#C44E00;background:#FFF3E0;padding:2px 6px;border-radius:3px;">RANK #1</span>
-                        </div>
-                        <div style="font-size:8.5px;color:#706E6B;margin-top:2px;">Plumber &middot; Sullivan Plumbing Co. &middot; Partner since Mar 2023</div>
-                        <div style="font-size:8.5px;color:#3E3E3C;line-height:1.6;margin-top:6px;">
-                          <strong>$89,400 YTD across 14 jobs.</strong> Last touched 31 days ago. His referral volume historically drops 44% after a 30-day gap &mdash; and mold season starts in 6 weeks.
-                        </div>
-                      </div>
-                      <div style="flex-shrink:0;text-align:right;">
-                        <div style="font-size:16px;font-weight:900;color:#C23934;line-height:1;">$89.4K</div>
-                        <div style="font-size:7.5px;color:#706E6B;margin-top:2px;">at stake</div>
-                        <div style="font-size:8.5px;font-weight:800;color:#0176D3;margin-top:8px;">Open record &rarr;</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="slds-card" data-explain="Janet Morse|$62,100 YTD · 18 properties|Rank 2. Property manager partners drive mold jobs at 31% higher margin. Agentforce is holding a drafted campaign for her portfolio.">
-                    <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;">
-                      <div style="width:30px;height:30px;border-radius:4px;background:linear-gradient(135deg,#0176D3,#015A9E);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;flex-shrink:0;">JM</div>
-                      <div style="flex:1;min-width:0;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                          <span style="font-size:10.5px;font-weight:700;color:#0176D3;">Janet Morse</span>
-                          <span class="slds-badge slds-badge-warning">Medium Risk</span>
-                          <span style="font-size:7.5px;color:#706E6B;font-weight:700;">RANK #2</span>
-                        </div>
-                        <div style="font-size:8px;color:#706E6B;margin-top:1px;">Property Manager &middot; Cascade Properties &middot; 18 properties &middot; 28 days quiet</div>
-                      </div>
-                      <div style="font-size:12px;font-weight:900;color:#8C4B02;flex-shrink:0;">$62.1K</div>
-                    </div>
-                  </div>
-
-                  <div class="slds-card" data-explain="Dave Reyes|$21,800 YTD · 5 jobs|Rank 3. Smaller volume, longer gap. Agentforce ranks him below the others because the revenue exposure is lower, even though the gap is wider.">
-                    <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;">
-                      <div style="width:30px;height:30px;border-radius:4px;background:linear-gradient(135deg,#706E6B,#514F4D);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900;flex-shrink:0;">DR</div>
-                      <div style="flex:1;min-width:0;">
-                        <div style="display:flex;align-items:center;gap:6px;">
-                          <span style="font-size:10.5px;font-weight:700;color:#0176D3;">Dave Reyes</span>
-                          <span class="slds-badge slds-badge-neutral">Low Risk</span>
-                          <span style="font-size:7.5px;color:#706E6B;font-weight:700;">RANK #3</span>
-                        </div>
-                        <div style="font-size:8px;color:#706E6B;margin-top:1px;">Roofer &middot; Reyes Roofing &middot; 5 jobs &middot; 44 days quiet</div>
-                      </div>
-                      <div style="font-size:12px;font-weight:900;color:#514F4D;flex-shrink:0;">$21.8K</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════════
                  STEP 3 — INBOUND REFERRAL / JOB RECORD
             ═══════════════════════════════════════════════ -->
             <div class="demo-screen" id="ds-job">
@@ -1146,7 +1137,7 @@
                       <button class="slds-btn" data-explain="Edit|Inline record editing|Update any field without leaving the page. Field history tracks who changed what and when.">Edit</button>
                       <button class="slds-btn" data-explain="New Task|Create a follow-up|Tasks assigned here show on your BDR dashboard, so accountability is visible without asking anyone for a status update.">New Task</button>
                       <button class="slds-btn" data-explain="Log Call|Capture a conversation|Reps log calls from mobile in about 8 seconds. Duration and notes attach to the partner record automatically.">Log Call</button>
-                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="4">&#x2726; Send Agentforce Email</button>
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="4">&#x2726; Send Agentforce Touchpoint</button>
                     </div>
                   </div>
                   <div class="sf-hl-fields">
@@ -1255,405 +1246,162 @@
             </div>
 
             <!-- ═══════════════════════════════════════════════
-                 STEP 6 — BDR & TEAM ACCOUNTABILITY
+                 PHASE 2 — REVENUE PIPELINE · KANBAN + TASK QUEUE
             ═══════════════════════════════════════════════ -->
-            <div class="demo-screen" id="ds-bdr">
-              <div class="sf-chrome" data-active="Reports"></div>
-              <div class="sf-record-page">
-                <div class="sf-crumb"><span class="cl">Reports</span><span class="cs">&rsaquo;</span><span class="cc">Sales Activity &mdash; Rep Dashboard</span></div>
-                <div class="sf-one-col">
-                  <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-                    <div>
-                      <div style="font-size:13px;font-weight:700;color:#080707;">Sales Activity &mdash; This Week</div>
-                      <div style="font-size:8.5px;color:#706E6B;margin-top:1px;">Jordan Reyes &middot; Business Development &middot; Sep 14&ndash;20</div>
-                    </div>
-                    <span class="slds-badge slds-badge-success" data-explain="Data source|Activity, not self-reporting|Every number here came from a call, email, or check-in that actually happened. Nobody filled out a weekly report.">&#x2713; Logged automatically</span>
-                  </div>
-
-                  <div class="sf-tiles">
-                    <div class="sf-tile" data-explain="Calls|11 logged this week|Each one captured from the rep mobile app with real duration. You are seeing activity, not an estimate typed on Friday afternoon.">
-                      <div class="sf-tile-label">Calls Logged</div>
-                      <div class="sf-tile-value" style="color:#0176D3;">11</div>
-                      <div class="sf-tile-sub">4.2 hrs talk time</div>
-                    </div>
-                    <div class="sf-tile" data-explain="Emails|8 captured via Outlook|Sent from Outlook, logged to Salesforce automatically. The rep never copied anything into a CRM field.">
-                      <div class="sf-tile-label">Emails Sent</div>
-                      <div class="sf-tile-value" style="color:#0176D3;">8</div>
-                      <div class="sf-tile-sub">100% auto-logged</div>
-                    </div>
-                    <div class="sf-tile" data-explain="On-site Visits|5 partner visits|Geo-stamped check-ins from the mobile app. You know he was actually at the plumbing shop, not just that he said he was.">
-                      <div class="sf-tile-label">On-site Visits</div>
-                      <div class="sf-tile-value" style="color:#7C3AED;">5</div>
-                      <div class="sf-tile-sub">Geo-verified</div>
-                    </div>
-                    <div class="sf-tile" data-explain="Referrals Sourced|3 new jobs · $34.9K|The outcome that matters. Activity is the input; this is the return on paying a BDR.">
-                      <div class="sf-tile-label">Referrals Sourced</div>
-                      <div class="sf-tile-value" style="color:#2E844A;">3</div>
-                      <div class="sf-tile-sub">$34.9K pipeline</div>
-                    </div>
-                  </div>
-
-                  <div style="display:flex;gap:8px;flex-shrink:0;">
-                    <div class="slds-card" style="flex:1;">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Activity by Day</span></div>
-                      <div class="slds-card-body" style="padding:9px 11px 7px;">
-                        <div class="sf-bar-chart" style="height:52px;" data-explain="Activity by Day|Peaks Tuesday and Thursday|Route days. You can see the rhythm of a rep week without asking a single question about it.">
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="55%"></div><div class="sf-bar-lbl">M</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar bar-orange" data-h="92%"></div><div class="sf-bar-lbl">T</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="48%"></div><div class="sf-bar-lbl">W</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar bar-orange" data-h="86%"></div><div class="sf-bar-lbl">Th</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="40%"></div><div class="sf-bar-lbl">F</div></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="slds-card" style="flex:1.2;">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Partner Coverage</span><span class="slds-card-meta">Contacted in last 21 days</span></div>
-                      <div class="slds-card-body" style="padding:9px 11px 6px;">
-                        <div class="sf-hbar-row" data-explain="Gold partners|92% covered|Your highest-revenue partners are being touched inside the 21-day window. That is the number that protects referral volume.">
-                          <span class="sf-hbar-name">Gold tier</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="92%" style="background:#2E844A;"></span></span><span class="sf-hbar-val">92%</span>
-                        </div>
-                        <div class="sf-hbar-row" data-explain="Silver partners|64% covered|The gap Agentforce is working on. Mid-tier partners are where most franchises quietly lose referral volume.">
-                          <span class="sf-hbar-name">Silver tier</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="64%" style="background:#FF6900;"></span></span><span class="sf-hbar-val">64%</span>
-                        </div>
-                        <div class="sf-hbar-row" data-explain="Bronze partners|38% covered|Low revenue per partner, so lower priority. Agentforce weights outreach by revenue at stake rather than treating all partners equally.">
-                          <span class="sf-hbar-name">Bronze tier</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="38%" style="background:#706E6B;"></span></span><span class="sf-hbar-val">38%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="slds-card">
-                    <div class="slds-card-hdr"><span class="slds-card-title">Task Queue</span><span class="slds-card-meta">1 overdue &middot; 4 complete</span></div>
-                    <!-- PRIMARY TARGET — data-complete-task triggers the inline animation before advancing -->
-                    <div class="sf-task overdue guided-pulse" id="task-bdr-johnson" data-complete-task>
-                      <div class="sf-task-check"></div>
-                      <div style="flex:1;min-width:0;">
-                        <div class="sf-task-t">Follow up on Johnson Residence scope upgrade <span class="gp-cue">&#x25B8; Mark complete</span></div>
-                        <div class="sf-task-m">Due yesterday &middot; created by Agentforce from a voice note</div>
-                      </div>
-                      <span class="slds-badge slds-badge-error">Overdue</span>
-                    </div>
-                    <div class="sf-task" data-explain="Completed task|Intro mold team to Mike|Closed Tuesday. The completion timestamp came from the mobile app the moment the rep finished the conversation.">
-                      <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                      <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Intro mold team to Mike Sullivan</div><div class="sf-task-m">Completed Tuesday 2:14 PM</div></div>
-                      <span class="slds-badge slds-badge-success">Done</span>
-                    </div>
-                    <div class="sf-task" data-explain="Completed task|Cedar Vista HOA estimate|Sent Monday. The estimate PDF generated from the job record and logged itself to the opportunity.">
-                      <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                      <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Send Cedar Vista HOA estimate</div><div class="sf-task-m">Completed Monday 9:40 AM</div></div>
-                      <span class="slds-badge slds-badge-success">Done</span>
-                    </div>
-                    <div class="sf-task" data-explain="Completed task|Quarterly check-in, Dave Reyes|Logged from the truck as a voice note. Three CRM actions fired off one 20-second recording.">
-                      <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-                      <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Quarterly check-in &mdash; Dave Reyes</div><div class="sf-task-m">Completed Monday 4:02 PM</div></div>
-                      <span class="slds-badge slds-badge-success">Done</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════════
-                 STEP 7 — PROACTIVE OUTREACH · JANET MORSE
-            ═══════════════════════════════════════════════ -->
-            <div class="demo-screen" id="ds-janet">
-              <div class="sf-chrome" data-active="Accounts"></div>
-              <div class="sf-record-page">
-                <div class="sf-crumb"><span class="cl">Accounts</span><span class="cs">&rsaquo;</span><span class="cc">Janet Morse &mdash; Cascade Properties</span></div>
-
-                <div class="sf-highlights">
-                  <div class="sf-hl-top">
-                    <div class="sf-hl-icon" style="background:linear-gradient(135deg,#0176D3,#014486);">JM</div>
-                    <div class="sf-hl-id" data-explain="Account Record|Janet Morse — Cascade Properties|Property managers behave differently from trade partners. Janet controls 18 buildings, which means 18 recurring sources of mold and water work.">
-                      <div class="sf-hl-type">Account &middot; Property Manager</div>
-                      <div class="sf-hl-name">Janet Morse</div>
-                      <div class="sf-hl-sub">Cascade Properties &middot; 18 properties managed &middot; Portland metro</div>
-                    </div>
-                    <div class="sf-hl-actions">
-                      <button class="slds-btn" data-explain="Edit|Inline record editing|Change any field in place. Field-level security decides what each profile can see and edit.">Edit</button>
-                      <button class="slds-btn" data-explain="Log Call|Capture the conversation|Logged in seconds from mobile. Janet&rsquo;s relationship score updates the moment the call is saved.">Log Call</button>
-                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="7">&#x2726; Send Proactive Mold Campaign</button>
-                    </div>
-                  </div>
-                  <div class="sf-hl-fields">
-                    <div class="sf-hl-field" data-explain="Revenue YTD|$62,100|Eleven jobs across her portfolio this year. Property managers compound — one relationship, many buildings.">
-                      <div class="sf-hl-label">Revenue YTD</div>
-                      <div class="sf-hl-value" style="color:#2E844A;">$62,100</div>
-                    </div>
-                    <div class="sf-hl-field" data-explain="Properties Managed|18 buildings|Each building is a recurring source of water and mold work. This is why Agentforce weights property managers heavily.">
-                      <div class="sf-hl-label">Properties</div>
-                      <div class="sf-hl-value">18</div>
-                    </div>
-                    <div class="sf-hl-field" data-explain="Top Service Line|Mold — 31% higher margin|The correlation Agentforce found on its own. Property manager referrals skew toward mold, and mold is your most profitable work.">
-                      <div class="sf-hl-label">Top Service Line</div>
-                      <div class="sf-hl-value" style="color:#7C3AED;font-size:11.5px;">Mold</div>
-                      <div class="sf-hl-note" style="color:#2E844A;">+31% margin</div>
-                    </div>
-                    <div class="sf-hl-field" data-explain="Days Since Contact|28 days|Mold season opens in six weeks. Historically her highest-referral window. Reaching out now captures the full season instead of the tail of it.">
-                      <div class="sf-hl-label">Days Since Contact</div>
-                      <div class="sf-hl-value" style="color:#8C4B02;">28</div>
-                      <div class="sf-hl-note" style="color:#8C4B02;">$22K at risk</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="sf-cols">
-                  <div class="sf-col-main">
-                    <div class="af-panel">
-                      <div class="af-panel-hdr">
-                        <span style="font-size:11px;color:#fff;">&#x2726;</span>
-                        <span class="af-panel-hdr-t">Agentforce Insight &mdash; Correlation Found</span>
-                        <span class="af-panel-hdr-s">Confidence 94%</span>
-                      </div>
-                      <div class="af-insight" data-explain="The correlation|Property managers drive mold at 31% higher margin|Nobody asked Agentforce this question. It found the pattern across two years of your own job data and surfaced it.">
-                        <div class="af-spark">&#x2726;</div>
-                        <div style="font-size:9px;color:#3E3E3C;line-height:1.65;">
-                          <strong style="color:#080707;">Property manager partners drive mold jobs at 31% higher margin.</strong>
-                          Janet manages 18 properties and mold season opens in 6 weeks &mdash; historically her highest-referral period. Re-engaging now captures the full seasonal pipeline instead of the back half.
-                        </div>
-                      </div>
-                      <div style="padding:8px 11px;border-top:1px solid #F3F2F2;">
-                        <div style="font-size:8px;font-weight:800;color:#706E6B;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:5px;">Campaign drafted by Agentforce</div>
-                        <div style="background:#FAFAF9;border:1px solid #DDDBDA;border-radius:4px;padding:8px 10px;" data-explain="Drafted campaign|Seasonal mold readiness|Written from her portfolio data and last year&rsquo;s moisture readings. You approve it — you do not write it.">
-                          <div style="font-size:8px;color:#706E6B;margin-bottom:3px;">To: janet@cascadeproperties.com &nbsp;&middot;&nbsp; From: Melissa</div>
-                          <div style="font-size:9.5px;font-weight:800;color:#080707;margin-bottom:5px;">Subject: Mold season is coming &mdash; are your 18 properties ready?</div>
-                          <div style="font-size:8.5px;color:#3E3E3C;line-height:1.7;">Hi Janet, mold season opens in about six weeks. Based on last year, your Cascade properties start showing elevated moisture readings in early October. We would like to do complimentary walk-throughs on the four buildings that flagged last season before then.</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="sf-col-side">
-                    <div class="slds-card">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Properties (18)</span><span class="slds-card-meta">4 flagged</span></div>
-                      <table class="slds-table">
-                        <tbody>
-                          <tr data-explain="Riverside Apartments|Flagged last season|Elevated moisture in October last year. Agentforce remembers so you do not have to.">
-                            <td><span class="slds-link" style="font-size:9px;">Riverside Apts</span></td><td style="text-align:right;"><span class="slds-badge slds-badge-warning">Flagged</span></td>
-                          </tr>
-                          <tr data-explain="Cedar Vista HOA|Flagged last season|Three units had mold remediation in Q4 last year. Prime candidate for a preventive walk-through.">
-                            <td><span class="slds-link" style="font-size:9px;">Cedar Vista HOA</span></td><td style="text-align:right;"><span class="slds-badge slds-badge-warning">Flagged</span></td>
-                          </tr>
-                          <tr data-explain="Harbor View Apartments|Currently in progress|Active water job, day 2 of 5. Janet gets status without calling anyone for an update.">
-                            <td><span class="slds-link" style="font-size:9px;">Harbor View Apts</span></td><td style="text-align:right;"><span class="slds-badge slds-badge-neutral">Active</span></td>
-                          </tr>
-                          <tr data-explain="Greenbrook HOA|Closed won September 4|An $18,200 mold job that closed this month. Attributed to Janet automatically.">
-                            <td><span class="slds-link" style="font-size:9px;">Greenbrook HOA</span></td><td style="text-align:right;"><span class="slds-badge slds-badge-success">Won</span></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="slds-card">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Activity Timeline</span></div>
-                      <div class="slds-timeline">
-                        <div class="slds-tl-item" data-explain="Agentforce alert|Touchpoint gap detected|Fired at day 28, not day 90. The system tells you before referrals stop, not after you notice they did.">
-                          <div class="slds-tl-ico" style="background:#FF6900;">&#x2726;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Touchpoint gap flagged</div><div class="slds-tl-m">Agentforce &middot; 28-day threshold</div></div>
-                          <div class="slds-tl-when">Today</div>
-                        </div>
-                        <div class="slds-tl-item" data-explain="Job closed|Greenbrook HOA · $18,200|Mold remediation, closed September 4. Revenue rolled up to Janet with no manual attribution step.">
-                          <div class="slds-tl-ico" style="background:#2E844A;">&#x2713;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Greenbrook HOA closed won</div><div class="slds-tl-m">$18,200 &middot; mold remediation</div></div>
-                          <div class="slds-tl-when">Sep 4</div>
-                        </div>
-                        <div class="slds-tl-item" data-explain="Email captured|Quarterly portfolio review|Logged from Outlook in August. That was the last real touchpoint, which is what started the 28-day clock.">
-                          <div class="slds-tl-ico" style="background:#0176D3;">&#x2709;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Portfolio review email</div><div class="slds-tl-m">Auto-logged via Outlook</div></div>
-                          <div class="slds-tl-when">Aug 19</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════════
-                 STEP 8 — OUTREACH CONFIRMATION & RELATED LIST
-            ═══════════════════════════════════════════════ -->
-            <div class="demo-screen" id="ds-related">
-              <div class="sf-chrome" data-active="Accounts"></div>
-              <div class="sf-record-page">
-                <div class="sf-crumb"><span class="cl">Accounts</span><span class="cs">&rsaquo;</span><span class="cl">Janet Morse</span><span class="cs">&rsaquo;</span><span class="cc">Related</span></div>
-                <div class="sf-one-col">
-                  <div class="slds-scoped-notif success" data-explain="What fired automatically|Four actions, one click|Campaign sent, activity logged, follow-up task scheduled, relationship score recalculated. Manual steps required: zero.">
-                    <svg width="15" height="15" fill="none" stroke="#2E844A" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><polyline points="20 6 9 17 4 12"/></svg>
-                    <div>
-                      <div style="font-size:10px;font-weight:800;color:#2E844A;">Campaign sent. Logged. Task scheduled.</div>
-                      <div style="font-size:8.5px;color:#3E3E3C;line-height:1.55;margin-top:2px;">Sent from Outlook &middot; captured by Salesforce Inbox &middot; logged to Janet&rsquo;s timeline &middot; 7-day follow-up task created &middot; relationship score recalculated. <strong>Manual steps: 0.</strong></div>
-                    </div>
-                  </div>
-
-                  <div class="sf-tabset" style="margin:0;">
-                    <div class="sf-tab" data-explain="Details tab|Account fields|Standard account detail layout for Janet&rsquo;s record.">Details</div>
-                    <div class="sf-tab" data-explain="Activity tab|Chronological history|The campaign you just sent is now the top entry in this timeline.">Activity</div>
-                    <div class="sf-tab active" data-explain="Related tab|Child records and related lists|Everything connected to Janet — properties, estimates, jobs, and files — surfaced as native related lists.">Related</div>
-                  </div>
-
-                  <div class="slds-card" style="border-radius:0 0 4px 4px;">
-                    <div class="slds-card-hdr">
-                      <span class="slds-card-title">
-                        <svg width="12" height="12" fill="none" stroke="#0176D3" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                        Estimates
-                      </span>
-                      <span class="slds-card-meta">3 of 47 &middot; $187,000 open</span>
-                    </div>
-                    <!-- PRIMARY TARGET -->
-                    <div class="guided-pulse" data-advance="8" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-bottom:1px solid #F3F2F2;background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;">
-                      <div style="width:24px;height:24px;border-radius:4px;background:linear-gradient(135deg,#0176D3,#014486);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        <svg width="12" height="12" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="11" rx="1"/></svg>
-                      </div>
-                      <div style="flex:1;min-width:0;">
-                        <div style="font-size:10px;font-weight:800;color:#0176D3;">Estimates Pipeline &mdash; All Open <span class="gp-cue">&#x25B8; View Kanban Board</span></div>
-                        <div style="font-size:8px;color:#706E6B;margin-top:1px;">$187,000 across 47 estimates &middot; <span style="color:#C44E00;font-weight:700;">8 flagged by Agentforce &#x2726;</span></div>
-                      </div>
-                      <svg width="12" height="12" fill="none" stroke="#0176D3" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                    <table class="slds-table">
-                      <thead><tr><th>Estimate</th><th>Service</th><th>Stage</th><th style="text-align:right;">Amount</th></tr></thead>
-                      <tbody>
-                        <tr data-explain="Eastside Commercial|$14,800 · Mold · In Progress|The job that came in from Mike this morning. It lives on Janet&rsquo;s related list too because it is one of her buildings.">
-                          <td><span class="slds-link">Eastside Commercial</span></td><td style="color:#7C3AED;font-weight:600;">Mold</td><td><span class="slds-badge slds-badge-warning">In Progress</span></td><td style="text-align:right;font-weight:800;">$14,800</td>
-                        </tr>
-                        <tr data-explain="Johnson Residence|$11,200 · Water · Estimate Sent|Adjuster visit Thursday. Claim number and adjuster contact already attached to the record.">
-                          <td><span class="slds-link">Johnson Residence</span></td><td style="color:#0176D3;font-weight:600;">Water</td><td><span class="slds-badge slds-badge-neutral">Estimate Sent</span></td><td style="text-align:right;font-weight:800;">$11,200</td>
-                        </tr>
-                        <tr data-explain="Harbor View Apartments|$28,900 · Water · In Progress|Day 2 of 5 across five units. Crew hours are posting live, so margin is known before the job closes.">
-                          <td><span class="slds-link">Harbor View Apts</span></td><td style="color:#0176D3;font-weight:600;">Water</td><td><span class="slds-badge slds-badge-warning">In Progress</span></td><td style="text-align:right;font-weight:800;">$28,900</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div class="slds-card">
-                    <div class="slds-card-hdr"><span class="slds-card-title">Upcoming Tasks</span><span class="slds-card-meta">Auto-scheduled</span></div>
-                    <div class="sf-task" data-explain="Auto-scheduled task|Follow up in 7 days|Created the instant the campaign sent. If Janet does not reply, this task appears on the BDR dashboard — not in someone&rsquo;s memory.">
-                      <div class="sf-task-check"></div>
-                      <div style="flex:1;min-width:0;"><div class="sf-task-t">Follow up with Janet on mold campaign</div><div class="sf-task-m">Due Sep 23 &middot; created automatically by Agentforce</div></div>
-                      <span class="slds-badge slds-badge-neutral">Scheduled</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- ═══════════════════════════════════════════════
-                 STEP 9 — PIPELINE & ESTIMATES · KANBAN
-            ═══════════════════════════════════════════════ -->
-            <div class="demo-screen" id="ds-kanban">
+            <div class="demo-screen" id="ds-pipeline">
               <div class="sf-chrome" data-active="Estimates"></div>
               <div class="sf-record-page">
                 <div style="display:flex;align-items:center;gap:8px;padding:6px 12px 0;flex-shrink:0;">
                   <div style="flex:1;min-width:0;">
                     <div style="font-size:8.5px;color:#706E6B;">Estimates</div>
-                    <div style="font-size:13px;font-weight:700;color:#080707;">All Open Estimates</div>
+                    <div style="font-size:13px;font-weight:700;color:#080707;">Revenue Pipeline &mdash; All Open</div>
                   </div>
-                  <span style="font-size:8.5px;color:#706E6B;" data-explain="List view|47 items, sorted by stage|A standard Salesforce list view. The same records render as a table, a Kanban board, or a chart — your choice, no rebuild.">47 items &middot; sorted by Stage</span>
+                  <span style="font-size:8.5px;color:#706E6B;" data-explain="List view|47 items, sorted by stage|A standard Salesforce list view. The same records render as a table, a Kanban board, or a chart — your choice, no rebuild and no separate report to maintain.">47 items &middot; $187K</span>
+                  <span class="slds-badge slds-badge-agent" data-explain="Agentforce Pipeline Guard|Watching every estimate clock|Agentforce monitors the hours elapsed on each sent estimate and flags any that cross 72 hours without adjuster or customer response. It escalates them onto your task queue automatically.">&#x2726; 72-hour guard active</span>
                   <div style="display:flex;gap:2px;flex-shrink:0;">
-                    <div style="width:22px;height:22px;border-radius:3px;background:#0176D3;display:flex;align-items:center;justify-content:center;" data-explain="Kanban view|Currently active|Drag a card between columns and the stage field updates on the record. Same data, visual layout.">
+                    <div style="width:22px;height:22px;border-radius:3px;background:#0176D3;display:flex;align-items:center;justify-content:center;" data-explain="Kanban view|Currently active|Drag a card between columns and the stage field updates on the record itself. Same data, visual layout — no double entry.">
                       <svg width="11" height="11" fill="#fff" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="11" rx="1"/></svg>
                     </div>
-                    <div style="width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;border:1px solid #DDDBDA;background:#fff;" data-explain="List view|Switch layouts|The same 47 records as a sortable table with inline editing. Toggling views does not change any data.">
+                    <div style="width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;border:1px solid #DDDBDA;background:#fff;" data-explain="List view|Switch layouts instantly|The same 47 records as a sortable table with inline editing. Toggling views never changes any underlying data.">
                       <svg width="11" height="11" fill="none" stroke="#706E6B" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
                     </div>
                   </div>
                 </div>
 
-                <div class="sf-kanban">
-                  <div class="sf-kanban-col">
-                    <div class="sf-kanban-col-hdr neutral" data-explain="New|4 estimates · $44K|Jobs that came in but have not been quoted yet. Most arrive as referral emails and become records automatically.">
-                      <div class="sf-kanban-col-title">New</div>
-                      <div class="sf-kanban-col-total">$44K</div>
-                      <div class="sf-kanban-col-count">4 estimates</div>
-                    </div>
-                    <div class="sf-kanban-cards">
-                      <div class="sf-kanban-card" data-explain="Johnson Residence|$11,200 · Water|Referred by Mike Sullivan today. State Farm claim already linked, adjuster visit Thursday.">
-                        <div class="kc-name">Johnson Residence</div><div class="kc-amount">$11,200</div><div class="kc-meta">Water &middot; Mike Sullivan &middot; today</div>
+                <div class="sf-pipeline-split">
+                  <!-- ── SLDS Kanban board ── -->
+                  <div class="sf-kanban">
+                    <div class="sf-kanban-col">
+                      <div class="sf-kanban-col-hdr neutral" data-explain="New|4 estimates · $44K|Jobs that came in but have not been quoted yet. Most arrive as referral emails and become records automatically, with the address and service type already parsed.">
+                        <div class="sf-kanban-col-title">New</div>
+                        <div class="sf-kanban-col-total">$44K</div>
+                        <div class="sf-kanban-col-count">4 estimates</div>
                       </div>
-                      <div class="sf-kanban-card" data-explain="Cedar Vista HOA|$8,400 · Mold|Three units affected. Board vote required before work can be approved, so the follow-up cadence is different.">
-                        <div class="kc-name">Cedar Vista HOA</div><div class="kc-amount">$8,400</div><div class="kc-meta">Mold &middot; inbound call &middot; Sep 14</div>
-                      </div>
-                      <div class="sf-kanban-card" data-explain="Riverside Apartments|$14,800 · Fire|Janet Morse&rsquo;s second referral this month. Fire and smoke work, adjuster pending.">
-                        <div class="kc-name">Riverside Apts</div><div class="kc-amount">$14,800</div><div class="kc-meta">Fire &middot; Janet Morse &middot; Sep 12</div>
-                      </div>
-                      <div class="sf-kanban-card" data-explain="River Heights Condo|$9,600 · Water|Came in from your website form and became a record with no one retyping it.">
-                        <div class="kc-name">River Heights Condo</div><div class="kc-amount">$9,600</div><div class="kc-meta">Water &middot; web lead &middot; Sep 11</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="sf-kanban-col">
-                    <div class="sf-kanban-col-hdr warn" data-explain="Estimate Sent|4 estimates · $67K · 2 overdue|Quoted and waiting. Agentforce watches the clock on every one of these and flags them at 72 hours.">
-                      <div class="sf-kanban-col-title">Estimate Sent</div>
-                      <div class="sf-kanban-col-total">$67K</div>
-                      <div class="sf-kanban-col-count">4 estimates &middot; &#9888; 2 overdue</div>
-                    </div>
-                    <div class="sf-kanban-cards">
-                      <!-- PRIMARY TARGET -->
-                      <div class="sf-kanban-card kc-overdue guided-pulse" data-advance="9">
-                        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:5px;">
-                          <div class="kc-name">Westside Apartments</div>
-                          <span class="slds-badge slds-badge-error" style="flex-shrink:0;">72+ hrs</span>
+                      <div class="sf-kanban-cards">
+                        <div class="sf-kanban-card" data-explain="Johnson Residence|$11,200 · Water|Referred by Mike Sullivan today. The State Farm claim number is already linked and the adjuster visit is on the calendar for Thursday.">
+                          <div class="kc-name">Johnson Residence</div><div class="kc-amount">$11,200</div><div class="kc-meta">Water &middot; Mike Sullivan &middot; today</div>
                         </div>
-                        <div class="kc-amount">$14,800</div>
-                        <div class="kc-meta">Water &middot; Mike Sullivan &middot; no response</div>
-                        <div style="margin-top:5px;padding:4px 6px;background:rgba(255,105,0,0.1);border-left:2px solid #FF6900;border-radius:3px;">
-                          <div style="font-size:7.5px;font-weight:800;color:#C44E00;">&#x2726; Agentforce Flag &mdash; 72+ hrs overdue</div>
-                          <div style="font-size:7px;color:#514F4D;margin-top:1px;">Close probability drops to 16% at day 14 &middot; <strong>click to act</strong></div>
+                        <div class="sf-kanban-card" data-explain="Cedar Vista HOA|$8,400 · Mold|Three units affected. A board vote is required before work can be approved, so Agentforce uses a longer follow-up cadence here.">
+                          <div class="kc-name">Cedar Vista HOA</div><div class="kc-amount">$8,400</div><div class="kc-meta">Mold &middot; inbound call &middot; Sep 14</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="Riverside Apartments|$14,800 · Fire|A property manager referral. Fire and smoke work with the adjuster assignment still pending.">
+                          <div class="kc-name">Riverside Apts</div><div class="kc-amount">$14,800</div><div class="kc-meta">Fire &middot; property mgr &middot; Sep 12</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="River Heights Condo|$9,600 · Water|Came in through your website form and became a record with nobody retyping it. Response time on web leads is tracked automatically.">
+                          <div class="kc-name">River Heights Condo</div><div class="kc-amount">$9,600</div><div class="kc-meta">Water &middot; web lead &middot; Sep 11</div>
                         </div>
                       </div>
-                      <div class="sf-kanban-card kc-overdue" data-explain="Cedar Ridge HOA|$12,400 · 15 days out|Past the 14-day window. Agentforce has already queued a follow-up email and escalated it on the task queue.">
-                        <div class="kc-name">Cedar Ridge HOA</div><div class="kc-amount">$12,400</div><div class="kc-meta">Mold &middot; 15 days &middot; critical</div>
+                    </div>
+
+                    <div class="sf-kanban-col">
+                      <div class="sf-kanban-col-hdr warn" data-explain="Estimate Sent|4 estimates · $67K · 2 overdue|Quoted and waiting on a response. Agentforce watches the clock on every one of these and flags them the moment they cross 72 hours.">
+                        <div class="sf-kanban-col-title">Estimate Sent</div>
+                        <div class="sf-kanban-col-total">$67K</div>
+                        <div class="sf-kanban-col-count">4 estimates &middot; &#9888; 2 overdue</div>
                       </div>
-                      <div class="sf-kanban-card" data-explain="Lakewood Condos|$21,400 · opened twice|Salesforce Inbox tracked the property manager opening the estimate twice. That is a buying signal, and Agentforce recommends calling today.">
-                        <div class="kc-name">Lakewood Condos</div><div class="kc-amount">$21,400</div><div class="kc-meta">Water &middot; 6 days &middot; opened 2&times;</div>
+                      <div class="sf-kanban-cards">
+                        <!-- 72-HOUR EXPIRATION GUARD -->
+                        <div class="sf-kanban-card kc-overdue" data-explain="Westside Apartments|$14,800 · 72+ hrs no response|This is the 72-hour expiration guard firing. Agentforce knows close probability falls to 16% by day 14, so it escalated this estimate onto your task queue below rather than waiting for you to notice.">
+                          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:5px;">
+                            <div class="kc-name">Westside Apartments</div>
+                            <span class="slds-badge slds-badge-error" style="flex-shrink:0;">72+ hrs</span>
+                          </div>
+                          <div class="kc-amount">$14,800</div>
+                          <div class="kc-meta">Water &middot; Mike Sullivan &middot; no response</div>
+                          <div style="margin-top:5px;padding:4px 6px;background:rgba(255,105,0,0.1);border-left:2px solid #FF6900;border-radius:3px;">
+                            <div style="font-size:7.5px;font-weight:800;color:#C44E00;">&#x2726; Agentforce &mdash; 72-hour guard</div>
+                            <div style="font-size:7px;color:#514F4D;margin-top:1px;">Escalated to your task queue below</div>
+                          </div>
+                        </div>
+                        <div class="sf-kanban-card kc-overdue" data-explain="Cedar Ridge HOA|$12,400 · 15 days out|Past the 14-day window. Agentforce has already drafted a follow-up email and queued it, so recovering this one costs you a single click.">
+                          <div class="kc-name">Cedar Ridge HOA</div><div class="kc-amount">$12,400</div><div class="kc-meta">Mold &middot; 15 days &middot; critical</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="Lakewood Condos|$21,400 · opened twice|Salesforce Inbox tracked the property manager opening this estimate twice. That is a buying signal, and Agentforce recommends calling today while interest is live.">
+                          <div class="kc-name">Lakewood Condos</div><div class="kc-amount">$21,400</div><div class="kc-meta">Water &middot; 6 days &middot; opened 2&times;</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="Thornfield Estates|$24,300 · awaiting HOA vote|Not flagged, because the HOA meets next week. Agentforce suppresses the nudge when a delay is structural rather than neglect.">
+                          <div class="kc-name">Thornfield Estates</div><div class="kc-amount">$24,300</div><div class="kc-meta">Mold &middot; 3 days &middot; HOA vote</div>
+                        </div>
                       </div>
-                      <div class="sf-kanban-card" data-explain="Thornfield Estates|$24,300 · awaiting HOA vote|Not overdue — the HOA meets next week. Agentforce suppresses the nudge when the delay is structural, not neglect.">
-                        <div class="kc-name">Thornfield Estates</div><div class="kc-amount">$24,300</div><div class="kc-meta">Mold &middot; 3 days &middot; HOA vote</div>
+                    </div>
+
+                    <div class="sf-kanban-col">
+                      <div class="sf-kanban-col-hdr" data-explain="In Progress|3 jobs · $76K|Crews on site right now. These stages moved here on their own when techs checked in from the mobile app — nobody dragged a card.">
+                        <div class="sf-kanban-col-title">In Progress</div>
+                        <div class="sf-kanban-col-total">$76K</div>
+                        <div class="sf-kanban-col-count">3 estimates</div>
+                      </div>
+                      <div class="sf-kanban-cards">
+                        <div class="sf-kanban-card" data-explain="Eastside Commercial|$22,100 · day 4 of 7|Scope grew from $14,800 to $22,100 after the tech found additional affected units. The change order was approved from a phone on site.">
+                          <div class="kc-name">Eastside Commercial</div><div class="kc-amount">$22,100</div><div class="kc-meta">Mold &middot; day 4 of 7 &middot; crew on site</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="Harbor View Apartments|$28,900 · 5 units|Day 2 of 5. The property manager can see live status in a portal without calling you for an update.">
+                          <div class="kc-name">Harbor View Apts</div><div class="kc-amount">$28,900</div><div class="kc-meta">Water &middot; day 2 &middot; 5 units</div>
+                        </div>
+                        <div class="sf-kanban-card" data-explain="Maple Heights HOA|$25,000 · final inspection|Day 6 of 6. The invoice will generate from logged crew hours and equipment days, not from a rebuilt spreadsheet.">
+                          <div class="kc-name">Maple Heights HOA</div><div class="kc-amount">$25,000</div><div class="kc-meta">Fire &middot; day 6 &middot; final inspection</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="sf-kanban-col">
+                      <div class="sf-kanban-col-hdr success" data-explain="Closed Won|$124K year to date|Closed revenue, attributed to the partner who sent each job. This column is what feeds your executive dashboard in real time.">
+                        <div class="sf-kanban-col-title">Closed Won &#x2713;</div>
+                        <div class="sf-kanban-col-total" style="color:#2E844A;">$124K</div>
+                        <div class="sf-kanban-col-count">YTD &middot; 11 jobs</div>
+                      </div>
+                      <div class="sf-kanban-cards">
+                        <div class="sf-kanban-card kc-won" data-explain="Westfield Apartments|$8,900 · closed Sep 10|Attributed to Mike Sullivan automatically. Nobody filled in a referral source picklist for this to happen.">
+                          <div class="kc-name">Westfield Apartments</div><div class="kc-amount">$8,900</div><div class="kc-meta">Water &middot; Sep 10 &middot; Mike Sullivan</div>
+                        </div>
+                        <div class="sf-kanban-card kc-won" data-explain="Greenbrook HOA|$18,200 · closed Sep 4|A mold job from a property manager at 52% margin — your most profitable service line by a wide gap.">
+                          <div class="kc-name">Greenbrook HOA</div><div class="kc-amount">$18,200</div><div class="kc-meta">Mold &middot; Sep 4 &middot; property mgr</div>
+                        </div>
+                        <div class="sf-kanban-card kc-won" data-explain="Millbrook Commons|$14,600 · closed Aug 28|Fire and smoke restoration. The invoice generated straight from hours logged on the job record.">
+                          <div class="kc-name">Millbrook Commons</div><div class="kc-amount">$14,600</div><div class="kc-meta">Fire &middot; Aug 28</div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="sf-kanban-col">
-                    <div class="sf-kanban-col-hdr" data-explain="In Progress|3 jobs · $76K|Crews on site. Stages moved here on their own when techs checked in from the mobile app.">
-                      <div class="sf-kanban-col-title">In Progress</div>
-                      <div class="sf-kanban-col-total">$76K</div>
-                      <div class="sf-kanban-col-count">3 estimates</div>
-                    </div>
-                    <div class="sf-kanban-cards">
-                      <div class="sf-kanban-card" data-explain="Eastside Commercial|$22,100 · day 4 of 7|Scope grew from $14,800 to $22,100 after the tech found additional affected units. The change order was approved from a phone.">
-                        <div class="kc-name">Eastside Commercial</div><div class="kc-amount">$22,100</div><div class="kc-meta">Mold &middot; day 4 of 7 &middot; crew on site</div>
+                  <!-- ── Rep Task Queue (Agentforce-escalated) ── -->
+                  <div class="sf-pipeline-tasks">
+                    <div class="slds-card">
+                      <div class="slds-card-hdr">
+                        <span class="slds-card-title">My Tasks &mdash; Jordan Reyes</span>
+                        <span class="slds-card-meta">1 overdue &middot; 3 complete &middot; escalated by Agentforce</span>
                       </div>
-                      <div class="sf-kanban-card" data-explain="Harbor View Apartments|$28,900 · 5 units|Janet Morse&rsquo;s building. Day 2 of 5. She can see status without calling you for an update.">
-                        <div class="kc-name">Harbor View Apts</div><div class="kc-amount">$28,900</div><div class="kc-meta">Water &middot; day 2 &middot; 5 units</div>
-                      </div>
-                      <div class="sf-kanban-card" data-explain="Maple Heights HOA|$25,000 · final inspection|Day 6 of 6. Invoice will generate from the logged crew hours and equipment days, not a rebuilt spreadsheet.">
-                        <div class="kc-name">Maple Heights HOA</div><div class="kc-amount">$25,000</div><div class="kc-meta">Fire &middot; day 6 &middot; final inspection</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="sf-kanban-col">
-                    <div class="sf-kanban-col-hdr success" data-explain="Closed Won|$124K year to date|Closed revenue, attributed to the partner who sent each job. This is what feeds your executive dashboard.">
-                      <div class="sf-kanban-col-title">Closed Won &#x2713;</div>
-                      <div class="sf-kanban-col-total" style="color:#2E844A;">$124K</div>
-                      <div class="sf-kanban-col-count">YTD &middot; 11 jobs</div>
-                    </div>
-                    <div class="sf-kanban-cards">
-                      <div class="sf-kanban-card kc-won" data-explain="Westfield Apartments|$8,900 · closed Sep 10|Attributed to Mike Sullivan automatically. No one filled in a referral source field.">
-                        <div class="kc-name">Westfield Apartments</div><div class="kc-amount">$8,900</div><div class="kc-meta">Water &middot; Sep 10 &middot; Mike Sullivan</div>
-                      </div>
-                      <div class="sf-kanban-card kc-won" data-explain="Greenbrook HOA|$18,200 · closed Sep 4|Mold job from Janet Morse. 52% margin — your most profitable service line.">
-                        <div class="kc-name">Greenbrook HOA</div><div class="kc-amount">$18,200</div><div class="kc-meta">Mold &middot; Sep 4 &middot; Janet Morse</div>
-                      </div>
-                      <div class="sf-kanban-card kc-won" data-explain="Millbrook Commons|$14,600 · closed Aug 28|Fire and smoke restoration. Invoice generated from logged hours on the job record.">
-                        <div class="kc-name">Millbrook Commons</div><div class="kc-amount">$14,600</div><div class="kc-meta">Fire &middot; Aug 28</div>
+                      <div class="sf-task-scroll">
+                        <!-- PHASE 2 PRIMARY TARGET — inline completion animation -->
+                        <div class="sf-task overdue guided-pulse" id="task-bdr-johnson" data-complete-task>
+                          <div class="sf-task-check"></div>
+                          <div style="flex:1;min-width:0;">
+                            <div class="sf-task-t">Follow up on Westside Apartments estimate <span class="gp-cue">&#x25B8; Mark complete</span></div>
+                            <div class="sf-task-m">Due yesterday &middot; escalated by the 72-hour guard</div>
+                          </div>
+                          <span class="slds-badge slds-badge-error">Overdue</span>
+                        </div>
+                        <div class="sf-task" data-explain="Completed task|Intro mold team to Mike Sullivan|Closed Tuesday. The completion timestamp came off the mobile app the moment the rep finished the conversation, not from a form filled in on Friday.">
+                          <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Intro mold team to Mike Sullivan</div><div class="sf-task-m">Completed Tuesday 2:14 PM</div></div>
+                          <span class="slds-badge slds-badge-success">Done</span>
+                        </div>
+                        <div class="sf-task" data-explain="Completed task|Cedar Vista HOA estimate|Sent Monday. The estimate PDF generated from the job record and logged itself against the opportunity automatically.">
+                          <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Send Cedar Vista HOA estimate</div><div class="sf-task-m">Completed Monday 9:40 AM</div></div>
+                          <span class="slds-badge slds-badge-success">Done</span>
+                        </div>
+                        <div class="sf-task" data-explain="Completed task|Quarterly check-in, Dave Reyes|Logged from the truck as a voice note. Three CRM actions fired off one 20-second recording.">
+                          <div class="sf-task-check done"><svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <div style="flex:1;min-width:0;"><div class="sf-task-t" style="color:#706E6B;text-decoration:line-through;">Quarterly check-in &mdash; Dave Reyes</div><div class="sf-task-m">Completed Monday 4:02 PM</div></div>
+                          <span class="slds-badge slds-badge-success">Done</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
             <!-- ═══════════════════════════════════════════════
                  STEP 10 — EXECUTIVE DASHBOARD & FINALE
             ═══════════════════════════════════════════════ -->
@@ -1731,12 +1479,12 @@
                   <div class="af-panel">
                     <div class="af-panel-hdr">
                       <span style="font-size:11px;color:#fff;">&#x2726;</span>
-                      <span class="af-panel-hdr-t">Agentforce &mdash; What To Do Next Quarter</span>
+                      <span class="af-panel-hdr-t">Agentforce &mdash; Correlation Engine</span>
                     </div>
-                    <div class="af-insight" data-explain="The strategic read|Convert water partners into mold referrers|This is the recommendation that came out of your own data. Not a benchmark, not an industry average — your jobs, your partners, your margins.">
+                    <div class="af-insight" data-explain="Correlation Engine|A pattern you did not ask it to look for|Agentforce cross-referenced partner type against closed-job margin across all 240 of your partners. Nobody wrote this report — the correlation surfaced on its own out of your own data.">
                       <div class="af-spark">&#x2726;</div>
                       <div style="font-size:9px;color:#3E3E3C;line-height:1.65;">
-                        <strong style="color:#080707;">Grow the property manager channel.</strong> They are 26% of your revenue but deliver your highest-margin work. Three of your top plumbers also service multi-family buildings &mdash; introducing them to your mold team is projected to add <strong style="color:#2E844A;">$42K at 52% margin</strong> next quarter.
+                        <strong style="color:#080707;">Property manager partners drive mold jobs at 31% higher margin.</strong> Mold returns <strong style="color:#7C3AED;">52% margin</strong> against <strong style="color:#0176D3;">31% on water</strong> &mdash; and property managers are the channel that feeds it. Three of your top plumbers also service multi-family buildings; introducing them to your mold team projects <strong style="color:#2E844A;">+$42K at 52% margin</strong> next quarter.
                       </div>
                     </div>
                   </div>
@@ -1760,9 +1508,9 @@
                 </div>
                 <div style="display:inline-block;background:rgba(255,105,0,0.1);border:1px solid rgba(255,105,0,0.2);color:#FF6900;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:3px 12px;border-radius:20px;margin-bottom:12px;">Interactive Desktop Demo</div>
                 <div style="font-size:17px;font-weight:900;color:#00346D;margin-bottom:8px;line-height:1.2;">Try the Desktop Demo</div>
-                <div style="font-size:10px;color:#64748B;line-height:1.65;margin-bottom:18px;">A real Salesforce franchise workday — from morning brief to executive dashboard. 10 steps, guided by Agentforce.</div>
+                <div style="font-size:10px;color:#64748B;line-height:1.65;margin-bottom:18px;">A day in the life of a PuroClean franchise owner — from morning control to executive dashboard. 5 phases, guided by Agentforce.</div>
                 <div style="padding:12px 32px;background:linear-gradient(135deg,#FF6900,#C44E00);border-radius:12px;font-size:12px;font-weight:800;color:white;box-shadow:0 6px 20px rgba(255,105,0,0.4);display:inline-block;animation:guidedPulse 1.8s ease-out infinite;">Click to Begin &#x2192;</div>
-                <div style="margin-top:12px;font-size:8.5px;color:#CBD5E1;">&#x2022; 10 steps &nbsp;&#x2022; 3 live notifications &nbsp;&#x2022; Real Salesforce data</div>
+                <div style="margin-top:12px;font-size:8.5px;color:#CBD5E1;">&#x2022; 5 phases &nbsp;&#x2022; 2 live notifications &nbsp;&#x2022; Fully explorable SLDS UI</div>
               </div>
             </div>
 
@@ -1811,18 +1559,40 @@
                   <img src="https://www.puroclean.com/wp-content/themes/puroclean-tw/assets/img/puroclean-logo.svg" style="height:20px;filter:brightness(0) invert(1);" onerror="this.style.display='none'"/>
                   <span style="color:rgba(255,255,255,0.35);font-size:11px;">&#x00D7; Salesforce</span>
                 </div>
-                <div style="font-size:18px;font-weight:900;color:white;line-height:1.2;margin-bottom:10px;">This is what a franchise<br>run on data looks like.</div>
-                <div style="display:flex;gap:8px;margin-bottom:14px;">
-                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px;"><div style="font-size:18px;font-weight:900;color:#FF6900;">22%</div><div style="font-size:8px;color:rgba(255,255,255,0.55);margin-top:3px;">More referral revenue when partners contacted every 21 days</div></div>
-                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px;"><div style="font-size:18px;font-weight:900;color:#FF6900;">2+ hrs</div><div style="font-size:8px;color:rgba(255,255,255,0.55);margin-top:3px;">Saved per rep per day. Zero manual logging.</div></div>
-                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px;"><div style="font-size:18px;font-weight:900;color:#FF6900;">Day 21</div><div style="font-size:8px;color:rgba(255,255,255,0.55);margin-top:3px;">Agentforce alerts before referrals stop — not after.</div></div>
+                <div style="font-size:17px;font-weight:900;color:white;line-height:1.2;margin-bottom:9px;">This is what a franchise<br>run on data looks like.</div>
+                <div style="display:flex;gap:7px;margin-bottom:11px;">
+                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:9px;padding:8px;"><div style="font-size:16px;font-weight:900;color:#FF6900;">22%</div><div style="font-size:7.5px;color:rgba(255,255,255,0.55);margin-top:2px;">More referral revenue when partners contacted every 21 days</div></div>
+                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:9px;padding:8px;"><div style="font-size:16px;font-weight:900;color:#FF6900;">2+ hrs</div><div style="font-size:7.5px;color:rgba(255,255,255,0.55);margin-top:2px;">Saved per rep per day. Zero manual logging.</div></div>
+                  <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:9px;padding:8px;"><div style="font-size:16px;font-weight:900;color:#FF6900;">52%</div><div style="font-size:7.5px;color:rgba(255,255,255,0.55);margin-top:2px;">Mold margin — the lane Agentforce found in your own data</div></div>
                 </div>
-                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-style:italic;font-size:10px;color:rgba(255,255,255,0.7);line-height:1.6;">"The ability to track who's doing what, and to get automatic reminders — that's the biggest thing for me. I want somebody to tell me what they're doing, not for me to have to ask them to do it."<div style="margin-top:6px;font-style:normal;font-size:9px;color:rgba(255,255,255,0.45);">— Melissa Wittig, PuroClean of Pacific NW</div></div>
-                <div style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;">
-                  <a href="#" onclick="hideFinale();openEmailModal();return false;" style="flex:1;background:#FF6900;color:white;border-radius:20px;padding:11px 14px;font-size:10px;font-weight:800;text-align:center;text-decoration:none;display:block;box-shadow:0 4px 18px rgba(255,105,0,0.4);">&#x26A1; Get my live walkthrough &#x2192;</a>
-                  <a href="#" onclick="hideFinale();return false;" style="flex:1;background:rgba(255,255,255,0.1);color:white;border-radius:20px;padding:11px 14px;font-size:10px;font-weight:700;text-align:center;text-decoration:none;display:block;">&#x21A9; Keep exploring</a>
+                <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:9px 14px;margin-bottom:12px;font-style:italic;font-size:9.5px;color:rgba(255,255,255,0.7);line-height:1.6;">"The ability to track who's doing what, and to get automatic reminders — that's the biggest thing for me. I want somebody to tell me what they're doing, not for me to have to ask them to do it."<div style="margin-top:5px;font-style:normal;font-size:8.5px;color:rgba(255,255,255,0.45);">— Melissa Wittig, PuroClean of Pacific NW</div></div>
+
+                <!-- ══ DIRECT LEAD CONVERSION — real people, real availability ══ -->
+                <div class="fin-people">
+                  <div class="fin-person">
+                    <img class="fin-shot pc-orange-ring" src="photo-corey.png" alt="Corey LaDow" onerror="this.style.display='none'"/>
+                    <div class="fin-name">Corey LaDow</div>
+                    <div class="fin-role">Account Executive</div>
+                  </div>
+                  <div class="fin-person">
+                    <img class="fin-shot sf-blue-ring" src="photo-eric.jpg" alt="Eric Dalton" onerror="this.style.display='none'"/>
+                    <div class="fin-name">Eric Dalton</div>
+                    <div class="fin-role">Built this demo</div>
+                  </div>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:6px;"><div style="width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulseSlow 2s ease-in-out infinite;"></div><span style="font-size:9px;color:rgba(255,255,255,0.5);">Corey &amp; Eric are available — respond same day</span></div>
+                <div class="fin-online">
+                  <span class="fin-online-dot"></span>
+                  <span class="fin-online-txt">&#x25CF; Online &mdash; Responds within the hour</span>
+                </div>
+                <div style="font-size:9.5px;color:rgba(255,255,255,0.72);line-height:1.6;margin-bottom:10px;">Your message is already written. Hit send and we&rsquo;ll set up a live 30-minute walkthrough built around <strong style="color:#fff;">your</strong> franchise, your partners, your numbers.</div>
+                <div class="fin-send-row">
+                  <a class="fin-send-btn fin-send-gmail" target="_blank" onclick="hideFinale()" href="https://mail.google.com/mail/?view=cm&to=cladow%40salesforce.com%2Cedalton%40salesforce.com&su=I%20want%20a%20live%20walkthrough%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20your%20demo%20and%20I%20want%20to%20see%20what%20this%20looks%20like%20for%20my%20franchise%20specifically.%0A%0ACan%20we%20set%20up%2030%20minutes%20for%20a%20live%20walkthrough%3F%0A%0AThanks">&#x2709; Send via Gmail</a>
+                  <a class="fin-send-btn fin-send-outlook" target="_blank" onclick="hideFinale()" href="https://outlook.office.com/mail/deeplink/compose?to=cladow%40salesforce.com%2Cedalton%40salesforce.com&subject=I%20want%20a%20live%20walkthrough%20%E2%80%94%20PuroClean%20%2B%20Salesforce&body=Hi%20Corey%20and%20Eric%2C%0A%0AI%20just%20went%20through%20your%20demo%20and%20I%20want%20to%20see%20what%20this%20looks%20like%20for%20my%20franchise%20specifically.%0A%0ACan%20we%20set%20up%2030%20minutes%20for%20a%20live%20walkthrough%3F%0A%0AThanks">&#x2709; Send via Outlook</a>
+                </div>
+                <div style="display:flex;gap:7px;justify-content:center;">
+                  <a href="#" onclick="hideFinale();openEmailModal();return false;" style="flex:1;background:#FF6900;color:white;border-radius:9px;padding:9px 12px;font-size:9.5px;font-weight:800;text-align:center;text-decoration:none;display:block;box-shadow:0 4px 18px rgba(255,105,0,0.4);">&#x26A1; More ways to reach us</a>
+                  <a href="#" onclick="hideFinale();return false;" style="flex:1;background:rgba(255,255,255,0.1);color:white;border-radius:9px;padding:9px 12px;font-size:9.5px;font-weight:700;text-align:center;text-decoration:none;display:block;">&#x21A9; Keep exploring</a>
+                </div>
               </div>
             </div>
 
@@ -2447,96 +2217,78 @@ function phoneSecondaryClick(msg) { showMobileTooltip(msg); }
 
 /* ══════════════════════════════════════════════
    DESKTOP DEMO — GUIDED SANDBOX STATE MACHINE
-   10-step linear quest inside an explorable SLDS UI
+   5-phase "Day in the Life" narrative inside an
+   explorable SLDS UI. Six interaction steps map
+   onto five operational phases (Phase 4 spans two).
    ══════════════════════════════════════════════ */
 
-/* Each step: which screen renders, the left-panel narration,
-   and the human name of the primary progression target. */
+/* Each step: which screen renders, which phase it belongs to,
+   the left-panel narration, and the primary progression target. */
+const PHASE_COUNT = 5;
+
 const STEPS = [
-  { screen:'ds-home',    name:'Morning Briefing',
-    title:'Morning Briefing',
-    body:'Salesforce starts your day by organizing your pipeline. Agentforce automatically flags the one referral partner who needs your attention today.',
-    hint:'⚡ Click the pulsing Agentforce flag in Today\u2019s Priorities',
-    target:'the Agentforce flag in Today\u2019s Priorities' },
+  /* ── PHASE 1 · MORNING CONTROL ── */
+  { screen:'ds-home', phase:1, phaseName:'Morning Control',
+    title:'Morning Control',
+    body:'Your Lightning Home page is assembled before you wake up. Live gauges, pipeline charts, and job volume by service line — then Agentforce ranks the one thing that costs you money if you ignore it.',
+    hint:'⚡ Click the pulsing Agentforce Alert in Today\u2019s Priorities',
+    target:'the Agentforce Alert in Today\u2019s Priorities' },
 
-  { screen:'ds-risk',    name:'AI Risk Analysis',
-    title:'AI Risk Analysis',
-    body:'Agentforce doesn\u2019t just show a list of contacts — it ranks them by revenue impact. Mike Sullivan drives 22% of your franchise revenue.',
-    hint:'⚡ Click Mike Sullivan\u2019s risk card to open his record',
-    target:'Mike Sullivan\u2019s risk card' },
+  /* ── PHASE 2 · REVENUE PIPELINE ── */
+  { screen:'ds-pipeline', phase:2, phaseName:'Revenue Pipeline',
+    title:'Revenue Pipeline',
+    body:'Every open estimate on one Kanban board. Agentforce runs a 72-hour expiration guard and escalates anything going cold straight onto your task queue — so revenue never slips quietly.',
+    hint:'⚡ Click the overdue task row to mark it complete',
+    target:'the overdue task row in My Tasks' },
 
-  { screen:'ds-job',     name:'Job Attribution',
-    title:'Job Attribution',
-    body:'When a job comes in, Salesforce automatically links it to the referral source. You know exactly which plumber sent which job.',
-    hint:'⚡ Click the orange "Referred by" attribution bar',
+  /* ── PHASE 3 · FIELD & CLAIM EXECUTION ── */
+  { screen:'ds-job', phase:3, phaseName:'Field & Claim Execution',
+    title:'Field & Claim Execution',
+    body:'Doing the work records the work. Site photos, moisture readings, GPS timestamps, calls and emails all land on the claim record with zero manual entry. Click any activity row to open the AI summary.',
+    hint:'⚡ Click the orange "Referred by Mike Sullivan" attribution bar',
     target:'the "Referred by: Mike Sullivan" attribution bar' },
 
-  { screen:'ds-partner', name:'Partner Intelligence',
-    title:'Partner Intelligence',
-    body:'Doing the work records the work. Here is Mike\u2019s entire history — 14 jobs, $89.4K. Agentforce suggests sending a touchpoint email today.',
-    hint:'⚡ Click the ✦ Send Agentforce Email action',
-    target:'the ✦ Send Agentforce Email button' },
+  /* ── PHASE 4 · PARTNER ENGINE (two steps) ── */
+  { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
+    title:'Partner Engine',
+    body:'Mike\u2019s entire history, assembled automatically — 14 referred jobs, $89.4K attributed revenue. Agentforce has a context-aware touchpoint email ready to draft.',
+    hint:'⚡ Click the ✦ Send Agentforce Touchpoint action',
+    target:'the ✦ Send Agentforce Touchpoint button' },
 
-  { screen:'ds-partner', name:'Outlook Integration',
-    title:'Seamless Integration',
-    body:'Agentforce drafts the email using context from the job. You approve it in 5 seconds. It auto-logs to Salesforce via Outlook — zero manual entry.',
-    hint:'⚡ Wait for the draft, then click ✈ Send',
+  { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
+    title:'Agentforce Writes It',
+    body:'Agentforce drafts the email live using context from the Eastside job. You approve in five seconds. It sends through Outlook and logs itself back to Salesforce — bidirectional, no copy-paste.',
+    hint:'⚡ Wait for the draft to finish, then click ✈ Send',
     target:'the ✈ Send button in the compose window' },
 
-  { screen:'ds-bdr',     name:'Rep Accountability',
-    title:'Rep Accountability',
-    body:'"I don\u2019t want to pay somebody to tell me what they\u2019re doing. I want to pay them to do." See your team\u2019s real activity without asking for reports.',
-    hint:'⚡ Click the overdue task to mark it complete',
-    target:'the overdue task row in the Task Queue' },
-
-  { screen:'ds-janet',   name:'High-Margin Lane',
-    title:'High-Margin Lane',
-    body:'Agentforce discovers correlations you didn\u2019t know existed — property managers drive your most profitable mold jobs.',
-    hint:'⚡ Click ✦ Send Proactive Mold Campaign',
-    target:'the ✦ Send Proactive Mold Campaign button' },
-
-  { screen:'ds-related', name:'Pipeline Linking',
-    title:'Pipeline Linking',
-    body:'Campaign sent with 1 click. The outreach is automatically linked to Janet\u2019s account and registered in your pipeline.',
-    hint:'⚡ Click "Estimates Pipeline — All Open" in the Related list',
-    target:'the Estimates Pipeline row in the Related list' },
-
-  { screen:'ds-kanban',  name:'Pipeline Management',
-    title:'Pipeline Management',
-    body:'View all open estimates visually. Agentforce flags estimates that go past 72 hours without follow-up so no revenue slips.',
-    hint:'⚡ Click the flagged Westside Apartments card',
-    target:'the flagged Westside Apartments card' },
-
-  { screen:'ds-exec',    name:'Executive Visibility',
-    title:'Executive Visibility',
-    body:'Know your numbers in real time. See exactly which service lines and referral channels make your location the most money.',
+  /* ── PHASE 5 · BUSINESS HEALTH ── */
+  { screen:'ds-exec', phase:5, phaseName:'Business Health',
+    title:'Business Health',
+    body:'Know your numbers in real time. Mold returns 52% margin against 31% on water — and Agentforce found the correlation that tells you which partners feed the profitable lane.',
     hint:'🏆 Click View Franchise Summary to finish',
     target:'the 🏆 View Franchise Summary button' },
 ];
 
-/* Notification segues — fire after the primary click on these step
-   indexes, then the toast CTA carries the user to the next step. */
+/* Notification segues — a live toast bridges one phase to the next so
+   the environment feels alive instead of button-driven. */
 const NOTIF_DEFS = {
-  'inbound-referral': {
-    delay: 1600, icon: '📧', label: 'Outlook — New Email', headerColor: '#0078D4',
+  /* Phase 2 → Phase 3 : completing the escalated task surfaces new inbound work */
+  'outlook-referral': {
+    delay: 900, icon: '📧', label: 'Outlook — New Referral Received', headerColor: '#0078D4',
     title: 'New referral email from Mike Sullivan',
-    body: '"Got another mold job at Eastside — 4 units, looks bad. Can you get a crew out?" Parsed and logged automatically.',
+    body: '"Got a commercial mold job at Eastside — Unit 2B, drywall moisture around 85%. Can your team handle it today?" Parsed, logged, and a job record created automatically.',
     cta: 'Open the job record →'
   },
-  'email-logged': {
-    delay: 1500, icon: '✦', label: 'Salesforce Inbox', headerColor: '#0176D3',
-    title: 'Email auto-logged to Mike Sullivan\u2019s record',
-    body: 'Sent from Outlook, captured by Salesforce Inbox. Relationship score recalculated. Nobody typed anything.',
-    cta: 'See your team\u2019s activity →'
-  },
-  'janet-gap': {
-    delay: 1800, icon: '✦', label: 'Agentforce — Partner Alert', headerColor: '#FF6900',
-    title: 'Janet Morse — 18 properties, 8-week touchpoint gap',
-    body: 'Property managers drive mold jobs at 31% higher margin. Mold season opens in 6 weeks. $22K at risk.',
-    cta: 'Open Janet\u2019s account →'
+  /* Phase 4 → Phase 5 : the sent email triggers the margin correlation discovery */
+  'mold-correlation': {
+    delay: 1500, icon: '✦', label: 'Agentforce — Correlation Discovered', headerColor: '#FF6900',
+    title: 'Mold margin correlation discovered',
+    body: 'Your email logged itself via Outlook. While recalculating Mike\u2019s score, Agentforce found that property manager partners drive mold jobs at 31% higher margin than water work.',
+    cta: 'See the executive dashboard →'
   },
 };
-const STEP_SEGUE = { 1: 'inbound-referral', 5: 'janet-gap' };
+/* Keys are 0-based step indexes that fire a segue after their primary click */
+const STEP_SEGUE = { 1: 'outlook-referral' };
 
 let demoStep = 0;
 let notifAdvanceCallback = null;
@@ -2595,14 +2347,17 @@ function updateLeftPanel(step) {
   const title = document.getElementById('desk-title');
   const body  = document.getElementById('desk-body');
   const hint  = document.getElementById('desk-hint');
-  if (pill)  pill.textContent  = 'Step ' + (step + 1) + ' of ' + STEPS.length;
+  if (pill)  pill.textContent  = 'Phase ' + (m.phase || 1) + ' of ' + PHASE_COUNT + ' · ' + (m.phaseName || '');
   if (title) title.innerHTML   = m.title || '';
   if (body)  body.textContent  = m.body  || '';
   if (hint)  hint.textContent  = m.hint  || '';
-  for (let i = 0; i < STEPS.length; i++) {
-    const dot = document.getElementById('ddot-' + i);
-    if (!dot) continue;
-    dot.className = 'desk-dot' + (i < step ? ' done' : i === step ? ' active' : '');
+  // One dot + one list row per phase, lit by the current step's phase
+  const curPhase = m.phase || 1;
+  for (let p = 1; p <= PHASE_COUNT; p++) {
+    const dot = document.getElementById('ddot-' + p);
+    if (dot) dot.className = 'desk-dot' + (p < curPhase ? ' done' : p === curPhase ? ' active' : '');
+    const row = document.getElementById('dphase-' + p);
+    if (row) row.className = 'desk-phase' + (p < curPhase ? ' dp-done' : p === curPhase ? ' dp-active' : '');
   }
 }
 
@@ -2617,16 +2372,26 @@ function showScreen(step) {
   }
 }
 
-/* Bars and meters animate in from zero every time a screen is shown */
+/* Bars, meters, and gauges animate in from zero every time a screen is shown */
 function animateCharts(root) {
   root.querySelectorAll('.sf-bar[data-h]').forEach(el => { el.style.height = '0'; });
   root.querySelectorAll('.sf-hbar-fill[data-w]').forEach(el => { el.style.width = '0'; });
+  // Radial gauge — reset to full offset (empty ring)
+  root.querySelectorAll('.sf-gauge-fill[data-pct]').forEach(el => {
+    const circ = parseFloat(el.getAttribute('stroke-dasharray')) || 163.4;
+    el.style.strokeDashoffset = circ;
+  });
   setTimeout(() => {
     root.querySelectorAll('.sf-bar[data-h]').forEach((el, i) => {
       setTimeout(() => { el.style.height = el.dataset.h; }, i * 70);
     });
     root.querySelectorAll('.sf-hbar-fill[data-w]').forEach((el, i) => {
       setTimeout(() => { el.style.width = el.dataset.w; }, i * 110);
+    });
+    root.querySelectorAll('.sf-gauge-fill[data-pct]').forEach(el => {
+      const circ = parseFloat(el.getAttribute('stroke-dasharray')) || 163.4;
+      const pct  = parseFloat(el.dataset.pct) || 0;
+      el.style.strokeDashoffset = circ - (circ * pct / 100);
     });
   }, 180);
 }
@@ -2656,7 +2421,7 @@ window.advanceStep = advanceStep;
 
 /* Step-entry side effects */
 function onEnterStep(step) {
-  // Step 5 (index 4) — the Outlook compose panel slides up and self-types
+  // Phase 4 second step (index 4) — Salesforce Inbox compose slides up and self-types
   if (step === 4) {
     if (composeOpenTimer) clearTimeout(composeOpenTimer);
     composeOpenTimer = setTimeout(() => { if (demoStep === 4) openEmailCompose(); }, 420);
@@ -2691,8 +2456,8 @@ function completeTaskInUI(row) {
   const meta = row.querySelector('.sf-task-m');
   if (meta) meta.textContent = 'Completed just now';
 
-  // 5. Brief pause so the user sees the completion feedback, then advance
-  //    advanceStep() for demoStep 5 fires the 'janet-gap' segue notification
+  // 5. Brief pause so the user sees the completion feedback, then advance.
+  //    advanceStep() at step 1 fires the 'outlook-referral' segue into Phase 3.
   setTimeout(advanceStep, 600);
 }
 
@@ -2780,21 +2545,17 @@ const SECONDARY_EXPLAINERS = {
   'Reports':   'Reports gives you real-time visibility into job profitability, marketing channel ROI, and service line margins — no spreadsheet rebuild required.',
 };
 
-/* ── Step-specific redirect nudges (1-based to match user-facing step numbers) ── */
+/* ── Step-specific redirect nudges (1-based to match demoStep + 1) ── */
 function getStepRedirectNudge(step) {
   const nudges = {
-    1:  'Click the Agentforce flag in Today\u2019s Priorities to review at-risk revenue.',
-    2:  'Click Mike Sullivan\u2019s partner card to open his account record.',
-    3:  'Click the \u201cReferred by Mike Sullivan\u201d attribution bar to view partner details.',
-    4:  'Click the \u201c\u2726 Send Agentforce Email\u201d button in the record header to draft your outreach.',
-    5:  'Click the \u201c\u2708 Send\u201d button inside the Outlook compose box to send the email.',
-    6:  'Click the overdue task row in the queue to mark it complete.',
-    7:  'Click the \u201c\u2726 Send Proactive Mold Campaign\u201d button to reach Janet Morse.',
-    8:  'Click the \u201cEstimates Pipeline \u2014 All Open\u201d row in the Related list to view the Kanban board.',
-    9:  'Click the pulsing \u201cWestside Apartments\u201d card in Estimate Sent to take action.',
-    10: 'Click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the header to complete the walkthrough.',
+    1: 'To continue your morning review, click the Agentforce Alert on Mike Sullivan in Today\u2019s Priorities.',
+    2: 'To continue, click the overdue task row in My Tasks to mark it complete.',
+    3: 'To continue, click the orange \u201cReferred by Mike Sullivan\u201d attribution bar at the top of the job.',
+    4: 'To continue, click the \u201c\u2726 Send Agentforce Touchpoint\u201d button in the record header.',
+    5: 'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
+    6: 'To finish the walkthrough, click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the dashboard header.',
   };
-  return nudges[step] || 'Click the highlighted element to continue.';
+  return nudges[step] || 'Click the pulsing element to continue the walkthrough.';
 }
 
 /* ── Educational toast shown for nav tabs and out-of-sequence advance clicks ── */
@@ -2822,8 +2583,8 @@ function sfEducate(elementKey) {
     const complTask = e.target.closest('[data-complete-task]');
     if (complTask) {
       e.stopPropagation();
-      // Only valid during BDR step (demoStep === 5)
-      if (demoStep !== 5) { sfEducate(''); return; }
+      // Only valid during Phase 2 / step index 1
+      if (demoStep !== 1) { sfEducate(''); return; }
       completeTaskInUI(complTask);
       return;
     }
@@ -3036,13 +2797,14 @@ function runComposeTyping() {
   }
 }
 
-/* Step 5 → Send. The Salesforce Inbox toast carries the user to step 6. */
+/* Phase 4 send → bidirectional Outlook sync, then the Agentforce
+   correlation toast carries the user into Phase 5. */
 window.sendCompose = function () {
   const sendBtn = document.getElementById('bs-compose-send-btn');
   if (!sendBtn || !sendBtn.classList.contains('ready')) return; // still typing
 
   clearComposeTimers();
-  sendBtn.textContent = '✓ Sent';
+  sendBtn.textContent = '✓ Sent & Logged';
   sendBtn.style.background = '#2E844A';
   sendBtn.style.animation = 'none';
   sendBtn.style.boxShadow = 'none';
@@ -3050,10 +2812,10 @@ window.sendCompose = function () {
 
   const t1 = setTimeout(() => {
     closeCompose();
-    const def = NOTIF_DEFS['email-logged'];
-    notifAdvanceCallback = doAdvance; // step 5 → step 6
+    const def = NOTIF_DEFS['mold-correlation'];
+    notifAdvanceCallback = doAdvance; // Phase 4 → Phase 5
     notifSegueTimer = setTimeout(() => showSegueNotif(def), def.delay);
-  }, 800);
+  }, 900);
   composeTimers.push(t1);
 };
 
