@@ -313,14 +313,20 @@
   .slds-timeline{display:flex;flex-direction:column;}
 
   /* ── TASK QUEUE ROWS ── */
-  .sf-task{display:flex;align-items:center;gap:8px;padding:7px 11px;border-bottom:1px solid #F3F2F2;}
+  .sf-task{display:flex;align-items:center;gap:8px;padding:7px 11px;border-bottom:1px solid #F3F2F2;transition:background-color 0.35s ease,border-color 0.35s ease;}
   .sf-task:last-child{border-bottom:none;}
   .sf-task:hover{background:#F3F9FE;}
   .sf-task-check{width:15px;height:15px;border-radius:3px;border:1.5px solid #C9C7C5;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#fff;}
   .sf-task-check.done{background:#2E844A;border-color:#2E844A;}
   .sf-task.overdue{border-left:3px solid #FF6900;background:rgba(255,105,0,0.035);}
-  .sf-task-t{font-size:9px;font-weight:600;color:#080707;}
+  .sf-task-t{font-size:9px;font-weight:600;color:#080707;transition:color 0.3s ease;}
   .sf-task-m{font-size:7.5px;color:#706E6B;margin-top:1px;}
+  /* ── Task completion micro-animation ── */
+  @keyframes checkPop{0%{transform:scale(0.8);}50%{transform:scale(1.2);}100%{transform:scale(1.0);}}
+  .sf-task.sf-task-completed{border-left-color:#E2E8F0!important;background:#fff!important;}
+  .sf-task.sf-task-completed .sf-task-t{text-decoration:line-through;color:#64748B!important;}
+  .sf-task.sf-task-completed .sf-task-check{background:#059669!important;border-color:#059669!important;animation:checkPop 0.25s cubic-bezier(0.175,0.885,0.32,1.275) forwards;}
+  .sf-task.sf-task-completed .slds-badge-error{background:#DCFCE7!important;color:#059669!important;}
 
   /* ── FILE THUMBNAILS ── */
   .sf-files{display:flex;gap:6px;padding:9px 11px;}
@@ -1318,8 +1324,8 @@
 
                   <div class="slds-card">
                     <div class="slds-card-hdr"><span class="slds-card-title">Task Queue</span><span class="slds-card-meta">1 overdue &middot; 4 complete</span></div>
-                    <!-- PRIMARY TARGET -->
-                    <div class="sf-task overdue guided-pulse" data-advance="6">
+                    <!-- PRIMARY TARGET — data-complete-task triggers the inline animation before advancing -->
+                    <div class="sf-task overdue guided-pulse" id="task-bdr-johnson" data-complete-task>
                       <div class="sf-task-check"></div>
                       <div style="flex:1;min-width:0;">
                         <div class="sf-task-t">Follow up on Johnson Residence scope upgrade <span class="gp-cue">&#x25B8; Mark complete</span></div>
@@ -2663,6 +2669,34 @@ function onEnterStep(step) {
 }
 
 /* ══════════════════════════════════════════════
+   TASK COMPLETION — inline micro-animation
+   ══════════════════════════════════════════════ */
+function completeTaskInUI(row) {
+  if (row.dataset.completed) return;            // guard against double-tap
+  row.dataset.completed = '1';
+
+  // 1. Remove overdue highlight + pulse; apply completed class (transitions fire)
+  row.classList.remove('overdue', 'guided-pulse');
+  row.classList.add('sf-task-completed');
+
+  // 2. Inject checkmark SVG into the checkbox (checkPop keyframe plays via CSS)
+  const cb = row.querySelector('.sf-task-check');
+  if (cb) cb.innerHTML = '<svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // 3. Swap the Overdue badge to Done
+  const badge = row.querySelector('.slds-badge-error');
+  if (badge) { badge.className = 'slds-badge slds-badge-success'; badge.textContent = 'Done'; }
+
+  // 4. Update the sub-text
+  const meta = row.querySelector('.sf-task-m');
+  if (meta) meta.textContent = 'Completed just now';
+
+  // 5. Brief pause so the user sees the completion feedback, then advance
+  //    advanceStep() for demoStep 5 fires the 'janet-gap' segue notification
+  setTimeout(advanceStep, 600);
+}
+
+/* ══════════════════════════════════════════════
    SLDS POPOVER — secondary-click exploration
    ══════════════════════════════════════════════ */
 let popoverTimer = null;
@@ -2783,6 +2817,16 @@ function sfEducate(elementKey) {
 
     const finale = e.target.closest('[data-finale]');
     if (finale) { e.stopPropagation(); showFinale(); return; }
+
+    // Task-completion row — plays inline animation then calls advanceStep after 600ms
+    const complTask = e.target.closest('[data-complete-task]');
+    if (complTask) {
+      e.stopPropagation();
+      // Only valid during BDR step (demoStep === 5)
+      if (demoStep !== 5) { sfEducate(''); return; }
+      completeTaskInUI(complTask);
+      return;
+    }
 
     const adv = e.target.closest('[data-advance]');
     if (adv) {
