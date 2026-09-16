@@ -309,16 +309,8 @@
   .sf-legend-item{display:flex;align-items:center;gap:5px;font-size:8px;color:#514F4D;}
   .sf-legend-sw{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
 
-  /* ── ACTIVITY TIMELINE ── */
+  /* ── ACTIVITY TIMELINE (base) ── */
   .slds-timeline{display:flex;flex-direction:column;}
-  .slds-tl-item{display:flex;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;}
-  .slds-tl-item:last-child{border-bottom:none;}
-  .slds-tl-item:hover{background:#F3F9FE;}
-  .slds-tl-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#fff;}
-  .slds-tl-body{flex:1;min-width:0;}
-  .slds-tl-t{font-size:9px;font-weight:700;color:#080707;}
-  .slds-tl-m{font-size:8px;color:#706E6B;margin-top:1px;}
-  .slds-tl-when{font-size:7.5px;color:#706E6B;flex-shrink:0;white-space:nowrap;}
 
   /* ── TASK QUEUE ROWS ── */
   .sf-task{display:flex;align-items:center;gap:8px;padding:7px 11px;border-bottom:1px solid #F3F2F2;}
@@ -332,9 +324,33 @@
 
   /* ── FILE THUMBNAILS ── */
   .sf-files{display:flex;gap:6px;padding:9px 11px;}
-  .sf-file{flex:1;min-width:0;border:1px solid #DDDBDA;border-radius:4px;overflow:hidden;background:#F3F2F2;}
-  .sf-file-img{height:44px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .sf-file{flex:1;min-width:0;border:1px solid #DDDBDA;border-radius:4px;overflow:hidden;background:#F3F2F2;cursor:pointer;}
+  .sf-file-img{height:80px;overflow:hidden;border-radius:6px 6px 0 0;}
+  .sf-file-img img{width:100%;height:100%;object-fit:cover;display:block;}
   .sf-file-name{font-size:7px;color:#514F4D;padding:3px 5px;background:#fff;border-top:1px solid #F3F2F2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+  /* ── ACTIVITY TIMELINE ACCORDION ── */
+  .slds-tl-item{display:flex;flex-wrap:wrap;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;cursor:pointer;}
+  .slds-tl-item:last-child{border-bottom:none;}
+  .slds-tl-item:hover{background:#F3F9FE;}
+  .slds-tl-ico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:#fff;}
+  .slds-tl-body{flex:1;min-width:0;}
+  .slds-tl-t{font-size:9px;font-weight:700;color:#080707;}
+  .slds-tl-m{font-size:8px;color:#706E6B;margin-top:1px;}
+  .slds-tl-when{font-size:7.5px;color:#706E6B;flex-shrink:0;white-space:nowrap;text-align:right;line-height:1.5;}
+  .slds-tl-expand{width:100%;max-height:0;overflow:hidden;transition:max-height 0.32s cubic-bezier(0.4,0,0.2,1);}
+  .slds-tl-expand.open{max-height:300px;}
+  .slds-tl-detail{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:4px;padding:7px 9px;margin-top:2px;margin-left:28px;font-size:8px;color:#374151;line-height:1.6;}
+  .slds-tl-ai{background:#FFF7ED;border:1px solid #FED7AA;border-radius:4px;padding:6px 8px;margin-bottom:5px;}
+  .slds-tl-ai-hdr{font-size:7px;font-weight:800;color:#C44E00;margin-bottom:3px;display:flex;align-items:center;gap:3px;}
+  .slds-tl-ai-body{font-size:7.5px;color:#374151;line-height:1.5;font-style:italic;}
+  .slds-tl-check{list-style:none;padding:0;margin:4px 0 0 0;display:flex;flex-direction:column;gap:2px;}
+  .slds-tl-check li{font-size:7.5px;color:#374151;display:flex;align-items:center;gap:4px;}
+  .slds-tl-check li::before{content:"✓";color:#2E844A;font-weight:800;flex-shrink:0;}
+  .slds-tl-sentiment{display:inline-flex;align-items:center;gap:4px;background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;padding:2px 7px;font-size:7px;font-weight:700;color:#DC2626;margin-top:4px;}
+  .slds-tl-quote{background:#EFF8FF;border-left:2px solid #0176D3;padding:4px 7px;border-radius:0 3px 3px 0;font-style:italic;font-size:7.5px;color:#1C274C;margin:3px 0;}
+  .slds-tl-quote-who{font-style:normal;font-weight:700;color:#0176D3;margin-top:3px;font-size:7px;display:block;}
+  .slds-tl-sub{font-size:8px;color:#374151;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:4px;padding:5px 8px;margin-top:2px;margin-left:28px;}
   /* ── GUIDED PULSE (primary progression target) ── */
   @keyframes guidedPulse{
     0%{box-shadow:0 0 0 0 rgba(255,105,0,0.6);}
@@ -1008,37 +1024,94 @@
                       <div class="slds-card-hdr"><span class="slds-card-title">Files (4)</span><span class="slds-card-meta">From mobile</span></div>
                       <div class="sf-files">
                         <div class="sf-file" data-explain="On-site Photo|Unit 2B ceiling|Photos upload from the tech mobile app straight onto the job record. Adjusters get them without an email thread.">
-                          <div class="sf-file-img" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);">&#x1F9A0;</div>
+                          <div class="sf-file-img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=300&q=80" alt="Water damage ceiling"></div>
                           <div class="sf-file-name">unit-2b-ceiling.jpg</div>
                         </div>
                         <div class="sf-file" data-explain="On-site Photo|Moisture meter reading|Timestamped and geotagged. This is the documentation that gets insurance claims approved faster.">
-                          <div class="sf-file-img" style="background:linear-gradient(135deg,#0176D3,#014486);">&#x1F4CA;</div>
+                          <div class="sf-file-img"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=300&q=80" alt="Digital moisture meter"></div>
                           <div class="sf-file-name">moisture-log.jpg</div>
                         </div>
                         <div class="sf-file" data-explain="On-site Photo|Containment setup|Proof of proper containment. Attached to the job, visible to the adjuster, stored forever.">
-                          <div class="sf-file-img" style="background:linear-gradient(135deg,#FF6900,#C44E00);">&#x1F6A7;</div>
+                          <div class="sf-file-img"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=300&q=80" alt="Containment barrier on site"></div>
                           <div class="sf-file-name">containment.jpg</div>
                         </div>
                       </div>
                     </div>
                     <div class="slds-card">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Activity</span></div>
+                      <div class="slds-card-hdr"><span class="slds-card-title">Activity</span><span class="slds-card-meta" style="font-size:7px;color:#706E6B;">Click any row to expand</span></div>
                       <div class="slds-timeline">
-                        <div class="slds-tl-item" data-explain="Email captured|Referral from Mike Sullivan|The inbound referral email was logged to this job and to Mike&rsquo;s partner record at the same time. One email, two records, zero typing.">
-                          <div class="slds-tl-ico" style="background:#0176D3;">&#x2709;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Referral email received</div><div class="slds-tl-m">Mike Sullivan &middot; auto-logged</div></div>
-                          <div class="slds-tl-when">7:41 AM</div>
+
+                        <!-- Call Note — expandable -->
+                        <div class="slds-tl-item" data-expand>
+                          <div class="slds-tl-ico" style="background:#7C3AED;">&#x260E;</div>
+                          <div class="slds-tl-body">
+                            <div class="slds-tl-t">&#x1F4DE; Inbound Call &mdash; Mike Sullivan (Plumber)</div>
+                            <div class="slds-tl-m">Auto-transcribed by Agentforce</div>
+                          </div>
+                          <div class="slds-tl-when">Sep 15, 2026<br>8:15 AM</div>
+                          <div class="slds-tl-expand">
+                            <div class="slds-tl-detail">
+                              <div class="slds-tl-ai">
+                                <div class="slds-tl-ai-hdr">&#x2726; Agentforce AI Call Summary</div>
+                                <div class="slds-tl-ai-body">&ldquo;Caller reported a Category 2 water leak at Eastside Commercial (Unit 2B). Requested immediate dispatch.&rdquo;</div>
+                              </div>
+                              <div style="font-size:7.5px;font-weight:700;color:#374151;margin-bottom:3px;">Key Action Items Extracted:</div>
+                              <ul class="slds-tl-check">
+                                <li>Dispatched Crew 2 (ETA 9:15 AM)</li>
+                                <li>Sent containment protocol checklist to homeowner</li>
+                                <li>Auto-notified Dave Patel (Insurance Adjuster)</li>
+                              </ul>
+                              <div class="slds-tl-sentiment">&#x26A0; Urgent / High Priority</div>
+                            </div>
+                          </div>
                         </div>
+
+                        <!-- Email — expandable thread -->
+                        <div class="slds-tl-item" data-expand>
+                          <div class="slds-tl-ico" style="background:#0176D3;">&#x2709;</div>
+                          <div class="slds-tl-body">
+                            <div class="slds-tl-t">&#x1F4E7; Referral Email &mdash; Mike Sullivan</div>
+                            <div class="slds-tl-m">Auto-logged from Outlook</div>
+                          </div>
+                          <div class="slds-tl-when">Sep 15, 2026<br>7:41 AM</div>
+                          <div class="slds-tl-expand">
+                            <div class="slds-tl-detail">
+                              <div style="font-size:7px;font-weight:700;color:#706E6B;margin-bottom:3px;">INBOUND &middot; 7:41 AM</div>
+                              <div class="slds-tl-quote">
+                                &ldquo;Hey Jordan, got a commercial mold job over at Eastside. Unit 2B has drywall moisture around 85%. Can your team handle it today?&rdquo;
+                                <span class="slds-tl-quote-who">— Mike Sullivan</span>
+                              </div>
+                              <div style="font-size:7px;font-weight:700;color:#706E6B;margin:5px 0 3px;">AUTO-LOGGED RESPONSE &middot; 7:42 AM</div>
+                              <div class="slds-tl-quote" style="border-left-color:#2E844A;">
+                                &ldquo;Thanks Mike! We have Crew 2 en route now. Job record #PR-8940 created and assigned.&rdquo;
+                                <span class="slds-tl-quote-who" style="color:#2E844A;">— Jordan (PuroClean NW)</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Job created — explain only -->
                         <div class="slds-tl-item" data-explain="Job created|Auto-generated from email|Agentforce parsed the address, service type, and claim number out of the email body and created this record.">
                           <div class="slds-tl-ico" style="background:#2E844A;">&#x2726;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Job record created</div><div class="slds-tl-m">By Agentforce &middot; 4 sec later</div></div>
-                          <div class="slds-tl-when">7:41 AM</div>
+                          <div class="slds-tl-body"><div class="slds-tl-t">Job record #PR-8940 created</div><div class="slds-tl-m">By Agentforce &middot; 4 sec after email</div></div>
+                          <div class="slds-tl-when">Sep 15, 2026<br>7:41 AM</div>
                         </div>
-                        <div class="slds-tl-item" data-explain="Crew dispatched|4 mold-certified techs|Dispatch happened from a phone in a truck. The job stage, the crew roster, and the customer text all fired from one tap.">
-                          <div class="slds-tl-ico" style="background:#7C3AED;">&#x1F477;</div>
-                          <div class="slds-tl-body"><div class="slds-tl-t">Crew dispatched</div><div class="slds-tl-m">4 techs &middot; ETA 9:15 AM</div></div>
-                          <div class="slds-tl-when">8:02 AM</div>
+
+                        <!-- Crew dispatch — expandable sub-text -->
+                        <div class="slds-tl-item" data-expand>
+                          <div class="slds-tl-ico" style="background:#FF6900;">&#x1F69B;</div>
+                          <div class="slds-tl-body">
+                            <div class="slds-tl-t">&#x1F69B; Crew 2 Dispatched</div>
+                            <div class="slds-tl-m">4 Techs &middot; ETA 9:15 AM</div>
+                          </div>
+                          <div class="slds-tl-when">Sep 15, 2026<br>8:02 AM</div>
+                          <div class="slds-tl-expand">
+                            <div class="slds-tl-sub">
+                              4 Techs &middot; On-site ETA 9:15 AM &middot; Moisture meters &amp; containment prep loaded
+                            </div>
+                          </div>
                         </div>
+
                       </div>
                     </div>
                   </div>
@@ -2728,6 +2801,15 @@ function sfEducate(elementKey) {
 
     const locked = e.target.closest('[data-locked]');
     if (locked) { e.stopPropagation(); sfEducate(locked.dataset.locked); return; }
+
+    const expand = e.target.closest('[data-expand]');
+    if (expand) {
+      e.stopPropagation();
+      sfClosePopover();
+      const expPanel = expand.querySelector('.slds-tl-expand');
+      if (expPanel) expPanel.classList.toggle('open');
+      return;
+    }
 
     const explain = e.target.closest('[data-explain]');
     if (explain) { e.stopPropagation(); sfShowPopover(explain, explain.dataset.explain); return; }
