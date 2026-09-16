@@ -367,13 +367,14 @@
   #sf-popover .pop-desc{font-size:8.5px;color:#514F4D;line-height:1.6;}
   #sf-popover .pop-foot{border-top:1px solid #F3F2F2;padding:5px 9px;font-size:7.5px;color:#706E6B;display:flex;align-items:center;gap:4px;}
 
-  /* ── SLDS TOAST (guardrail / system messages) ── */
-  #sf-toast{position:absolute;top:-70px;left:50%;transform:translateX(-50%);z-index:82;min-width:290px;max-width:420px;background:#2E2E2E;border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,0.3);display:flex;align-items:center;gap:9px;padding:9px 12px;transition:top 0.32s cubic-bezier(0.4,0,0.2,1);}
+  /* ── SLDS TOAST (informational / educational messages) ── */
+  #sf-toast{position:absolute;top:-90px;left:50%;transform:translateX(-50%);z-index:82;min-width:320px;max-width:500px;background:#032D60;border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,0.3);display:flex;align-items:flex-start;gap:9px;padding:10px 12px;transition:top 0.32s cubic-bezier(0.4,0,0.2,1);}
   #sf-toast.open{top:8px;}
   #sf-toast.tone-warn{background:#8C4B02;}
   #sf-toast.tone-info{background:#032D60;}
-  #sf-toast .toast-txt{font-size:9.5px;color:#fff;font-weight:600;line-height:1.5;flex:1;}
-  #sf-toast .toast-x{color:rgba(255,255,255,0.7);font-size:12px;line-height:1;cursor:pointer;flex-shrink:0;}
+  #sf-toast.tone-success{background:#2E5F3A;}
+  #sf-toast .toast-txt{font-size:9px;color:#fff;font-weight:500;line-height:1.6;flex:1;}
+  #sf-toast .toast-x{color:rgba(255,255,255,0.65);font-size:12px;line-height:1;cursor:pointer;flex-shrink:0;margin-top:2px;}
 
   /* Browser bottom CTA row (outside the viewport) */
   .browser-cta-row{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 0 0;}
@@ -1713,13 +1714,13 @@
               </div>
               <div class="pop-foot">
                 <span style="color:#C44E00;font-weight:800;">&#x2726;</span>
-                <span id="sf-pop-foot">Exploring does not lose your place &mdash; the guided path is still pulsing.</span>
+                <span id="sf-pop-foot">Click any highlighted element to explore freely &mdash; the pulsing target keeps your place.</span>
               </div>
             </div>
 
-            <!-- ══ SLDS TOAST — guardrail / system message ══ -->
+            <!-- ══ SLDS TOAST — informational / educational message ══ -->
             <div id="sf-toast">
-              <svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <svg width="13" height="13" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
               <span class="toast-txt" id="sf-toast-txt"></span>
               <span class="toast-x" onclick="sfCloseToast()">&#x2715;</span>
             </div>
@@ -2477,7 +2478,7 @@ function renderChrome() {
     }).join('');
     host.innerHTML =
       '<div class="sf-global-header">' +
-        '<div class="sfgh-waffle" data-explain="App Launcher|All PuroClean apps|Switch between Franchise Ops, Marketing, and the Service Console without leaving Salesforce. Your admin controls who sees what.">' +
+        '<div class="sfgh-waffle" data-explain="App Launcher|All PuroClean apps|Switch between Franchise Ops, Field Service, Marketing, and the Executive Console — each tailored to a different role in your location without any re-login.">' +
           '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
         '</div>' +
         '<div class="sfgh-brand">' +
@@ -2486,18 +2487,18 @@ function renderChrome() {
           '<svg width="15" height="11" viewBox="0 0 52 36" fill="#00A1E0" xmlns="http://www.w3.org/2000/svg"><path d="M21.6 6.4a10.4 10.4 0 0 1 7.4-3.1 10.5 10.5 0 0 1 9.3 5.6 8.3 8.3 0 0 1 3.3-.7 8.4 8.4 0 0 1 8.4 8.4 8.4 8.4 0 0 1-8.4 8.4H11.6A9.6 9.6 0 0 1 2 16.4a9.6 9.6 0 0 1 9.6-9.6 9.5 9.5 0 0 1 10-.4z"/></svg>' +
           '<span class="sfgh-app">PuroClean Platform</span>' +
         '</div>' +
-        '<div class="sfgh-search" data-explain="Global Search|Search across every object|One search bar spans jobs, partners, estimates, files, and even photo captions. Results respect your sharing rules.">' +
+        '<div class="sfgh-search" data-explain="Global Search|Search across every object|Global Search instantly scans all jobs, equipment logs, adjuster contacts, and partner records across your entire franchise database. Results respect your sharing rules.">' +
           '<svg width="10" height="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' +
           '<span>Search PuroClean jobs, partners, estimates...</span>' +
         '</div>' +
         '<div class="sfgh-actions">' +
-          '<div class="sfgh-ico" data-explain="Quick Actions|Create from anywhere|Log a job, partner, estimate, or task from any screen without losing the record you are on.">' +
+            '<div class="sfgh-ico" data-explain="Quick Actions|Create from anywhere|Log a job, partner, estimate, or call from any screen in one tap — Agentforce pre-fills fields from context so the record is accurate without manual entry.">' +
             '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
           '</div>' +
-          '<div class="sfgh-ico" data-explain="Help|In-app guidance|Guided walkthroughs and your own franchise playbooks, surfaced in context on the page you are looking at.">' +
+          '<div class="sfgh-ico" data-explain="Help & Training|In-context guidance|Guided walkthroughs, your own franchise playbooks, and Trailhead training modules — all surfaced in context so you never leave the page you are on.">' +
             '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
           '</div>' +
-          '<div class="sfgh-ico" data-explain="Notifications|3 unread|Agentforce alerts, @mentions, and approval requests. This is where the partner risk alert arrived at 6:02 AM.">' +
+          '<div class="sfgh-ico" data-explain="Notification Center|3 unread|The Notification Center alerts you to urgent job status changes, claim approvals, and crew updates in real time — this is where the Agentforce partner risk alert arrived at 6:02 AM.">' +
             '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>' +
             '<span class="sfgh-badge">3</span>' +
           '</div>' +
@@ -2607,6 +2608,9 @@ function sfShowPopover(el, raw) {
   valEl.textContent = value;
   valEl.style.display = value ? 'block' : 'none';
   document.getElementById('sf-pop-desc').textContent = desc;
+  // Footer always points to the current step's primary target
+  const footEl = document.getElementById('sf-pop-foot');
+  if (footEl) footEl.textContent = getStepRedirectNudge(demoStep + 1);
 
   // Anchor beside the clicked element, clamped inside the viewport
   const vpRect = vp.getBoundingClientRect();
@@ -2638,7 +2642,7 @@ function sfClosePopover() {
 window.sfClosePopover = sfClosePopover;
 
 /* ══════════════════════════════════════════════
-   SLDS TOAST — guardrail messaging
+   SLDS TOAST — informational / redirect messaging
    ══════════════════════════════════════════════ */
 let toastTimer = null;
 
@@ -2647,10 +2651,10 @@ function sfShowToast(msg, tone) {
   const txt = document.getElementById('sf-toast-txt');
   if (!t || !txt) return;
   txt.innerHTML = msg;
-  t.className = 'tone-' + (tone || 'warn');
+  t.className = 'tone-' + (tone || 'info');
   requestAnimationFrame(() => t.classList.add('open'));
   if (toastTimer) clearTimeout(toastTimer);
-  toastTimer = setTimeout(sfCloseToast, 4200);
+  toastTimer = setTimeout(sfCloseToast, 5500);
 }
 
 function sfCloseToast() {
@@ -2660,13 +2664,38 @@ function sfCloseToast() {
 }
 window.sfCloseToast = sfCloseToast;
 
-function sfGuardrail(clickedLabel) {
-  const m = STEPS[demoStep] || {};
-  sfShowToast(
-    '&#x1F512; <strong>' + (clickedLabel || 'That tab') + '</strong> is outside this walkthrough. ' +
-    'Finish <strong>' + m.name + '</strong> first &mdash; click ' + m.target + ' to continue.',
-    'warn'
-  );
+/* ── Educational feature descriptions for nav tabs ── */
+const SECONDARY_EXPLAINERS = {
+  'Home':      'The Home tab is your daily command center — Agentforce surfaces revenue alerts, flagged partners, and open tasks ranked by impact before you start your morning.',
+  'Accounts':  'Accounts maintains the complete history for every property owner, commercial manager, and insurance adjuster your franchise works with, all in one place.',
+  'Partners':  'Partners tracks every referral relationship, revenue attribution, and contact cadence — so you always know who is sending jobs and who has gone quiet.',
+  'Estimates': 'Estimates tracks active job quotes, line items, and 72-hour follow-up windows across your territory so no revenue opportunity falls through.',
+  'Reports':   'Reports gives you real-time visibility into job profitability, marketing channel ROI, and service line margins — no spreadsheet rebuild required.',
+};
+
+/* ── Step-specific redirect nudges (1-based to match user-facing step numbers) ── */
+function getStepRedirectNudge(step) {
+  const nudges = {
+    1:  'Click the Agentforce flag in Today\u2019s Priorities to review at-risk revenue.',
+    2:  'Click Mike Sullivan\u2019s partner card to open his account record.',
+    3:  'Click the \u201cReferred by Mike Sullivan\u201d attribution bar to view partner details.',
+    4:  'Click the \u201c\u2726 Send Agentforce Email\u201d button in the record header to draft your outreach.',
+    5:  'Click the \u201c\u2708 Send\u201d button inside the Outlook compose box to send the email.',
+    6:  'Click the overdue task row in the queue to mark it complete.',
+    7:  'Click the \u201c\u2726 Send Proactive Mold Campaign\u201d button to reach Janet Morse.',
+    8:  'Click the \u201cEstimates Pipeline \u2014 All Open\u201d row in the Related list to view the Kanban board.',
+    9:  'Click the pulsing \u201cWestside Apartments\u201d card in Estimate Sent to take action.',
+    10: 'Click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the header to complete the walkthrough.',
+  };
+  return nudges[step] || 'Click the highlighted element to continue.';
+}
+
+/* ── Educational toast shown for nav tabs and out-of-sequence advance clicks ── */
+function sfEducate(elementKey) {
+  const explanation = SECONDARY_EXPLAINERS[elementKey] ||
+    'This tool helps you manage day-to-day franchise operations inside Salesforce.';
+  const nudge = getStepRedirectNudge(demoStep + 1); // demoStep is 0-based
+  sfShowToast(explanation + ' \u2014 ' + nudge, 'info');
 }
 
 /* ══════════════════════════════════════════════
@@ -2688,13 +2717,17 @@ function sfGuardrail(clickedLabel) {
       // Each target is stamped with the step that owns it, so a stale
       // target on a shared screen cannot skip the narrative.
       const owns = parseInt(adv.dataset.advance, 10);
-      if (!isNaN(owns) && owns !== demoStep + 1) { sfGuardrail('That action'); return; }
+      if (!isNaN(owns) && owns !== demoStep + 1) {
+        // Out-of-sequence click on a valid advance element — educate rather than block
+        sfEducate('');
+        return;
+      }
       advanceStep();
       return;
     }
 
     const locked = e.target.closest('[data-locked]');
-    if (locked) { e.stopPropagation(); sfGuardrail(locked.dataset.locked); return; }
+    if (locked) { e.stopPropagation(); sfEducate(locked.dataset.locked); return; }
 
     const explain = e.target.closest('[data-explain]');
     if (explain) { e.stopPropagation(); sfShowPopover(explain, explain.dataset.explain); return; }
