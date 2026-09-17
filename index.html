@@ -804,9 +804,9 @@
           <div class="desk-dot" id="ddot-5"></div>
         </div>
         <div class="desk-phases">
-          <div class="desk-phase" id="dphase-1"><span class="dp-n">1</span> Morning Control</div>
+          <div class="desk-phase" id="dphase-1"><span class="dp-n">1</span> Lead Capture</div>
           <div class="desk-phase" id="dphase-2"><span class="dp-n">2</span> Estimate Record</div>
-          <div class="desk-phase" id="dphase-3"><span class="dp-n">3</span> Partner Intelligence</div>
+          <div class="desk-phase" id="dphase-3"><span class="dp-n">3</span> Activity &amp; Partners</div>
           <div class="desk-phase" id="dphase-4"><span class="dp-n">4</span> Partner Engine</div>
           <div class="desk-phase" id="dphase-5"><span class="dp-n">5</span> Business Health</div>
         </div>
@@ -917,6 +917,41 @@
                     </div>
                   </div>
 
+                  <!-- ── INBOUND WEB LEADS ── -->
+                  <div class="slds-card">
+                    <div class="slds-card-hdr">
+                      <span class="slds-card-title">&#x2726; Inbound Web Leads</span>
+                      <span class="slds-badge slds-badge-agent" style="font-size:7.5px;">3 new &middot; AI-scored</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:20px 1fr 80px 78px;gap:8px;padding:5px 11px;background:#FAFAF9;border-bottom:1px solid #DDDBDA;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#706E6B;">
+                      <span></span><span>Lead</span><span>Est. Value</span><span>Score</span>
+                    </div>
+                    <!-- MOMENT 1 PRIMARY TARGET — Cascade Tower web lead -->
+                    <div class="guided-pulse" id="lead-cascade-row" data-advance="1" style="display:grid;grid-template-columns:20px 1fr 80px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;background:rgba(0,116,211,0.05);border-left:3px solid #0176D3;">
+                      <span style="font-size:11px;color:#0176D3;">&#x2726;</span>
+                      <span>
+                        <span style="font-size:9.5px;font-weight:800;color:#0176D3;">Cascade Tower Properties</span>
+                        <span style="font-size:9px;color:#514F4D;"> &mdash; 3 units, water intrusion, commercial SLA 2h 14m left</span>
+                        <span class="gp-cue">&#x25B8; View AI qualification</span>
+                      </span>
+                      <span style="font-size:10px;font-weight:900;color:#2E844A;">$12K&ndash;$18K</span>
+                      <span class="slds-badge slds-badge-error" style="font-size:8px;">87 &mdash; High</span>
+                    </div>
+                    <div data-explain="Riverside Condos|Score 61 — Medium|Water damage reported in one unit. Residential SLA — 8 hours. Agentforce classified as Category 1 (clean water). Lower urgency, queued behind commercial leads." style="display:grid;grid-template-columns:20px 1fr 80px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;">
+                      <span style="font-size:10px;color:#514F4D;">&#x1F3E0;</span>
+                      <span style="font-size:9px;color:#514F4D;"><span class="slds-link" style="font-weight:600;">Riverside Condos</span> &mdash; 1 unit, water damage, residential</span>
+                      <span style="font-size:10px;font-weight:700;color:#514F4D;">$4K&ndash;$7K</span>
+                      <span class="slds-badge slds-badge-neutral" style="font-size:8px;">61 &mdash; Med</span>
+                    </div>
+                    <div data-explain="Harbor Plaza Office|Score 44 — Low|Smoke odor complaint from HVAC — likely superficial. Agentforce scored low priority: no moisture reading, non-residential, submitted 4 AM on a Sunday." style="display:grid;grid-template-columns:20px 1fr 80px 78px;gap:8px;padding:8px 11px;align-items:center;">
+                      <span style="font-size:10px;color:#514F4D;">&#x1F3E2;</span>
+                      <span style="font-size:9px;color:#514F4D;"><span class="slds-link" style="font-weight:600;">Harbor Plaza Office</span> &mdash; smoke odor, HVAC query</span>
+                      <span style="font-size:10px;font-weight:700;color:#514F4D;">$2K&ndash;$5K</span>
+                      <span class="slds-badge" style="font-size:8px;background:#F4F6F9;color:#706E6B;">44 &mdash; Low</span>
+                    </div>
+                  </div>
+
+                  <!-- ── TODAY'S PRIORITIES ── -->
                   <div class="slds-card">
                     <div class="slds-card-hdr">
                       <span class="slds-card-title">Today&rsquo;s Priorities</span>
@@ -925,14 +960,14 @@
                     <div style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:5px 11px;background:#FAFAF9;border-bottom:1px solid #DDDBDA;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#706E6B;">
                       <span></span><span>Priority</span><span>At Stake</span><span>Status</span>
                     </div>
-                    <!-- PHASE 1 PRIMARY TARGET — Westside Apartments estimate alert -->
-                    <div class="guided-pulse" data-advance="1" style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;">
+                    <!-- MOMENT 3 PRIMARY TARGET — Westside Apartments estimate alert (pulse managed by JS) -->
+                    <div id="westside-alert-row" data-advance="3" style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;">
                       <span style="font-size:11px;">&#x2726;</span>
                       <span>
                         <span style="font-size:9.5px;font-weight:800;color:#C44E00;">Agentforce Alert:</span>
                         <span class="slds-link" style="font-size:9.5px;">Westside Apartments</span>
                         <span style="font-size:9px;color:#514F4D;"> &mdash; Estimate sent 72+ hrs ago ($14.8K) &middot; Follow-up needed</span>
-                        <span class="gp-cue">&#x25B8; Open record</span>
+                        <span class="gp-cue" style="display:none;" id="westside-gp-cue">&#x25B8; Open record</span>
                       </span>
                       <span style="font-size:10px;font-weight:900;color:#C23934;">$14.8K</span>
                       <span class="slds-badge slds-badge-error">Overdue</span>
@@ -961,6 +996,131 @@
             </div>
 
 <!-- ═══════════════════════════════════════════════
+                 MOMENT 2 — AI LEAD QUALIFICATION (Cascade Tower)
+            ═══════════════════════════════════════════════ -->
+            <div class="demo-screen" id="ds-lead-cascade">
+              <div class="sf-chrome" data-active="Home"></div>
+              <div class="sf-record-page">
+
+                <div class="sf-crumb">
+                  <span class="cl">Home</span><span class="cs">&rsaquo;</span>
+                  <span class="cl">Leads</span><span class="cs">&rsaquo;</span>
+                  <span class="cc">Cascade Tower Properties &mdash; Web Form Lead</span>
+                </div>
+
+                <div class="sf-highlights">
+                  <div class="sf-hl-top">
+                    <div class="sf-hl-icon" style="background:linear-gradient(135deg,#0274BE,#00346D);font-size:10px;">CT</div>
+                    <div class="sf-hl-id" data-explain="Lead Record|Cascade Tower Properties|This web form submission was captured, parsed, and scored by Agentforce in under 30 seconds — no one had to read a contact form or decide priority. The record was already open when you walked in.">
+                      <div class="sf-hl-type">Lead &mdash; Inbound Web Form</div>
+                      <div class="sf-hl-name">Cascade Tower Properties</div>
+                      <div class="sf-hl-sub">Commercial High-Rise &middot; 3 Units Affected &middot; Floors 6, 7, 12 &middot; Received 7:48 AM</div>
+                    </div>
+                    <div class="sf-hl-actions">
+                      <button class="slds-btn" data-explain="Edit|Inline field editing|Update any lead field without leaving the record. Change source, re-score, or reassign in place.">Edit</button>
+                      <button class="slds-btn" data-explain="Convert|Convert lead to account|Once qualified, Convert creates a linked Account, Contact, and Opportunity in one click — no re-entry.">Convert</button>
+                      <button class="slds-btn" data-explain="Log Call|Capture a conversation|Tapping Log Call here opens a timer-based call logger. Notes and duration auto-attach to the lead record.">Log Call</button>
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="2">&#x2726; Send Instant AI Response</button>
+                    </div>
+                  </div>
+                  <div class="sf-hl-fields">
+                    <div class="sf-hl-field" data-explain="Lead Score|87 — High Priority|Agentforce scored this lead 87/100 based on: property type (commercial), issue severity (Category 2 water), units affected (3), and time-sensitive mold window (72 hours).">
+                      <div class="sf-hl-label">Lead Score</div>
+                      <div class="sf-hl-value" style="color:#C23934;">87 &mdash; High</div>
+                      <div class="sf-hl-note" style="color:#FF6900;">&#x2726; Agentforce scored</div>
+                    </div>
+                    <div class="sf-hl-field" data-explain="Estimated Job Value|$12,000 – $18,000|Range calculated from comparable commercial water jobs in your territory. 3 affected floors of a high-rise typically require 4–6 days of remediation.">
+                      <div class="sf-hl-label">Est. Job Value</div>
+                      <div class="sf-hl-value" style="color:#2E844A;">$12K&ndash;$18K</div>
+                    </div>
+                    <div class="sf-hl-field" data-explain="Response SLA|Commercial SLA: 4 hours|Your commercial SLA policy requires a response within 4 hours of web form submission. 2h 14m remaining — clicking Send AI Response below stops the clock.">
+                      <div class="sf-hl-label">Response SLA</div>
+                      <div class="sf-hl-value" style="color:#C23934;">&#x26A0; 2h 14m left</div>
+                      <div class="sf-hl-note">commercial SLA</div>
+                    </div>
+                    <div class="sf-hl-field" data-explain="Mold Risk Window|72 hours if untreated|Category 2 water in a high-rise has a shorter containment window than residential — HVAC systems accelerate moisture spread. Agentforce surfaces this flag so the risk is visible before dispatch.">
+                      <div class="sf-hl-label">Mold Risk Window</div>
+                      <div class="sf-hl-value" style="color:#8C4B02;">72h if untreated</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sf-tabset">
+                  <div class="sf-tab active" data-explain="Lead Details|Contact and property fields|Standard SLDS layout — fields shown here are configured by your admin per record type and team role.">Details</div>
+                  <div class="sf-tab" data-explain="Activity tab|Calls, emails, web history|Full chronological history of every touchpoint — the web form submission is already logged here. Nothing was entered manually.">Activity</div>
+                  <div class="sf-tab" data-explain="Related tab|Linked accounts and contacts|Once this lead converts, related Account, Contact, and Job records link here automatically so history never gets orphaned.">Related</div>
+                </div>
+
+                <div class="sf-cols">
+                  <div class="sf-col-main">
+
+                    <!-- Agentforce AI Analysis Banner -->
+                    <div class="slds-card" style="border-left:3px solid #FF6900;">
+                      <div class="slds-card-hdr">
+                        <span class="slds-card-title">&#x2726; Agentforce &mdash; Instant AI Analysis</span>
+                        <span class="slds-badge slds-badge-agent" style="font-size:7px;">Generated 10s ago</span>
+                      </div>
+                      <div class="slds-card-body" style="padding:8px 12px;font-size:9px;color:#514F4D;display:flex;flex-direction:column;gap:6px;">
+                        <div><strong style="color:#C44E00;">Property Type:</strong> Commercial high-rise &mdash; 3 affected floors (6, 7, 12) &middot; HVAC shared across units increases cross-contamination risk</div>
+                        <div><strong style="color:#C44E00;">Issue Classification:</strong> Category 2 water intrusion with visible discoloration &mdash; potential subfloor saturation on floors 7 and 12</div>
+                        <div><strong style="color:#C44E00;">Mold Risk Window:</strong> 68 hours if containment is not initiated &mdash; HVAC spread estimated within 48 hours</div>
+                        <div><strong style="color:#C44E00;">AI Response Ready:</strong> Personalized draft includes property-specific scope outline, your crew dispatch timeline, and emergency commercial pricing &mdash; click <strong>&#x2726; Send Instant AI Response</strong> to deploy in one click</div>
+                      </div>
+                    </div>
+
+                    <!-- Web form submission card -->
+                    <div class="slds-card">
+                      <div class="slds-card-hdr">
+                        <span class="slds-card-title">Web Form Submission</span>
+                        <span class="slds-card-meta">Sep 16 &middot; 7:48 AM &middot; puroclean.com/contact</span>
+                      </div>
+                      <div class="slds-card-body" style="padding:8px 12px;">
+                        <div style="background:#F8FAFC;border-left:3px solid #DDDBDA;border-radius:0 4px 4px 0;padding:8px 10px;font-size:9px;color:#514F4D;font-style:italic;line-height:1.6;">
+                          &ldquo;We have water intrusion on floors 6, 7, and 12 of our high-rise. Started sometime overnight — tenants on 7 reported water coming through the ceiling this morning. Discoloration visible. I am not sure how serious this is but we need someone to assess it ASAP. This is a commercial building so time is critical.&rdquo;<br>
+                          <span style="font-style:normal;color:#706E6B;font-size:8px;margin-top:4px;display:block;">&mdash; David Cho, Property Manager &middot; Cascade Tower Properties</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /sf-col-main -->
+
+                  <div class="sf-sidebar">
+                    <div class="slds-card">
+                      <div class="slds-card-hdr"><span class="slds-card-title">Lead Details</span></div>
+                      <table class="slds-table">
+                        <tbody>
+                          <tr data-explain="Company|Cascade Tower Properties|Commercial property management company operating 4 high-rise towers in the Pacific NW. New account — no prior relationship in Salesforce."><td style="color:#706E6B;width:44%;">Company</td><td style="font-weight:700;">Cascade Tower Properties</td></tr>
+                          <tr data-explain="Contact|David Cho|Property Manager on site. No prior CRM record — Salesforce created a new contact record from the web form submission automatically."><td style="color:#706E6B;">Contact</td><td><span class="slds-link">David Cho</span></td></tr>
+                          <tr data-explain="Email|d.cho@cascadetower.com|Agentforce queued a follow-up task to this address the moment the form landed."><td style="color:#706E6B;">Email</td><td style="font-size:8px;"><span class="slds-link">d.cho@cascadetower.com</span></td></tr>
+                          <tr data-explain="Phone|(503) 887-3201|Click to call directly from Salesforce — call logs automatically."><td style="color:#706E6B;">Phone</td><td>(503) 887-3201</td></tr>
+                          <tr data-explain="Lead Source|Website|Tracks which channel drove this job. Marketing ROI reports roll these up automatically — no spreadsheet required."><td style="color:#706E6B;">Lead Source</td><td>Website</td></tr>
+                          <tr data-explain="Status|AI Qualifying|Agentforce scored and classified this lead. Once you send the AI response, status auto-advances to Contacted."><td style="color:#706E6B;">Status</td><td><span class="slds-badge slds-badge-agent" style="font-size:7.5px;">&#x2726; AI Qualifying</span></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="slds-card" style="border-left:3px solid #FF6900;">
+                      <div class="slds-card-hdr">
+                        <span class="slds-card-title">&#x2726; AI Response Preview</span>
+                        <span class="slds-card-meta">Ready to send</span>
+                      </div>
+                      <div class="slds-card-body" style="padding:7px 11px;font-size:8.5px;color:#514F4D;line-height:1.6;">
+                        <div style="margin-bottom:4px;"><strong>To:</strong> <span style="color:#0176D3;">d.cho@cascadetower.com</span></div>
+                        <div style="margin-bottom:6px;"><strong>Subject:</strong> Urgent: Water Intrusion Response &mdash; Cascade Tower</div>
+                        <div style="border-top:1px solid #F3F2F2;padding-top:6px;font-size:8px;color:#706E6B;font-style:italic;">
+                          &ldquo;Hi David, we received your request and our team is on this immediately. Based on your description, we&rsquo;re classifying this as Category 2 commercial water intrusion. We can have an assessment crew on site within 2 hours...&rdquo;
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /sf-sidebar -->
+
+                </div><!-- /sf-cols -->
+
+              </div><!-- /sf-record-page -->
+            </div><!-- /ds-lead-cascade -->
+
+<!-- ═══════════════════════════════════════════════
                  PHASE 2 — WESTSIDE APARTMENTS RECORD
             ═══════════════════════════════════════════════ -->
             <div class="demo-screen" id="ds-westside">
@@ -985,7 +1145,7 @@
                     </div>
                     <!-- PHASE 2 PRIMARY TARGET -->
                     <div class="sf-hl-actions">
-                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="2">&#x2726; Send Agentforce Follow-Up</button>
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="4">&#x2726; Send Agentforce Follow-Up</button>
                       <button class="slds-btn" data-explain="Log a Call|Record the conversation|Timestamps the record, prompts Agentforce to create the follow-up task, and tags the adjuster if a claim number is mentioned.">Log a Call</button>
                       <button class="slds-btn" data-explain="New Task|Add a follow-up task|Assigns to the right team member and sets a due date. Agentforce can auto-assign based on capacity and proximity.">New Task</button>
                     </div>
@@ -1343,7 +1503,7 @@
                     </div>
                     <div class="slds-card">
                       <div class="slds-card-hdr"><span class="slds-card-title">Activity</span><span class="slds-card-meta" style="font-size:7px;color:#706E6B;">Click any row to expand</span></div>
-                      <div class="slds-timeline">
+                      <div class="slds-timeline" id="westside-activity-timeline">
 
                         <!-- Call Note — expandable -->
                         <div class="slds-tl-item" data-expand>
@@ -1469,7 +1629,7 @@
                     <div class="sf-kanban-cards">
 
                       <!-- PRIMARY TARGET — Mike Sullivan -->
-                      <div class="sf-kanban-card kc-overdue kc-pulse guided-pulse" data-advance="4">
+                      <div class="sf-kanban-card kc-overdue kc-pulse guided-pulse" data-advance="7">
                         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;">
                           <div class="kc-name" style="color:#0176D3;font-weight:900;">Mike Sullivan</div>
                           <span class="slds-badge slds-badge-success" style="font-size:7px;white-space:nowrap;">$89.4K YTD</span>
@@ -1591,7 +1751,7 @@
                       <button class="slds-btn" data-explain="Edit|Inline record editing|Update any field without leaving the page. Field history tracks who changed what and when.">Edit</button>
                       <button class="slds-btn" data-explain="New Task|Create a follow-up|Tasks assigned here show on your BDR dashboard, so accountability is visible without asking anyone for a status update.">New Task</button>
                       <button class="slds-btn" data-explain="Log Call|Capture a conversation|Reps log calls from mobile in about 8 seconds. Duration and notes attach to the partner record automatically.">Log Call</button>
-                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="5">&#x2726; Send Agentforce Touchpoint</button>
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="8">&#x2726; Send Agentforce Touchpoint</button>
                     </div>
                   </div>
                   <div class="sf-hl-fields">
@@ -1617,30 +1777,64 @@
                 </div>
 
                 <div class="sf-tabset">
-                  <div class="sf-tab active" data-explain="Details tab|Contact and account fields|Standard SLDS record detail layout — your admin controls which fields appear here per profile.">Details</div>
-                  <div class="sf-tab" data-explain="Jobs tab|14 related job records|A related list of every job Mike referred. Click any row to open the job, its claim, and its crew.">Jobs (14)</div>
+                  <div class="sf-tab" data-explain="Details tab|Contact and account fields|Standard SLDS record detail layout — your admin controls which fields appear here per profile.">Details</div>
+                  <div class="sf-tab active" style="color:#0176D3;border-bottom-color:#0176D3;">Jobs Referred (14)</div>
                   <div class="sf-tab" data-explain="Activity tab|Full chronological history|Calls, emails, voice notes, and tasks in one timeline. Nothing here was manually entered.">Activity</div>
                   <div class="sf-tab" data-explain="Files tab|Certificates and photos|Mike&rsquo;s license, insurance certificate, and job photos live on the record — not in someone&rsquo;s inbox.">Files</div>
+                </div>
+
+                <!-- Summary metric banner -->
+                <div style="display:flex;gap:0;border-bottom:1px solid #DDDBDA;background:#FAFAF9;flex-shrink:0;">
+                  <div style="flex:1;padding:7px 14px;border-right:1px solid #DDDBDA;text-align:center;">
+                    <div style="font-size:7.5px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Claims Attributed</div>
+                    <div style="font-size:13px;font-weight:900;color:#080707;">14</div>
+                  </div>
+                  <div style="flex:1.5;padding:7px 14px;border-right:1px solid #DDDBDA;text-align:center;">
+                    <div style="font-size:7.5px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Total Revenue YTD</div>
+                    <div style="font-size:13px;font-weight:900;color:#2E844A;">$89,400</div>
+                  </div>
+                  <div style="flex:1.5;padding:7px 14px;text-align:center;">
+                    <div style="font-size:7.5px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Avg Claim Value</div>
+                    <div style="font-size:13px;font-weight:900;color:#0176D3;">$6,386</div>
+                  </div>
                 </div>
 
                 <div class="sf-cols">
                   <div class="sf-col-main">
                     <div class="slds-card">
-                      <div class="slds-card-hdr"><span class="slds-card-title">Jobs Referred</span><span class="slds-card-meta">3 of 14 &middot; $89,400 total</span></div>
-                      <table class="slds-table">
-                        <thead><tr><th>Job</th><th>Service</th><th>Stage</th><th style="text-align:right;">Amount</th></tr></thead>
-                        <tbody>
-                          <tr data-explain="Eastside Commercial|$14,800 · Mold · In Progress|The job you just came from. Credited to Mike the moment his referral email landed.">
-                            <td><span class="slds-link">Eastside Commercial</span></td><td style="color:#7C3AED;font-weight:600;">Mold</td><td><span class="slds-badge slds-badge-warning">In Progress</span></td><td style="text-align:right;font-weight:800;">$14,800</td>
-                          </tr>
-                          <tr data-explain="Johnson Residence|$11,200 · Water · Estimate Sent|Adjuster visit is Thursday. The State Farm claim number is already on the record.">
-                            <td><span class="slds-link">Johnson Residence</span></td><td style="color:#0176D3;font-weight:600;">Water</td><td><span class="slds-badge slds-badge-neutral">Estimate Sent</span></td><td style="text-align:right;font-weight:800;">$11,200</td>
-                          </tr>
-                          <tr data-explain="Westfield Apartments|$8,900 · Water · Closed Won|Closed September 10. Revenue attributed to Mike without anyone filling in a referral field.">
-                            <td><span class="slds-link">Westfield Apartments</span></td><td style="color:#0176D3;font-weight:600;">Water</td><td><span class="slds-badge slds-badge-success">Closed Won</span></td><td style="text-align:right;font-weight:800;">$8,900</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div class="slds-card-hdr"><span class="slds-card-title">&#x1F4CB; Jobs Referred (14)</span><span class="slds-card-meta">Stack-ranked by revenue &middot; $89,400 total</span></div>
+                      <!-- Column headers -->
+                      <div style="display:grid;grid-template-columns:1fr 90px 90px 80px;gap:8px;padding:5px 12px;background:#FAFAF9;border-bottom:1px solid #DDDBDA;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#706E6B;">
+                        <span>Job / Account</span><span>Category</span><span>Status</span><span style="text-align:right;">Revenue</span>
+                      </div>
+                      <!-- Row 1: Eastside Commercial -->
+                      <div style="display:grid;grid-template-columns:1fr 90px 90px 80px;gap:8px;padding:8px 12px;border-bottom:1px solid #F3F2F2;align-items:center;" class="lv-row" data-explain="Eastside Commercial|$14,800 · Mold Remediation · In Progress|The active mold job — credited to Mike the moment his referral email arrived. Crew is currently on site, day 4 of 7.">
+                        <span class="slds-link" style="font-size:9.5px;font-weight:700;">Eastside Commercial</span>
+                        <span class="slds-badge" style="font-size:7.5px;background:#EDE9FE;color:#5C35D5;">Mold Remediation</span>
+                        <span class="slds-badge slds-badge-warning">In Progress</span>
+                        <span style="text-align:right;font-size:10px;font-weight:900;color:#FF6900;">$14,800</span>
+                      </div>
+                      <!-- Row 2: Johnson Residence -->
+                      <div style="display:grid;grid-template-columns:1fr 90px 90px 80px;gap:8px;padding:8px 12px;border-bottom:1px solid #F3F2F2;align-items:center;" class="lv-row" data-explain="Johnson Residence|$11,200 · Water Damage · Completed|Adjuster approved September 14. Claim paid — revenue fully attributed. Mike received no credit back-end — Salesforce tied it to his referral automatically at intake.">
+                        <span class="slds-link" style="font-size:9.5px;font-weight:700;">Johnson Residence</span>
+                        <span class="slds-badge" style="font-size:7.5px;background:#E8F4FB;color:#0274BE;">Water Damage</span>
+                        <span class="slds-badge slds-badge-success">Claim Paid</span>
+                        <span style="text-align:right;font-size:10px;font-weight:900;color:#2E844A;">$11,200</span>
+                      </div>
+                      <!-- Row 3: Westfield Apartments -->
+                      <div style="display:grid;grid-template-columns:1fr 90px 90px 80px;gap:8px;padding:8px 12px;border-bottom:1px solid #F3F2F2;align-items:center;" class="lv-row" data-explain="Westfield Apartments|$8,900 · Water Damage · Completed|Closed September 10. Revenue attributed to Mike without anyone filling in a referral field — the attribution link was set at lead intake.">
+                        <span class="slds-link" style="font-size:9.5px;font-weight:700;">Westfield Apartments</span>
+                        <span class="slds-badge" style="font-size:7.5px;background:#E8F4FB;color:#0274BE;">Water Damage</span>
+                        <span class="slds-badge slds-badge-success">Claim Paid</span>
+                        <span style="text-align:right;font-size:10px;font-weight:900;color:#2E844A;">$8,900</span>
+                      </div>
+                      <!-- Summary row: remaining 11 claims -->
+                      <div style="display:grid;grid-template-columns:1fr 90px 90px 80px;gap:8px;padding:8px 12px;align-items:center;background:#FAFAF9;" data-explain="11 Additional Claims|$54,500 in additional revenue|Includes 7 residential water jobs, 3 commercial water jobs, and 1 fire & smoke mitigation — all attributed automatically from Mike&rsquo;s referral source field.">
+                        <span style="font-size:9px;color:#706E6B;font-style:italic;">+ 11 Additional Residential &amp; Commercial Claims</span>
+                        <span></span>
+                        <span></span>
+                        <span style="text-align:right;font-size:10px;font-weight:900;color:#514F4D;">$54,500</span>
+                      </div>
                     </div>
                     <div class="slds-card">
                       <div class="slds-card-hdr"><span class="slds-card-title">Partner Details</span></div>
@@ -2681,17 +2875,29 @@ function phoneSecondaryClick(msg) { showMobileTooltip(msg); }
 const PHASE_COUNT = 5;
 
 const STEPS = [
-  /* ── PHASE 1 · MORNING CONTROL ── */
-  { screen:'ds-home', phase:1, phaseName:'Morning Control',
-    title:'Morning Control',
-    body:'Your Lightning Home page surfaces exactly what needs attention before you leave the house \u2014 live revenue gauges, pipeline charts, and Agentforce prioritizing the one estimate that will expire if you ignore it.',
+  /* ── PHASE 1 · LEAD CAPTURE (Moments 1 & 2) ── */
+  { screen:'ds-home', phase:1, phaseName:'Lead Capture',
+    title:'Inbound Leads & AI Scoring',
+    body:'Agentforce scores every inbound web lead before you read it \u2014 commercial severity, mold risk window, and estimated job value. Cascade Tower just hit your inbox at a score of 87 out of 100.',
+    hint:'\u26a1 Click the Cascade Tower web lead to open the AI qualification view',
+    target:'the Cascade Tower lead row in Inbound Web Leads' },
+
+  { screen:'ds-lead-cascade', phase:1, phaseName:'Lead Capture',
+    title:'Instant AI Qualification',
+    body:'Agentforce read the web form, classified the property type, identified the mold risk window, and drafted a personalized response. All of this happened before you even saw the notification.',
+    hint:'\u26a1 Click \u2726 Send Instant AI Response to deploy the AI-drafted reply',
+    target:'the \u2726 Send Instant AI Response button' },
+
+  /* ── PHASE 2 · ESTIMATE RECORD & AI FOLLOW-UP (Moments 3 & 4) ── */
+  { screen:'ds-home', phase:2, phaseName:'Estimate Record',
+    title:'Priority Transition \u2014 Westside Apartments',
+    body:'Lead qualified and follow-up queued. Now Agentforce flags the next priority: a $14.8K estimate sitting 72+ hours without a response. A franchise without Salesforce would have missed this entirely.',
     hint:'\u26a1 Click the Westside Apartments Agentforce Alert in Today\u2019s Priorities',
     target:'the Westside Apartments alert row in Today\u2019s Priorities' },
 
-  /* ── PHASE 2 · ESTIMATE RECORD & AI FOLLOW-UP (two sub-steps) ── */
   { screen:'ds-westside', phase:2, phaseName:'Estimate Record',
-    title:'Westside Apartments \u2014 $14.8K Estimate',
-    body:'The full account record, assembled automatically. Scope photos, moisture readings, stage path, and every activity logged without manual entry. Agentforce has a context-aware follow-up email drafted and ready to send.',
+    title:'Westside Apartments \u2014 Claim Execution',
+    body:'The full account record, assembled automatically \u2014 scope photos, moisture readings, stage path, every activity logged without manual entry. Agentforce has a context-aware follow-up email ready to send in one click.',
     hint:'\u26a1 Click the \u2726 Send Agentforce Follow-Up button',
     target:'the \u2726 Send Agentforce Follow-Up button' },
 
@@ -2701,27 +2907,33 @@ const STEPS = [
     hint:'\u26a1 Let the draft finish, then click \u2708 Send',
     target:'the \u2708 Send button in the compose window' },
 
-  /* ── PHASE 3 · PARTNER INTELLIGENCE KANBAN ── */
-  { screen:'ds-partner-kanban', phase:3, phaseName:'Partner Intelligence',
+  /* ── PHASE 3 · ACTIVITY & PARTNERS (Moment 5) ── */
+  { screen:'ds-westside', phase:3, phaseName:'Activity & Partners',
+    title:'Live Activity Timeline \u2014 Email Auto-Logged',
+    body:'Email sent and instantly logged. The activity timeline updated in real time \u2014 no copy-paste, no manual entry. Salesforce recorded the send, timestamp, and recipient automatically via bidirectional Outlook sync.',
+    hint:'\u26a1 Click \u201cPartners\u201d in the top navigation bar to review at-risk relationships',
+    target:'the Partners tab in the top navigation bar' },
+
+  /* ── PHASE 4 · PARTNER ENGINE (Moments 6a & 6b) ── */
+  { screen:'ds-partner-kanban', phase:4, phaseName:'Partner Engine',
     title:'Partner Intelligence Kanban',
-    body:'Every active partner, stack-ranked by revenue attributed YTD and organized by trade type. Agentforce applies a risk score to surface the relationships that need attention before revenue slips \u2014 Mike Sullivan is flagged at 31 days dark.',
+    body:'Every active partner, stack-ranked by revenue attributed YTD and organized by trade type. Agentforce applied a risk score \u2014 Mike Sullivan is flagged at 31 days dark with $89.4K in annual referral revenue in jeopardy.',
     hint:'\u26a1 Click Mike Sullivan\u2019s card in the Plumbers column',
     target:'Mike Sullivan\u2019s card (\u26A0 31 Days Dark)' },
 
-  /* ── PHASE 4 · PARTNER ENGINE (two sub-steps) ── */
   { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
-    title:'Mike Sullivan \u2014 $89.4K Revenue Attribution',
-    body:'Mike\u2019s entire referral history, assembled automatically \u2014 14 referred jobs, $89.4K YTD. Agentforce has a context-aware outreach email ready using the Westside job as the opening hook.',
-    hint:'\u26a1 Click the \u2726 Send Agentforce Touchpoint action',
+    title:'Mike Sullivan \u2014 14 Referred Claims, $89.4K YTD',
+    body:'Every job Mike has ever referred, with revenue attributed automatically. 14 claims totaling $89,400 \u2014 tracked without a spreadsheet or anyone remembering to fill in a referral field. Agentforce has an outreach email ready.',
+    hint:'\u26a1 Click the \u2726 Send Agentforce Touchpoint action in the header',
     target:'the \u2726 Send Agentforce Touchpoint button' },
 
   { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
     title:'Agentforce Writes the Relationship Email',
-    body:'Agentforce drafts a relationship-building email using the Westside job as context. You approve in five seconds. It sends through Outlook and logs itself back to Salesforce \u2014 bidirectional, no copy-paste.',
+    body:'Agentforce drafts a relationship-building email using the Westside Apartments job as context. You approve in five seconds. It sends through Outlook and logs itself back to Salesforce \u2014 bidirectional, no copy-paste.',
     hint:'\u26a1 Let the draft finish, then click \u2708 Send',
     target:'the \u2708 Send button in the compose window' },
 
-  /* ── PHASE 5 · BUSINESS HEALTH & PARTNER ATTRIBUTION ── */
+  /* ── PHASE 5 · BUSINESS HEALTH (Moment 7) ── */
   { screen:'ds-exec', phase:5, phaseName:'Business Health',
     title:'Business Health & Partner Attribution',
     body:'Property manager partners drive mold jobs at 31% higher margin than water work. Mold returns 52% margin \u2014 and Agentforce found the exact correlation that tells you which partner relationships to grow next.',
@@ -2736,21 +2948,21 @@ const STEPS = [
 /* Notification segues — a live toast bridges one phase to the next so
    the environment feels alive instead of button-driven. */
 const NOTIF_DEFS = {
-  /* Phase 2 → Phase 3 : completing the escalated task surfaces new inbound work */
+  /* Step 1 → Step 2: AI response sent, lead auto-qualified, return to priorities */
+  'lead-qualified': {
+    delay: 800, icon: '✅', label: 'Agentforce — Lead Auto-Qualified', headerColor: '#2E844A',
+    title: 'Cascade Tower Properties — lead qualified',
+    body: 'AI response sent in 14 seconds. Lead status advanced to Contacted, a follow-up task created for Thursday, and the record scored for dispatch priority. Return to Home to address the next flag.',
+    cta: 'Back to Today\u2019s Priorities \u2192'
+  },
+  /* Historical: outlook-referral kept for explorable screens */
   'outlook-referral': {
     delay: 900, icon: '📧', label: 'Outlook — New Referral Received', headerColor: '#0078D4',
     title: 'New referral email from Mike Sullivan',
     body: '"Got a commercial mold job at Eastside — Unit 2B, drywall moisture around 85%. Can your team handle it today?" Parsed, logged, and a job record created automatically.',
-    cta: 'Open the job record →'
+    cta: 'Open the job record \u2192'
   },
-  /* Westside task complete → partner kanban : Agentforce surfaces at-risk partner */
-  'partner-risk': {
-    delay: 1000, icon: '✦', label: 'Agentforce — Partner Risk Alert', headerColor: '#FF6900',
-    title: 'Mike Sullivan — 31 days dark, $89.4K at risk',
-    body: 'Email sent and auto-logged to Westside. While re-scoring your partner book, Agentforce flagged Sullivan Plumbing Co.: no touchpoint in 31 days, $89.4K annual referral revenue in jeopardy.',
-    cta: 'Open Partner View \u2192'
-  },
-  /* Phase 4 → Phase 5 : the sent email triggers the margin correlation discovery */
+  /* Step 8 → Step 9: sent Mike Sullivan email triggers margin correlation discovery */
   'mold-correlation': {
     delay: 1500, icon: '✦', label: 'Agentforce — Correlation Discovered', headerColor: '#FF6900',
     title: 'Mold margin correlation discovered',
@@ -2758,9 +2970,8 @@ const NOTIF_DEFS = {
     cta: 'See the executive dashboard \u2192'
   },
 };
-/* Keys are 0-based step indexes that fire a segue after their primary click.
-   Step 3 (send email) is handled directly inside sendCompose() via mold-correlation. */
-const STEP_SEGUE = {};
+/* Step 1 fires lead-qualified segue (clicking AI Response → notification → doAdvance to ds-home) */
+const STEP_SEGUE = { 1: 'lead-qualified' };
 
 let demoStep = 0;
 let notifAdvanceCallback = null;
@@ -2776,8 +2987,8 @@ function renderChrome() {
   document.querySelectorAll('#browser-viewport .sf-chrome').forEach(host => {
     const active = host.dataset.active || 'Home';
     const tabs = NAV_TABS.map(t => {
-      if (t === active) return '<div class="sf-nav-tab active">' + t + '</div>';
-      return '<div class="sf-nav-tab" data-locked="' + t + '">' + t + '</div>';
+      if (t === active) return '<div class="sf-nav-tab active" data-nav-tab="' + t + '">' + t + '</div>';
+      return '<div class="sf-nav-tab" data-nav-tab="' + t + '" data-locked="' + t + '">' + t + '</div>';
     }).join('');
     host.innerHTML =
       '<div class="sf-global-header">' +
@@ -2839,6 +3050,10 @@ function showScreen(step) {
     next.classList.add('active');
     animateCharts(next);
   }
+  // When leaving step 5, remove Partners tab pulse
+  if (step !== 5) updatePartnersTabPulse(false);
+  // Sync home-screen row pulsing whenever ds-home is shown
+  if (id === 'ds-home') updateHomeScreenPulse();
 }
 
 /* Bars, meters, and gauges animate in from zero every time a screen is shown */
@@ -2898,17 +3113,43 @@ window.advanceStep = advanceStep;
 
 /* Step-entry side effects */
 function onEnterStep(step) {
-  // Steps 2 & 5 both open the Salesforce Inbox compose panel and self-type
-  // Step 2 = Westside follow-up email; Step 5 = Mike Sullivan touchpoint email
-  if (step === 2 || step === 5) {
+  // Step 4 = Westside email compose; Step 8 = Mike Sullivan compose
+  if (step === 4 || step === 8) {
     if (composeOpenTimer) clearTimeout(composeOpenTimer);
     composeOpenTimer = setTimeout(() => { if (demoStep === step) openEmailCompose(); }, 420);
+  }
+  // Step 5 = Partners tab moment — make the Partners nav tab pulse
+  if (step === 5) {
+    updatePartnersTabPulse(true);
+  }
+  // Step 0 or 2 = home screen — update which home row pulses
+  if (step === 0 || step === 2) {
+    updateHomeScreenPulse();
   }
   // Final step — offer the summary overlay after a pause
   if (step === STEPS.length - 1) {
     if (finaleTimer) clearTimeout(finaleTimer);
     finaleTimer = setTimeout(() => { if (demoStep === STEPS.length - 1) showFinale(); }, 14000);
   }
+}
+
+/* Toggle pulsing on the "Partners" nav tab (Moment 5 primary target) */
+function updatePartnersTabPulse(enable) {
+  document.querySelectorAll('#browser-viewport [data-nav-tab="Partners"]').forEach(el => {
+    el.classList.toggle('guided-pulse', !!enable);
+  });
+}
+
+/* Toggle pulsing on the correct home screen row depending on current step:
+   Step 0 → Cascade Tower row pulses; Step 2 → Westside alert row pulses. */
+function updateHomeScreenPulse() {
+  const cascadeRow  = document.getElementById('lead-cascade-row');
+  const westsideRow = document.getElementById('westside-alert-row');
+  const westsideCue = document.getElementById('westside-gp-cue');
+
+  if (cascadeRow)  cascadeRow.classList.toggle('guided-pulse',  demoStep === 0);
+  if (westsideRow) westsideRow.classList.toggle('guided-pulse', demoStep === 2);
+  if (westsideCue) westsideCue.style.display = demoStep === 2 ? '' : 'none';
 }
 
 /* ══════════════════════════════════════════════
@@ -3026,13 +3267,16 @@ const SECONDARY_EXPLAINERS = {
 /* ── Step-specific redirect nudges (1-based to match demoStep + 1) ── */
 function getStepRedirectNudge(step) {
   const nudges = {
-    1: 'To continue, click the Westside Apartments Agentforce Alert in Today\u2019s Priorities.',
-    2: 'To continue, click the \u201c\u2726 Send Agentforce Follow-Up\u201d button in the record header.',
-    3: 'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
-    4: 'To continue, click Mike Sullivan\u2019s card in the Plumbers column of the Partner Kanban.',
-    5: 'To continue, click the \u201c\u2726 Send Agentforce Touchpoint\u201d action in the record header.',
-    6: 'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
-    7: 'To finish the walkthrough, click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the dashboard header.',
+    1:  'To continue, click the Cascade Tower web lead row in Inbound Web Leads.',
+    2:  'To continue, click the \u201c\u2726 Send Instant AI Response\u201d button in the record header.',
+    3:  'To continue, click the Westside Apartments Agentforce Alert in Today\u2019s Priorities.',
+    4:  'To continue, click the \u201c\u2726 Send Agentforce Follow-Up\u201d button in the Westside record.',
+    5:  'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
+    6:  'To continue, click \u201cPartners\u201d in the top navigation bar \u2014 it\u2019s pulsing.',
+    7:  'To continue, click Mike Sullivan\u2019s card (\u26A0 31 Days Dark) in the Plumbers column.',
+    8:  'To continue, click the \u201c\u2726 Send Agentforce Touchpoint\u201d action in Mike\u2019s record header.',
+    9:  'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
+    10: 'To finish the walkthrough, click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the dashboard header.',
   };
   return nudges[step] || 'Click the pulsing element to continue the walkthrough.';
 }
@@ -3066,6 +3310,19 @@ function sfEducate(elementKey) {
       if (demoStep !== 4) { sfEducate(''); return; }
       completeTaskInUI(complTask);
       return;
+    }
+
+    /* ── Partners nav tab at Moment 5: clicking it advances the story ── */
+    const navTab = e.target.closest('[data-nav-tab]');
+    if (navTab) {
+      const tabName = navTab.dataset.navTab;
+      if (tabName === 'Partners' && demoStep === 5) {
+        e.stopPropagation();
+        updatePartnersTabPulse(false);
+        advanceStep();
+        return;
+      }
+      // All other nav tab clicks fall through to data-locked below
     }
 
     const adv = e.target.closest('[data-advance]');
@@ -3223,6 +3480,12 @@ window.resetBrowserDemo = function () {
   const _wtMeta = document.getElementById('task-westside-meta');
   if (_wtMeta) _wtMeta.textContent = 'Due yesterday \u00b7 escalated by Agentforce 72-hr guard';
 
+  /* Reset Partners nav tab pulse and home-row pulse */
+  updatePartnersTabPulse(false);
+  /* Reset injected timeline entries */
+  const _tl = document.getElementById('westside-activity-timeline');
+  if (_tl) { const _injected = _tl.querySelector('.sf-act-item'); if (_injected) _injected.remove(); }
+
   /* Reset list view state */
   const _defV = document.getElementById('lv-default-view');
   const _filtV = document.getElementById('lv-filtered-view');
@@ -3237,6 +3500,7 @@ window.resetBrowserDemo = function () {
   if (_lvTitle) _lvTitle.textContent  = 'Recently Viewed Partners';
   if (_lvChoice) _lvChoice.classList.remove('guided-pulse');
   updateLeftPanel(0);
+  updateHomeScreenPulse(); // restores Cascade Tower pulse at step 0
   const intro = document.getElementById('browser-intro');
   if (intro) {
     intro.style.display = '';
@@ -3263,7 +3527,9 @@ function closeCompose() {
   if (el) el.classList.remove('open');
 }
 
-/* Compose content definitions — choose by context step */
+/* Compose content definitions.
+   Step 4 = Westside Apartments follow-up.
+   Step 8 = Mike Sullivan relationship touchpoint. */
 const COMPOSE_CONTENT = {
   westside: {
     forLabel : '\u2014 Westside Apartments',
@@ -3278,14 +3544,16 @@ const COMPOSE_CONTENT = {
     body     : 'Hey Mike,\n\nWanted to thank you for sending the Westside Apartments job our way \u2014 the crew wrapped containment today and the mold scope looks like a 5-day remediation.\n\nOne thing I\u2019d love to get on your radar: mold season opens in about 6 weeks. You\u2019re perfectly positioned \u2014 any multi-family moisture calls you field, send them straight to me. We turn those around fast and the margin is significantly better than standard water work.\n\nLet me know if you want to grab a quick call.\n\nAppreciate you,\nMelissa\nPuroClean Northwest'
   }
 };
+/* Helper: which compose context are we in? */
+function isMikeCompose() { return demoStep === 8; }
 
 function openEmailCompose() {
   sfClosePopover();
   const el = document.getElementById('bs-compose');
   if (!el) return;
 
-  // Pick content based on current demo step (step 5 = Mike Sullivan, else Westside)
-  const ctx = (demoStep === 5) ? COMPOSE_CONTENT.mike : COMPOSE_CONTENT.westside;
+  // Pick content based on current demo step (step 8 = Mike Sullivan, else Westside)
+  const ctx = isMikeCompose() ? COMPOSE_CONTENT.mike : COMPOSE_CONTENT.westside;
   const forEl = document.getElementById('bs-compose-for');
   const toEl  = document.getElementById('bs-compose-to');
   if (forEl) forEl.textContent = ctx.forLabel;
@@ -3320,7 +3588,7 @@ function runComposeTyping() {
   const bodyWrap = document.getElementById('bs-compose-body-wrap');
 
   // Choose content by current step (captured at the time typing starts)
-  const ctx  = (demoStep === 5) ? COMPOSE_CONTENT.mike : COMPOSE_CONTENT.westside;
+  const ctx  = isMikeCompose() ? COMPOSE_CONTENT.mike : COMPOSE_CONTENT.westside;
   const subject = ctx.subject;
   const body    = ctx.body;
 
@@ -3361,8 +3629,8 @@ function runComposeTyping() {
 }
 
 /* Branching send handler:
-   Step 2 (Westside)   → close compose → task animation → partner-risk segue → ds-partner-kanban
-   Step 5 (Mike)       → close compose → mold-correlation segue → ds-exec              */
+   Step 4 (Westside follow-up)  → close compose → task animation → doAdvance to step 5
+   Step 8 (Mike touchpoint)     → close compose → mold-correlation segue → ds-exec     */
 window.sendCompose = function () {
   const sendBtn = document.getElementById('bs-compose-send-btn');
   if (!sendBtn || !sendBtn.classList.contains('ready')) return;
@@ -3377,11 +3645,11 @@ window.sendCompose = function () {
 
   const t1 = setTimeout(() => {
     closeCompose();
-    if (step === 2) {
-      completeWestsideTaskInUI(); // fires partner-risk segue internally
-    } else if (step === 5) {
+    if (step === 4) {
+      completeWestsideTaskInUI(); // animates task then calls doAdvance() to step 5
+    } else if (step === 8) {
       const def = NOTIF_DEFS['mold-correlation'];
-      notifAdvanceCallback = doAdvance; // step 5 \u2192 step 6 (ds-exec)
+      notifAdvanceCallback = doAdvance; // step 8 \u2192 step 9 (ds-exec)
       notifSegueTimer = setTimeout(() => showSegueNotif(def), def.delay);
     }
   }, 900);
@@ -3389,13 +3657,14 @@ window.sendCompose = function () {
 };
 
 /* Inline task-completion animation for the Westside record task.
-   Fires automatically after the email is sent — the user does NOT click the task. */
+   Fires automatically after the email is sent (step 4). After the animation plays,
+   calls doAdvance() directly to step 5 (ds-westside, Partners-tab moment). */
 function completeWestsideTaskInUI() {
   const row = document.getElementById('task-westside');
   if (!row || row.dataset.completed) return;
   row.dataset.completed = '1';
 
-  // Remove overdue styling and apply completed class (transitions fire)
+  // Remove overdue styling and apply completed class
   row.classList.remove('overdue');
   row.classList.add('sf-task-completed');
 
@@ -3411,12 +3680,29 @@ function completeWestsideTaskInUI() {
   const meta = document.getElementById('task-westside-meta');
   if (meta) meta.textContent = 'Completed just now \u2014 email auto-logged via Outlook';
 
-  // After a short pause, fire the partner-risk segue to Phase 3 (ds-partner-kanban)
+  // Inject a live activity timeline entry to show the email was logged
+  const timeline = document.getElementById('westside-activity-timeline');
+  if (timeline) {
+    const entry = document.createElement('div');
+    entry.className = 'sf-act-item';
+    entry.style.cssText = 'opacity:0;transform:translateY(-6px);transition:opacity 0.4s,transform 0.4s;';
+    entry.innerHTML =
+      '<div class="sf-act-icon" style="background:#0078D4;">&#x1F4E7;</div>' +
+      '<div class="sf-act-body">' +
+        '<div class="sf-act-title" style="color:#0176D3;font-weight:800;">Email Auto-Logged: Westside Follow-Up</div>' +
+        '<div class="sf-act-meta">Sent via Outlook \u00b7 Sep 16, 2026 \u00b7 Just now \u00b7 <span style="color:#2E844A;font-weight:700;">\u2713 Logged to record</span></div>' +
+      '</div>';
+    timeline.insertBefore(entry, timeline.firstChild);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      entry.style.opacity = '1';
+      entry.style.transform = 'translateY(0)';
+    }));
+  }
+
+  // After animation plays, advance to step 5 (Partners tab moment — same screen)
   setTimeout(() => {
-    const def = NOTIF_DEFS['partner-risk'];
-    notifAdvanceCallback = doAdvance; // step 2 \u2192 step 3 (partner kanban)
-    notifSegueTimer = setTimeout(() => showSegueNotif(def), def.delay);
-  }, 900);
+    doAdvance(); // step 4 \u2192 step 5 (ds-westside, Partners tab becomes primary target)
+  }, 1100);
 }
 
 window.openEmailCompose = openEmailCompose;
