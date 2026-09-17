@@ -108,7 +108,7 @@
     linear-gradient(-55deg,transparent 0%,transparent 58%,rgba(255,105,0,0.07) 58%,rgba(255,105,0,0.07) 60%,rgba(255,105,0,0.03) 60%,rgba(255,105,0,0.03) 66%,rgba(255,105,0,0.01) 66%,rgba(255,105,0,0.01) 68%,transparent 68%),
     radial-gradient(rgba(2,116,190,0.05) 1px,transparent 1px);background-size:100% 100%,40px 40px;pointer-events:none;}
   #slide-desktop::after{content:'';position:absolute;right:-70px;bottom:-90px;width:480px;height:540px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 200'%3E%3Cpath fill='%23FF6900' d='M60%2C4C58%2C28 42%2C40 45%2C68c2%2C14-1%2C25-9%2C35c5-4 11-12 14-6c2%2C6-2%2C18-9%2C27c6-5 11-12 14-7c4%2C8 2%2C18 4%2C32c2-14 0-24 4-32c3-5 8%2C2 14%2C7c-7-9-11-21-9-27c3-6 9%2C2 14%2C6c-8-10-11-21-9-35c3-28-13-40-15-64Z'/%3E%3C/svg%3E") center/contain no-repeat;opacity:0.06;pointer-events:none;z-index:0;}
-  .sim-outer{position:relative;z-index:1;display:flex;flex-direction:column;max-width:1200px;margin:0 auto;height:100%;padding:52px 28px 18px;}
+  .sim-outer{position:relative;z-index:1;display:flex;flex-direction:column;max-width:1380px;margin:0 auto;height:100%;padding:52px 28px 18px;}
   .sim-header{flex-shrink:0;margin-bottom:14px;display:flex;justify-content:center;}
   .sim-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:6px 18px;}
   .sim-badge-dot{width:7px;height:7px;border-radius:50%;background:#FF6900;box-shadow:0 0 8px #FF6900;animation:guidedPulse 1.8s ease-out infinite;}
@@ -117,32 +117,32 @@
   .sim-badge-desc{font-size:10px;color:rgba(255,255,255,0.45);}
   .sim-cols{flex:1;min-height:0;display:flex;align-items:center;gap:20px;}
   /* Left context panel */
-  .sim-ctx{flex-shrink:0;width:190px;overflow:hidden;}
-  .sim-ctx #desk-pill{font-size:9px;font-weight:800;color:var(--pc-orange);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
-  .sim-ctx #desk-title{font-size:1.2rem;font-weight:900;color:white;line-height:1.2;margin-bottom:10px;}
-  .sim-ctx #desk-body{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:10px;}
-  .sim-ctx #desk-hint{font-size:10px;color:rgba(255,105,0,0.8);font-weight:700;margin-bottom:14px;}
-  .desk-dots{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
-  .desk-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.3s;}
-  .desk-dot.active{background:#FF6900;box-shadow:0 0 6px #FF6900;}
+  .sim-ctx{flex-shrink:0;width:300px;overflow:hidden;}
+  .sim-ctx #desk-pill{font-size:12px;font-weight:800;color:var(--pc-orange);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;padding:6px 14px;background:rgba(255,105,0,0.12);border-radius:20px;display:inline-block;}
+  .sim-ctx #desk-title{font-size:26px;font-weight:900;color:#FFFFFF;line-height:1.25;margin-bottom:12px;}
+  .sim-ctx #desk-body{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.65;margin-bottom:16px;}
+  .sim-ctx #desk-hint{font-size:13px;color:#FF6900;font-weight:700;margin-bottom:16px;}
+  .desk-dots{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
+  .desk-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all 0.3s;}
+  .desk-dot.active{background:#FF6900;box-shadow:0 0 8px #FF6900;}
   .desk-dot.done{background:rgba(255,105,0,0.45);}
   /* 5-phase journey list */
   .desk-phases{display:flex;flex-direction:column;gap:3px;margin-top:12px;}
-  .desk-phase{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.28);padding:3px 0;transition:color 0.3s;}
-  .desk-phase .dp-n{width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:7.5px;font-weight:800;flex-shrink:0;transition:all 0.3s;}
+  .desk-phase{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.28);padding:4px 0;transition:color 0.3s;line-height:1.8;}
+  .desk-phase .dp-n{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0;transition:all 0.3s;}
   .desk-phase.dp-active{color:#fff;font-weight:800;}
-  .desk-phase.dp-active .dp-n{background:#FF6900;color:#fff;box-shadow:0 0 8px rgba(255,105,0,0.6);}
+  .desk-phase.dp-active .dp-n{background:#FF6900;color:#fff;box-shadow:0 0 10px rgba(255,105,0,0.7);}
   .desk-phase.dp-done{color:rgba(255,255,255,0.5);}
-  .desk-phase.dp-done .dp-n{background:rgba(255,105,0,0.35);color:rgba(255,255,255,0.85);}
+  .desk-phase.dp-done .dp-n{background:#059669;color:#fff;}
   /* Browser chrome */
   .browser-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
   .browser-label{font-size:8.5px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
-  #browser-outer{width:900px;border-radius:10px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);}
+  #browser-outer{width:960px;border-radius:10px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);}
   .browser-chrome{background:#2D2D2D;padding:10px 14px;display:flex;align-items:center;gap:12px;}
   .browser-dots{display:flex;gap:6px;}
   .browser-dot{width:11px;height:11px;border-radius:50%;}
   .browser-url{flex:1;background:rgba(255,255,255,0.08);border-radius:6px;padding:4px 12px;font-size:10px;color:rgba(255,255,255,0.45);font-family:monospace;}
-  #browser-viewport{height:540px;background:white;overflow:hidden;position:relative;}
+  #browser-viewport{height:580px;background:white;overflow:hidden;position:relative;}
   /* Demo screens */
   #browser-viewport .demo-screen{position:absolute;inset:0;overflow:hidden;background:white;opacity:0;pointer-events:none;transition:opacity 0.35s ease;display:flex;flex-direction:column;transform:none;}
   #browser-viewport .demo-screen.active{opacity:1;pointer-events:all;transform:none;}
@@ -274,6 +274,34 @@
   .slds-scoped-notif.success{background:#EEF7EE;border-color:#A8D5A2;}
   .slds-scoped-notif.warning{background:#FFF3E0;border-color:#F0C68B;}
   /* ── SLDS KANBAN ── */
+  /* ── SLDS LIST VIEW PICKER (Phase 2 · Partner Intelligence) ── */
+  .lv-header{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:#fff;border-bottom:1px solid #DDDBDA;flex-shrink:0;}
+  .lv-header-l{display:flex;align-items:center;gap:6px;position:relative;}
+  .lv-title-btn{background:none;border:1.5px solid #0176D3;border-radius:4px;padding:3px 10px;font-size:9.5px;font-weight:700;color:#0176D3;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap;}
+  .lv-arrow{font-size:9px;color:#706E6B;transition:transform 0.2s;}
+  .lv-title-btn.open .lv-arrow{transform:rotate(180deg);}
+  .lv-dropdown{position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid #DDDBDA;border-radius:4px;box-shadow:0 4px 22px rgba(0,0,0,0.14);z-index:40;min-width:256px;display:none;overflow:hidden;}
+  .lv-dropdown.open{display:block;}
+  .lv-drop-item{padding:7px 12px;font-size:9px;color:#080707;cursor:pointer;border-bottom:1px solid #F3F2F2;}
+  .lv-drop-item:last-child{border-bottom:none;}
+  .lv-drop-item:hover{background:#F3F9FE;}
+  .lv-primary-opt{font-weight:800;color:#C44E00;background:#FFF7ED;display:flex;align-items:center;justify-content:space-between;}
+  .lv-primary-opt:hover{background:#FFE8CC;}
+  .lv-header-r{display:flex;gap:4px;align-items:center;}
+  .lv-table-wrap{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;}
+  .lv-filter-chip{display:flex;align-items:center;justify-content:space-between;background:#EFF8FF;border-bottom:1px solid #C2D8F0;padding:5px 12px;font-size:8px;flex-shrink:0;}
+  .lv-filter-count{font-size:7.5px;font-weight:800;color:#0176D3;background:#fff;border:1px solid #C2D8F0;border-radius:12px;padding:1px 8px;}
+  .lv-tbl{width:100%;border-collapse:collapse;}
+  .lv-th{font-size:7.5px;font-weight:700;color:#514F4D;text-transform:uppercase;letter-spacing:0.04em;padding:5px 11px;border-bottom:2px solid #DDDBDA;background:#FAFAF9;white-space:nowrap;text-align:left;}
+  .lv-td{font-size:9px;color:#080707;padding:8px 11px;border-bottom:1px solid #F3F2F2;vertical-align:middle;}
+  .lv-td-link{color:#0176D3;font-weight:700;cursor:pointer;}
+  .lv-row{cursor:pointer;transition:background 0.15s;}
+  .lv-row:hover{background:#F3F9FE;}
+  .lv-risk-row{background:rgba(255,105,0,0.04);border-left:3px solid #FF6900;}
+  .lv-score{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:8px;font-weight:800;}
+  .lv-score-g{background:#E6F4EA;color:#2E844A;}
+  .lv-score-y{background:#FEF9ED;color:#8C4B02;}
+
   /* ── PHASE 2 SPLIT: Kanban on top, Task Queue below ── */
   #browser-viewport .sf-pipeline-split{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
   #browser-viewport .sf-pipeline-split .sf-kanban{flex:0 1 auto;max-height:264px;padding:7px 10px 6px;}
@@ -319,6 +347,13 @@
   .sf-tile-sub{font-size:7.5px;color:#706E6B;margin-top:3px;}
 
   /* ── CHARTS ── */
+  /* ── Revenue by Month vertical bar chart ── */
+  .month-bar-chart{display:flex;align-items:flex-end;gap:4px;height:100px;padding:0 6px;}
+  .month-bar-col{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end;gap:3px;}
+  .month-bar-track{width:20px;height:80px;background:#F3F2F2;border-radius:4px 4px 0 0;display:flex;align-items:flex-end;overflow:hidden;flex-shrink:0;}
+  .month-bar-fill{width:100%;height:0;border-radius:4px 4px 0 0;transition:height 0.8s cubic-bezier(0.4,0,0.2,1);}
+  .month-bar-lbl{font-size:6.5px;color:#706E6B;font-weight:600;white-space:nowrap;}
+  /* Legacy bar classes kept for other potential uses */
   .sf-bar-chart{display:flex;align-items:flex-end;gap:4px;height:62px;}
   .sf-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;}
   .sf-bar{width:100%;border-radius:2px 2px 0 0;background:#0176D3;transition:height 0.7s cubic-bezier(0.4,0,0.2,1);height:0;}
@@ -328,7 +363,7 @@
   .sf-hbar-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
   .sf-hbar-name{font-size:8.5px;color:#080707;font-weight:600;width:74px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .sf-hbar-track{flex:1;height:9px;border-radius:2px;background:#ECEBEA;overflow:hidden;}
-  .sf-hbar-fill{height:100%;border-radius:2px;width:0;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+  .sf-hbar-fill{display:block;height:100%;border-radius:2px;width:0;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
   .sf-hbar-val{font-size:8.5px;font-weight:800;color:#080707;width:46px;text-align:right;flex-shrink:0;}
   .sf-donut{width:78px;height:78px;border-radius:50%;flex-shrink:0;position:relative;}
   .sf-donut::after{content:'';position:absolute;inset:21px;background:#fff;border-radius:50%;}
@@ -765,15 +800,11 @@
           <div class="desk-dot active" id="ddot-1"></div>
           <div class="desk-dot" id="ddot-2"></div>
           <div class="desk-dot" id="ddot-3"></div>
-          <div class="desk-dot" id="ddot-4"></div>
-          <div class="desk-dot" id="ddot-5"></div>
         </div>
         <div class="desk-phases">
           <div class="desk-phase" id="dphase-1"><span class="dp-n">1</span> Morning Control</div>
-          <div class="desk-phase" id="dphase-2"><span class="dp-n">2</span> Revenue Pipeline</div>
-          <div class="desk-phase" id="dphase-3"><span class="dp-n">3</span> Field &amp; Claim Execution</div>
-          <div class="desk-phase" id="dphase-4"><span class="dp-n">4</span> Partner Engine</div>
-          <div class="desk-phase" id="dphase-5"><span class="dp-n">5</span> Business Health</div>
+          <div class="desk-phase" id="dphase-2"><span class="dp-n">2</span> Estimate Record</div>
+          <div class="desk-phase" id="dphase-3"><span class="dp-n">3</span> Business Health</div>
         </div>
         <div style="margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,0.1);">
           <div style="font-size:8.5px;color:rgba(255,255,255,0.3);line-height:1.6;">
@@ -837,13 +868,13 @@
                     <div class="slds-card" style="flex:1.15;">
                       <div class="slds-card-hdr"><span class="slds-card-title">Revenue by Month</span><span class="slds-card-meta">FY26</span></div>
                       <div class="slds-card-body" style="padding:9px 11px 7px;">
-                        <div class="sf-bar-chart" data-explain="Revenue by Month|$48.2K in September|Your best month this year. September is the front edge of mold season, which carries your highest margin.">
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="38%"></div><div class="sf-bar-lbl">Apr</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="52%"></div><div class="sf-bar-lbl">May</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="46%"></div><div class="sf-bar-lbl">Jun</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="61%"></div><div class="sf-bar-lbl">Jul</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar" data-h="74%"></div><div class="sf-bar-lbl">Aug</div></div>
-                          <div class="sf-bar-col"><div class="sf-bar bar-orange" data-h="98%"></div><div class="sf-bar-lbl" style="font-weight:800;color:#C44E00;">Sep</div></div>
+                        <div class="month-bar-chart" data-explain="Revenue by Month|$48.2K in September|Your best month this year. September is the front edge of mold season, which carries your highest margin.">
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="45%" style="background:#0274BE;"></div></div><div class="month-bar-lbl">Apr</div></div>
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="58%" style="background:#0274BE;"></div></div><div class="month-bar-lbl">May</div></div>
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="62%" style="background:#0274BE;"></div></div><div class="month-bar-lbl">Jun</div></div>
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="75%" style="background:#0274BE;"></div></div><div class="month-bar-lbl">Jul</div></div>
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="82%" style="background:#0274BE;"></div></div><div class="month-bar-lbl">Aug</div></div>
+                          <div class="month-bar-col"><div class="month-bar-track"><div class="month-bar-fill" data-h="100%" style="background:#FF6900;"></div></div><div class="month-bar-lbl" style="font-weight:800;color:#C44E00;">Sep</div></div>
                         </div>
                       </div>
                     </div>
@@ -890,23 +921,23 @@
                     <div style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:5px 11px;background:#FAFAF9;border-bottom:1px solid #DDDBDA;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#706E6B;">
                       <span></span><span>Priority</span><span>At Stake</span><span>Status</span>
                     </div>
-                    <!-- PHASE 1 PRIMARY TARGET -->
+                    <!-- PHASE 1 PRIMARY TARGET — Westside Apartments estimate alert -->
                     <div class="guided-pulse" data-advance="1" style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;background:rgba(255,105,0,0.05);border-left:3px solid #FF6900;">
                       <span style="font-size:11px;">&#x2726;</span>
                       <span>
                         <span style="font-size:9.5px;font-weight:800;color:#C44E00;">Agentforce Alert:</span>
-                        <span class="slds-link" style="font-size:9.5px;">Mike Sullivan</span>
-                        <span style="font-size:9px;color:#514F4D;"> &mdash; 31 days dark &middot; $89.4K annual referral revenue at risk</span>
-                        <span class="gp-cue">&#x25B8; Click to review</span>
+                        <span class="slds-link" style="font-size:9.5px;">Westside Apartments</span>
+                        <span style="font-size:9px;color:#514F4D;"> &mdash; Estimate sent 72+ hrs ago ($14.8K) &middot; Follow-up needed</span>
+                        <span class="gp-cue">&#x25B8; Open record</span>
                       </span>
-                      <span style="font-size:10px;font-weight:900;color:#C23934;">$89.4K</span>
-                      <span class="slds-badge slds-badge-error">High Risk</span>
+                      <span style="font-size:10px;font-weight:900;color:#C23934;">$14.8K</span>
+                      <span class="slds-badge slds-badge-error">Overdue</span>
                     </div>
-                    <div data-explain="Estimate follow-up|Westside Apartments · $14,800|This estimate has been out 72+ hours. Agentforce tracks the exact hour close probability starts dropping and queues the follow-up for you." style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;">
-                      <span style="font-size:10px;">&#x1F4C4;</span>
-                      <span style="font-size:9px;color:#514F4D;"><span class="slds-link" style="font-weight:600;">Westside Apartments</span> &mdash; estimate 72+ hrs, no response</span>
-                      <span style="font-size:10px;font-weight:900;color:#8C4B02;">$14.8K</span>
-                      <span class="slds-badge slds-badge-warning">Overdue</span>
+                    <div data-explain="Partner risk — Mike Sullivan|31 days dark · $89.4K YTD|Sullivan Plumbing is your #1 referral source. No touchpoint in 31 days — Agentforce will surface a context-aware outreach email when you open his record." style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;">
+                      <span style="font-size:10px;">&#x1F464;</span>
+                      <span style="font-size:9px;color:#514F4D;"><span class="slds-link" style="font-weight:600;">Mike Sullivan</span> &mdash; 31 days dark &middot; referral partner at risk</span>
+                      <span style="font-size:10px;font-weight:900;color:#8C4B02;">$89.4K</span>
+                      <span class="slds-badge slds-badge-warning">At Risk</span>
                     </div>
                     <div data-explain="Adjuster coordination|Johnson Residence|Insurance adjuster visit is confirmed for Thursday. Salesforce already linked the State Farm claim number to the job record." style="display:grid;grid-template-columns:20px 1fr 92px 78px;gap:8px;padding:8px 11px;border-bottom:1px solid #F3F2F2;align-items:center;">
                       <span style="font-size:10px;">&#x1F4C5;</span>
@@ -925,7 +956,279 @@
               </div>
             </div>
 
-                 STEP 3 — INBOUND REFERRAL / JOB RECORD
+<!-- ═══════════════════════════════════════════════
+                 PHASE 2 — WESTSIDE APARTMENTS RECORD
+            ═══════════════════════════════════════════════ -->
+            <div class="demo-screen" id="ds-westside">
+              <div class="sf-chrome" data-active="Accounts"></div>
+              <div class="sf-record-page">
+
+                <!-- Breadcrumb -->
+                <div class="sf-crumb">
+                  <span class="cl">Accounts</span><span class="cs">&rsaquo;</span>
+                  <span class="cl">Estimates</span><span class="cs">&rsaquo;</span>
+                  <span class="cc">Westside Apartments</span>
+                </div>
+
+                <!-- Highlights Panel -->
+                <div class="sf-highlights">
+                  <div class="sf-hl-top">
+                    <div class="sf-hl-icon" style="background:linear-gradient(135deg,#00346D,#0274BE);font-size:10px;letter-spacing:-0.5px;">WA</div>
+                    <div class="sf-hl-id">
+                      <div class="sf-hl-type">Account &mdash; Commercial Property</div>
+                      <div class="sf-hl-name">Westside Apartments</div>
+                      <div class="sf-hl-sub">Water &amp; Mold Remediation Estimate &middot; Unit 2B &middot; 4210 Westside Blvd</div>
+                    </div>
+                    <!-- PHASE 2 PRIMARY TARGET -->
+                    <div class="sf-hl-actions">
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="2">&#x2726; Send Agentforce Follow-Up</button>
+                      <button class="slds-btn" data-explain="Log a Call|Record the conversation|Timestamps the record, prompts Agentforce to create the follow-up task, and tags the adjuster if a claim number is mentioned.">Log a Call</button>
+                      <button class="slds-btn" data-explain="New Task|Add a follow-up task|Assigns to the right team member and sets a due date. Agentforce can auto-assign based on capacity and proximity.">New Task</button>
+                    </div>
+                  </div>
+                  <div class="sf-hl-fields">
+                    <div class="sf-hl-field">
+                      <div class="sf-hl-label">Estimate Amount</div>
+                      <div class="sf-hl-value" style="color:#0176D3;">$14,800</div>
+                    </div>
+                    <div class="sf-hl-field">
+                      <div class="sf-hl-label">Status</div>
+                      <div class="sf-hl-value" style="font-size:9px;color:#C23934;font-weight:800;">Estimate Sent &mdash; 72+ hrs</div>
+                    </div>
+                    <div class="sf-hl-field">
+                      <div class="sf-hl-label">Referred By</div>
+                      <div class="sf-hl-value" style="font-size:9px;color:#0176D3;font-weight:800;">Mike Sullivan &middot; Sullivan Plumbing</div>
+                    </div>
+                    <div class="sf-hl-field">
+                      <div class="sf-hl-label">Contact</div>
+                      <div class="sf-hl-value" style="font-size:9px;font-weight:800;">Sarah Kim (Prop. Mgr)</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Stage Path -->
+                <div class="slds-path" style="margin:5px 10px 0;">
+                  <div class="slds-path-item done">New</div>
+                  <div class="slds-path-item done">Scope Approved</div>
+                  <div class="slds-path-item current" style="background:#C50A1D;">Estimate Sent &#x26A0;</div>
+                  <div class="slds-path-item">Work In Progress</div>
+                  <div class="slds-path-item">Closed Won</div>
+                </div>
+
+                <!-- Tab bar -->
+                <div class="sf-tabs-bar" style="margin:0 10px;">
+                  <div class="sf-tab active">Details</div>
+                  <div class="sf-tab" data-explain="Scope & Photos|On-site documentation auto-captured|All moisture readings, site photos, and containment photos auto-link to this estimate — uploaded from the field with zero manual entry.">Scope &amp; Photos</div>
+                  <div class="sf-tab" data-explain="Activity Timeline|Every touchpoint, automatically logged|Calls, emails, and crew dispatches all appear here with timestamps. Agentforce adds AI-generated summaries to inbound call recordings.">Activity</div>
+                </div>
+
+                <!-- Two-column content area -->
+                <div class="sf-main" style="gap:10px;padding:8px 10px;flex:1;min-height:0;overflow:hidden;">
+
+                  <!-- Left column: estimate details + Agentforce insight -->
+                  <div class="sf-content" style="display:flex;flex-direction:column;gap:8px;overflow-y:auto;">
+
+                    <!-- Estimate details card -->
+                    <div class="slds-card">
+                      <div class="slds-card-hdr"><span class="slds-card-title">Estimate Details</span></div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px 12px;padding:0 12px 10px;">
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Estimate #</div><div style="font-size:9px;font-weight:700;">#EST-2024-0891</div></div>
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Service Type</div><div style="font-size:9px;font-weight:700;">Commercial Water + Mold</div></div>
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Estimate Sent</div><div style="font-size:9px;font-weight:700;">Sep 13, 2026</div></div>
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Site Address</div><div style="font-size:9px;font-weight:700;">4210 Westside Blvd, Unit 2B</div></div>
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Moisture Level</div><div style="font-size:9px;font-weight:700;color:#C23934;">85% &mdash; Category 2</div></div>
+                        <div><div style="font-size:7px;color:#706E6B;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Last Contact</div><div style="font-size:9px;font-weight:700;color:#C23934;">Sep 13, 2026 (72+ hrs)</div></div>
+                      </div>
+                    </div>
+
+                    <!-- Agentforce 72-hour guard insight -->
+                    <div style="background:rgba(255,105,0,0.06);border:1.5px solid rgba(255,105,0,0.3);border-left:3px solid #FF6900;border-radius:4px;padding:8px 11px;font-size:8.5px;display:flex;align-items:flex-start;gap:7px;flex-shrink:0;" data-explain="Agentforce 72-Hour Guard|AI-driven expiration protection|Agentforce monitors every open estimate and flags the hour close probability starts declining. Win rate drops 22% after 72 hours without contact — this alert fired automatically at 6:02 AM.">
+                      <span style="font-size:13px;line-height:1;color:#FF6900;">&#x2726;</span>
+                      <div>
+                        <div style="font-weight:800;color:#C44E00;margin-bottom:3px;">Agentforce &mdash; 72-Hour Expiration Guard Active</div>
+                        <div style="color:#514F4D;line-height:1.5;">Estimate sent Sep 13 with no adjuster response. Win probability drops 22% per additional 48 hrs without contact. A personalized follow-up is ready to send &mdash; click <strong>&#x2726; Send Agentforce Follow-Up</strong> above.</div>
+                      </div>
+                    </div>
+
+                    <!-- Site photo gallery -->
+                    <div class="slds-card">
+                      <div class="slds-card-hdr"><span class="slds-card-title">Scope &amp; Photos</span><span class="slds-card-meta">2 files &middot; auto-linked from field</span></div>
+                      <div style="display:flex;gap:8px;padding:0 12px 10px;">
+                        <div class="sf-file-card" data-explain="Water damage — Unit 2B ceiling|Category 2 moisture, drywall affected|Photo captured on-site Sep 13 at 9:02 AM. Moisture meter reading logged automatically alongside this image.">
+                          <div class="sf-file-img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=300&q=80" alt="Water damage ceiling" loading="lazy"></div>
+                          <div class="sf-file-name">unit-2b-ceiling.jpg</div>
+                          <div class="sf-file-meta">Sep 13 &middot; 9:02 AM</div>
+                        </div>
+                        <div class="sf-file-card" data-explain="Moisture meter reading — 85%|Category 2 water intrusion confirmed|Reading auto-logged by the field app with GPS coordinates and timestamp. No manual entry required.">
+                          <div class="sf-file-img"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=300&q=80" alt="Moisture meter" loading="lazy"></div>
+                          <div class="sf-file-name">moisture-log.jpg</div>
+                          <div class="sf-file-meta">Sep 13 &middot; 9:15 AM</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /sf-content left -->
+
+                  <!-- Right column: task queue -->
+                  <div class="sf-sidebar" style="display:flex;flex-direction:column;gap:8px;overflow-y:auto;">
+                    <div class="slds-card">
+                      <div class="slds-card-hdr">
+                        <span class="slds-card-title">Open Tasks</span>
+                        <span class="slds-card-meta">Agentforce escalated</span>
+                      </div>
+                      <!-- Task that auto-animates to "Done" after email is sent -->
+                      <div class="sf-task overdue" id="task-westside">
+                        <div class="sf-task-check"></div>
+                        <div style="flex:1;min-width:0;">
+                          <div class="sf-task-t" id="task-westside-title">Follow up on Westside Apartments $14.8K estimate</div>
+                          <div class="sf-task-m" id="task-westside-meta">Due yesterday &middot; escalated by Agentforce 72-hr guard</div>
+                        </div>
+                        <span class="slds-badge slds-badge-error" id="task-westside-badge">Overdue</span>
+                      </div>
+                    </div>
+
+                    <!-- Related records -->
+                    <div class="slds-card">
+                      <div class="slds-card-hdr"><span class="slds-card-title">Related</span></div>
+                      <div style="padding:0 12px 8px;display:flex;flex-direction:column;gap:6px;">
+                        <div style="display:flex;align-items:center;gap:8px;" data-explain="Mike Sullivan — Referral source|Sullivan Plumbing Co. · 14 referred jobs|Mike is your #1 referral partner at $89.4K YTD. Opening his record shows full revenue attribution and lets you send an Agentforce touchpoint.">
+                          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900;flex-shrink:0;">MS</div>
+                          <div style="flex:1;min-width:0;">
+                            <div style="font-size:9px;font-weight:700;color:#0176D3;">Mike Sullivan</div>
+                            <div style="font-size:7.5px;color:#706E6B;">Sullivan Plumbing &middot; Referred this estimate</div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;" data-explain="Sarah Kim — Property Manager contact|Westside Apartments · 6 buildings|Primary contact for this estimate. Clicking her record shows all 6 managed properties and their inspection history in Salesforce.">
+                          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#0274BE,#00346D);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900;flex-shrink:0;">SK</div>
+                          <div style="flex:1;min-width:0;">
+                            <div style="font-size:9px;font-weight:700;color:#0176D3;">Sarah Kim</div>
+                            <div style="font-size:7.5px;color:#706E6B;">Property Manager &middot; Westside Apartments</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /sf-sidebar right -->
+
+                </div><!-- /sf-main -->
+
+              </div><!-- /sf-record-page -->
+            </div><!-- /ds-westside -->
+
+<!-- ═══════════════════════════════════════════════
+                 PHASE 2 — PARTNER INTELLIGENCE (LIST VIEW)
+            ═══════════════════════════════════════════════ -->
+            <div class="demo-screen" id="ds-partners-list">
+              <div class="sf-chrome" data-active="Partners"></div>
+              <div class="sf-record-page">
+
+                <!-- SLDS List View Header -->
+                <div class="lv-header">
+                  <div class="lv-header-l">
+                    <span style="font-size:10px;">&#128204;</span>
+                    <button class="lv-title-btn guided-pulse" id="lv-dropdown-btn" data-lv-open>
+                      <span id="lv-title">Recently Viewed Partners</span>
+                      <span class="lv-arrow">&#x25BE;</span>
+                    </button>
+                    <div class="lv-dropdown" id="lv-dropdown">
+                      <div class="lv-drop-item" data-explain="All Active Partners|Full partner roster|All 240 partners in your territory with their current relationship score, referral volume, and last contact date — sortable by any column.">All Active Partners</div>
+                      <div class="lv-drop-item" data-explain="High-Margin Property Managers|Your most profitable channel|Filtered to property managers who referred mold work in the last 12 months — average job margin 52%. Use this to focus outreach on the highest-return relationships.">&#x1F525; High-Margin Property Managers</div>
+                      <div class="lv-drop-item lv-primary-opt" id="lv-choice" data-lv-filter>
+                        <span>&#x1F527; Lapsed Partner Referrals (&gt; 30 Days)</span>
+                        <span style="font-size:8px;color:#FF6900;">&#x2605; Agentforce filter</span>
+                      </div>
+                      <div class="lv-drop-item" data-explain="Commercial Water Claims|Referral partners for water jobs|Filters to partners who have sent commercial water jobs exceeding $10K in the past year — useful for capacity planning and partner incentive reviews.">&#x1F4A7; Commercial Water Claims</div>
+                    </div>
+                  </div>
+                  <div class="lv-header-r">
+                    <button class="slds-btn" data-explain="Edit List View|Customize columns and filters|Add or remove fields, change the sort order, or update filter criteria for this view. Saved changes apply to everyone using it.">Edit</button>
+                    <button class="slds-btn" data-explain="New Partner|Create a partner record|Opens a quick-create form pre-populated with any address or contact context Salesforce can infer from your current page.">New</button>
+                    <button class="slds-btn" data-explain="Inline Filter|Narrow results without creating a view|Works like a WHERE clause on any visible field. Temporary — does not overwrite the saved list view."><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg> Filter</button>
+                  </div>
+                </div>
+
+                <!-- Default (unfiltered) table — shown before dropdown selection -->
+                <div class="lv-table-wrap" id="lv-default-view">
+                  <table class="lv-tbl">
+                    <thead><tr>
+                      <th class="lv-th">Partner Name</th>
+                      <th class="lv-th">Type</th>
+                      <th class="lv-th">Revenue YTD</th>
+                      <th class="lv-th">Last Contact</th>
+                      <th class="lv-th">Rel. Score</th>
+                    </tr></thead>
+                    <tbody>
+                      <tr class="lv-row" data-explain="Sarah Nguyen|HVAC contractor · $52K YTD|Contacted 8 days ago. Relationship score holding steady at 74. Agentforce has no active flag on this record.">
+                        <td class="lv-td lv-td-link">Sarah Nguyen<div style="font-size:7.5px;color:#706E6B;font-weight:400;">Pacific HVAC Solutions</div></td>
+                        <td class="lv-td">HVAC</td><td class="lv-td" style="font-weight:700;color:#2E844A;">$52,100</td>
+                        <td class="lv-td">8 days ago</td><td class="lv-td"><span class="lv-score lv-score-g">74</span></td>
+                      </tr>
+                      <tr class="lv-row" data-explain="Mark Pedretti|Equipment supplier · $38K YTD|Contacted 14 days ago. In the top 10% for relationship score among equipment partners.">
+                        <td class="lv-td lv-td-link">Mark Pedretti<div style="font-size:7.5px;color:#706E6B;font-weight:400;">Northwest Restoration Supply</div></td>
+                        <td class="lv-td">Equip. Supplier</td><td class="lv-td" style="font-weight:700;color:#2E844A;">$38,400</td>
+                        <td class="lv-td">14 days ago</td><td class="lv-td"><span class="lv-score lv-score-g">81</span></td>
+                      </tr>
+                      <tr class="lv-row" data-explain="Dave Patel|Insurance adjuster · $29K YTD|Your fastest-approving adjuster in territory. Three active claims pending — average cycle time 4.2 days.">
+                        <td class="lv-td lv-td-link">Dave Patel<div style="font-size:7.5px;color:#706E6B;font-weight:400;">State Farm — Portland District</div></td>
+                        <td class="lv-td">Ins. Adjuster</td><td class="lv-td" style="font-weight:700;color:#2E844A;">$29,200</td>
+                        <td class="lv-td">3 days ago</td><td class="lv-td"><span class="lv-score lv-score-g">88</span></td>
+                      </tr>
+                      <tr class="lv-row" data-explain="Janet Morse|Property manager · $62K YTD|18 buildings under management. Last contacted 28 days ago — Agentforce will escalate this record in 2 days if no touchpoint occurs.">
+                        <td class="lv-td lv-td-link">Janet Morse<div style="font-size:7.5px;color:#706E6B;font-weight:400;">Cascade Properties</div></td>
+                        <td class="lv-td">Prop. Mgr</td><td class="lv-td" style="font-weight:700;color:#2E844A;">$62,100</td>
+                        <td class="lv-td">28 days ago</td><td class="lv-td"><span class="lv-score lv-score-y">61</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="text-align:center;padding:7px;font-size:8px;color:#706E6B;border-top:1px solid #F3F2F2;">Showing 4 of 240 recently viewed &middot; <span style="color:#0176D3;font-weight:700;">Apply a filter to surface at-risk revenue</span></div>
+                </div>
+
+                <!-- Filtered results — shown after "Lapsed Partner Referrals" selected -->
+                <div class="lv-table-wrap" id="lv-filtered-view" style="display:none;">
+                  <div class="lv-filter-chip">
+                    <span><span style="color:#0176D3;font-weight:800;">&#x2726; Agentforce filter active:</span> No touchpoint in &gt; 30 days &middot; sorted by revenue at risk</span>
+                    <span class="lv-filter-count">3 partners flagged</span>
+                  </div>
+                  <table class="lv-tbl">
+                    <thead><tr>
+                      <th class="lv-th">Partner Name</th>
+                      <th class="lv-th">Type</th>
+                      <th class="lv-th">Revenue YTD</th>
+                      <th class="lv-th">Days Dark</th>
+                      <th class="lv-th">At Risk</th>
+                    </tr></thead>
+                    <tbody>
+                      <!-- PHASE 2 PRIMARY TARGET — click to advance to Mike's partner record -->
+                      <tr class="lv-row lv-risk-row guided-pulse" data-advance="2">
+                        <td class="lv-td">
+                          <div style="font-weight:800;font-size:9.5px;color:#0176D3;">Mike Sullivan</div>
+                          <div style="font-size:7.5px;color:#706E6B;">Sullivan Plumbing Co.</div>
+                        </td>
+                        <td class="lv-td">Plumber</td>
+                        <td class="lv-td" style="font-weight:800;color:#2E844A;">$89,400</td>
+                        <td class="lv-td"><span class="slds-badge slds-badge-error">31 days</span></td>
+                        <td class="lv-td" style="font-weight:900;color:#C23934;">$89.4K at risk <span class="gp-cue">&#x25B8; Open</span></td>
+                      </tr>
+                      <tr class="lv-row" data-explain="Tom Richards|Plumber · $34K YTD|22 days without contact — below the 30-day threshold but approaching it. Agentforce will escalate in 8 days if no touchpoint occurs.">
+                        <td class="lv-td"><div style="font-weight:700;font-size:9px;color:#0176D3;">Tom Richards</div><div style="font-size:7.5px;color:#706E6B;">Richards Plumbing</div></td>
+                        <td class="lv-td">Plumber</td><td class="lv-td" style="font-weight:700;">$34,100</td>
+                        <td class="lv-td"><span class="slds-badge slds-badge-warning">22 days</span></td>
+                        <td class="lv-td" style="color:#8C4B02;">$34.1K monitored</td>
+                      </tr>
+                      <tr class="lv-row" data-explain="Carol Wu|Property manager · $18K YTD|38 days dark. She manages 6 buildings — property managers compound, so the silence matters more than the YTD number alone suggests.">
+                        <td class="lv-td"><div style="font-weight:700;font-size:9px;color:#0176D3;">Carol Wu</div><div style="font-size:7.5px;color:#706E6B;">Metro Property Group</div></td>
+                        <td class="lv-td">Prop. Mgr</td><td class="lv-td" style="font-weight:700;">$18,300</td>
+                        <td class="lv-td"><span class="slds-badge slds-badge-error">38 days</span></td>
+                        <td class="lv-td" style="color:#C23934;">$18.3K at risk</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+<!-- ═══════════════════════════════════════════════
+                 PHASE 3 — INBOUND REFERRAL / JOB RECORD
             ═══════════════════════════════════════════════ -->
             <div class="demo-screen" id="ds-job">
               <div class="sf-chrome" data-active="Accounts"></div>
@@ -969,7 +1272,7 @@
                 </div>
 
                 <!-- Attribution bar — PRIMARY TARGET -->
-                <div class="guided-pulse" data-advance="3" style="margin:7px 10px 0;background:#fff;border:1px solid #DDDBDA;border-left:3px solid #FF6900;border-radius:4px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;">
+                <div data-explain="Partner Attribution|Revenue traced to source|Salesforce automatically links inbound jobs to the partner who referred them, building Mike Sullivan's revenue attribution record — no manual entry needed." style="margin:7px 10px 0;background:#fff;border:1px solid #DDDBDA;border-left:3px solid #FF6900;border-radius:4px;padding:8px 12px;display:flex;align-items:center;gap:9px;flex-shrink:0;cursor:pointer;">
                   <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#FF6900,#C44E00);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900;flex-shrink:0;">MS</div>
                   <div style="flex:1;min-width:0;">
                     <div style="font-size:9.5px;color:#514F4D;">
@@ -1137,7 +1440,7 @@
                       <button class="slds-btn" data-explain="Edit|Inline record editing|Update any field without leaving the page. Field history tracks who changed what and when.">Edit</button>
                       <button class="slds-btn" data-explain="New Task|Create a follow-up|Tasks assigned here show on your BDR dashboard, so accountability is visible without asking anyone for a status update.">New Task</button>
                       <button class="slds-btn" data-explain="Log Call|Capture a conversation|Reps log calls from mobile in about 8 seconds. Duration and notes attach to the partner record automatically.">Log Call</button>
-                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="4">&#x2726; Send Agentforce Touchpoint</button>
+                      <button class="slds-btn slds-btn-agent guided-pulse" data-advance="3">&#x2726; Send Agentforce Touchpoint</button>
                     </div>
                   </div>
                   <div class="sf-hl-fields">
@@ -1447,13 +1750,13 @@
                       <div class="slds-card-hdr"><span class="slds-card-title">Profitability by Service Line</span></div>
                       <div class="slds-card-body" style="padding:9px 11px 6px;">
                         <div class="sf-hbar-row" data-explain="Mold — 52% margin|Your most profitable work|Only 31% of job volume but the highest margin. Property manager partners are the main source, which is why Agentforce prioritizes them.">
-                          <span class="sf-hbar-name">Mold</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="100%" style="background:#7C3AED;"></span></span><span class="sf-hbar-val">52%</span>
+                          <span class="sf-hbar-name">Mold</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="52%" style="background:#FF6900;"></span></span><span class="sf-hbar-val">52%</span>
                         </div>
                         <div class="sf-hbar-row" data-explain="Fire — 38% margin|Middle of the pack|Fire and smoke work is steady and well-paid but slower to close because of insurance cycles.">
-                          <span class="sf-hbar-name">Fire &amp; Smoke</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="73%" style="background:#FF6900;"></span></span><span class="sf-hbar-val">38%</span>
+                          <span class="sf-hbar-name">Fire &amp; Smoke</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="38%" style="background:#C50A1D;"></span></span><span class="sf-hbar-val">38%</span>
                         </div>
                         <div class="sf-hbar-row" data-explain="Water — 31% margin|Highest volume, lowest margin|Water is 46% of your jobs but your thinnest margin. The strategic move is converting water partners into mold referrers.">
-                          <span class="sf-hbar-name">Water</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="60%" style="background:#0176D3;"></span></span><span class="sf-hbar-val">31%</span>
+                          <span class="sf-hbar-name">Water</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="31%" style="background:#0274BE;"></span></span><span class="sf-hbar-val">31%</span>
                         </div>
                       </div>
                     </div>
@@ -1461,16 +1764,16 @@
                       <div class="slds-card-hdr"><span class="slds-card-title">Revenue by Partner Type</span></div>
                       <div class="slds-card-body" style="padding:9px 11px 6px;">
                         <div class="sf-hbar-row" data-explain="Plumbers — $118K|Your biggest referral channel|Mike Sullivan alone is $89.4K of this. High volume, mostly water work, thinner margin.">
-                          <span class="sf-hbar-name">Plumbers</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="100%" style="background:#0176D3;"></span></span><span class="sf-hbar-val">$118K</span>
+                          <span class="sf-hbar-name">Plumbers</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="100%" style="background:#00346D;"></span></span><span class="sf-hbar-val">$118K</span>
                         </div>
                         <div class="sf-hbar-row" data-explain="Property Managers — $81K|Best margin per relationship|Fewer partners, more buildings, higher-margin mold work. This is the lane Agentforce told you to grow.">
-                          <span class="sf-hbar-name">Property Mgrs</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="69%" style="background:#7C3AED;"></span></span><span class="sf-hbar-val">$81K</span>
+                          <span class="sf-hbar-name">Property Mgrs</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="68%" style="background:#00346D;"></span></span><span class="sf-hbar-val">$81K</span>
                         </div>
                         <div class="sf-hbar-row" data-explain="Insurance Agents — $62K|Steady but slow|Good volume, longer sales cycles. Agentforce tracks which adjusters approve fastest.">
-                          <span class="sf-hbar-name">Insurance</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="53%" style="background:#2E844A;"></span></span><span class="sf-hbar-val">$62K</span>
+                          <span class="sf-hbar-name">Insurance</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="52%" style="background:#00346D;"></span></span><span class="sf-hbar-val">$62K</span>
                         </div>
                         <div class="sf-hbar-row" data-explain="Direct & Web — $51K|No partner attached|Website forms and inbound calls. Lower margin because there is no referral relationship to protect.">
-                          <span class="sf-hbar-name">Direct / Web</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="43%" style="background:#706E6B;"></span></span><span class="sf-hbar-val">$51K</span>
+                          <span class="sf-hbar-name">Direct / Web</span><span class="sf-hbar-track"><span class="sf-hbar-fill" data-w="43%" style="background:#00346D;"></span></span><span class="sf-hbar-val">$51K</span>
                         </div>
                       </div>
                     </div>
@@ -1602,13 +1905,13 @@
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-size:11px;">&#x1F4E7;</span>
                   <span style="font-size:10px;font-weight:800;">New Email</span>
-                  <span id="bs-compose-for" style="font-size:8.5px;color:rgba(255,255,255,0.6);">— Mike Sullivan</span>
+                  <span id="bs-compose-for" style="font-size:8.5px;color:rgba(255,255,255,0.6);">— Westside Apartments</span>
                 </div>
                 <div style="width:18px;height:18px;border-radius:4px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px;flex-shrink:0;" onclick="closeCompose()">&#x2715;</div>
               </div>
               <div id="bs-compose-to-row" style="border-bottom:1px solid #E2E8F0;padding:5px 11px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
                 <span style="font-size:8.5px;color:#8492A6;font-weight:700;width:28px;flex-shrink:0;">To</span>
-                <span id="bs-compose-to" style="font-size:9px;color:#0176D3;font-weight:700;">mike@sullivanplumbing.com</span>
+                <span id="bs-compose-to" style="font-size:9px;color:#0176D3;font-weight:700;">property.manager@westsideapts.com</span>
               </div>
               <div style="border-bottom:1px solid #E2E8F0;padding:5px 11px;display:flex;align-items:center;gap:8px;flex-shrink:0;min-height:27px;">
                 <span style="font-size:8.5px;color:#8492A6;font-weight:700;width:28px;flex-shrink:0;">Subj</span>
@@ -2224,50 +2527,40 @@ function phoneSecondaryClick(msg) { showMobileTooltip(msg); }
 
 /* Each step: which screen renders, which phase it belongs to,
    the left-panel narration, and the primary progression target. */
-const PHASE_COUNT = 5;
+const PHASE_COUNT = 3;
 
 const STEPS = [
   /* ── PHASE 1 · MORNING CONTROL ── */
   { screen:'ds-home', phase:1, phaseName:'Morning Control',
     title:'Morning Control',
-    body:'Your Lightning Home page is assembled before you wake up. Live gauges, pipeline charts, and job volume by service line — then Agentforce ranks the one thing that costs you money if you ignore it.',
-    hint:'⚡ Click the pulsing Agentforce Alert in Today\u2019s Priorities',
-    target:'the Agentforce Alert in Today\u2019s Priorities' },
+    body:'Your Lightning Home page surfaces exactly what needs attention before you leave the house \u2014 live revenue gauges, pipeline charts, and Agentforce prioritizing the one estimate that will expire if you ignore it.',
+    hint:'\u26a1 Click the Westside Apartments Agentforce Alert in Today\u2019s Priorities',
+    target:'the Westside Apartments alert row in Today\u2019s Priorities' },
 
-  /* ── PHASE 2 · REVENUE PIPELINE ── */
-  { screen:'ds-pipeline', phase:2, phaseName:'Revenue Pipeline',
-    title:'Revenue Pipeline',
-    body:'Every open estimate on one Kanban board. Agentforce runs a 72-hour expiration guard and escalates anything going cold straight onto your task queue — so revenue never slips quietly.',
-    hint:'⚡ Click the overdue task row to mark it complete',
-    target:'the overdue task row in My Tasks' },
+  /* ── PHASE 2 · ESTIMATE RECORD & AI FOLLOW-UP (two steps on same screen) ── */
+  { screen:'ds-westside', phase:2, phaseName:'Estimate Record',
+    title:'Westside Apartments \u2014 $14.8K Estimate',
+    body:'The full account record, assembled automatically. Scope photos, moisture readings, stage path, and every activity logged without manual entry. Agentforce has drafted a context-aware follow-up email and it\u2019s ready to send.',
+    hint:'\u26a1 Click the \u2726 Send Agentforce Follow-Up button',
+    target:'the \u2726 Send Agentforce Follow-Up button' },
 
-  /* ── PHASE 3 · FIELD & CLAIM EXECUTION ── */
-  { screen:'ds-job', phase:3, phaseName:'Field & Claim Execution',
-    title:'Field & Claim Execution',
-    body:'Doing the work records the work. Site photos, moisture readings, GPS timestamps, calls and emails all land on the claim record with zero manual entry. Click any activity row to open the AI summary.',
-    hint:'⚡ Click the orange "Referred by Mike Sullivan" attribution bar',
-    target:'the "Referred by: Mike Sullivan" attribution bar' },
+  { screen:'ds-westside', phase:2, phaseName:'Estimate Record',
+    title:'Agentforce Drafts the Follow-Up',
+    body:'Agentforce reads the estimate amount, contact name, and last-contact date to write a personalized follow-up in seconds. You approve, it sends via Outlook, and auto-logs back to Salesforce \u2014 bidirectional, zero copy-paste.',
+    hint:'\u26a1 Let the draft finish, then click \u2708 Send',
+    target:'the \u2708 Send button in the compose window' },
 
-  /* ── PHASE 4 · PARTNER ENGINE (two steps) ── */
-  { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
-    title:'Partner Engine',
-    body:'Mike\u2019s entire history, assembled automatically — 14 referred jobs, $89.4K attributed revenue. Agentforce has a context-aware touchpoint email ready to draft.',
-    hint:'⚡ Click the ✦ Send Agentforce Touchpoint action',
-    target:'the ✦ Send Agentforce Touchpoint button' },
-
-  { screen:'ds-partner', phase:4, phaseName:'Partner Engine',
-    title:'Agentforce Writes It',
-    body:'Agentforce drafts the email live using context from the Eastside job. You approve in five seconds. It sends through Outlook and logs itself back to Salesforce — bidirectional, no copy-paste.',
-    hint:'⚡ Wait for the draft to finish, then click ✈ Send',
-    target:'the ✈ Send button in the compose window' },
-
-  /* ── PHASE 5 · BUSINESS HEALTH ── */
-  { screen:'ds-exec', phase:5, phaseName:'Business Health',
-    title:'Business Health',
-    body:'Know your numbers in real time. Mold returns 52% margin against 31% on water — and Agentforce found the correlation that tells you which partners feed the profitable lane.',
-    hint:'🏆 Click View Franchise Summary to finish',
-    target:'the 🏆 View Franchise Summary button' },
+  /* ── PHASE 3 · BUSINESS HEALTH & PARTNER ATTRIBUTION ── */
+  { screen:'ds-exec', phase:3, phaseName:'Business Health',
+    title:'Business Health & Partner Attribution',
+    body:'Property manager partners drive mold jobs at 31% higher margin than water work. Mold returns 52% margin \u2014 and Agentforce found the exact correlation that tells you which partner relationships to grow.',
+    hint:'\ud83c\udfc6 Click View Franchise Summary to finish',
+    target:'the \ud83c\udfc6 View Franchise Summary button' },
 ];
+
+/* ── DEAD STEPS (kept in DOM for educational exploration, not in active flow) ── */
+/* ds-partners-list, ds-partner, ds-pipeline, ds-job are explorable but not routed */
+
 
 /* Notification segues — a live toast bridges one phase to the next so
    the environment feels alive instead of button-driven. */
@@ -2287,8 +2580,9 @@ const NOTIF_DEFS = {
     cta: 'See the executive dashboard →'
   },
 };
-/* Keys are 0-based step indexes that fire a segue after their primary click */
-const STEP_SEGUE = { 1: 'outlook-referral' };
+/* Keys are 0-based step indexes that fire a segue after their primary click.
+   Step 3 (send email) is handled directly inside sendCompose() via mold-correlation. */
+const STEP_SEGUE = {};
 
 let demoStep = 0;
 let notifAdvanceCallback = null;
@@ -2313,10 +2607,7 @@ function renderChrome() {
           '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
         '</div>' +
         '<div class="sfgh-brand">' +
-          '<img src="' + PC_LOGO + '" alt="PuroClean" onerror="this.style.display=\'none\'"/>' +
-          '<div class="sfgh-div"></div>' +
-          '<svg width="15" height="11" viewBox="0 0 52 36" fill="#00A1E0" xmlns="http://www.w3.org/2000/svg"><path d="M21.6 6.4a10.4 10.4 0 0 1 7.4-3.1 10.5 10.5 0 0 1 9.3 5.6 8.3 8.3 0 0 1 3.3-.7 8.4 8.4 0 0 1 8.4 8.4 8.4 8.4 0 0 1-8.4 8.4H11.6A9.6 9.6 0 0 1 2 16.4a9.6 9.6 0 0 1 9.6-9.6 9.5 9.5 0 0 1 10-.4z"/></svg>' +
-          '<span class="sfgh-app">PuroClean Platform</span>' +
+          '<img src="' + PC_LOGO + '" alt="PuroClean" style="height:17px;filter:brightness(0) invert(1);" onerror="this.style.display=\'none\'"/>' +
         '</div>' +
         '<div class="sfgh-search" data-explain="Global Search|Search across every object|Global Search instantly scans all jobs, equipment logs, adjuster contacts, and partner records across your entire franchise database. Results respect your sharing rules.">' +
           '<svg width="10" height="10" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' +
@@ -2374,26 +2665,34 @@ function showScreen(step) {
 
 /* Bars, meters, and gauges animate in from zero every time a screen is shown */
 function animateCharts(root) {
+  /* Reset all animatable elements to their zero state */
+  root.querySelectorAll('.month-bar-fill[data-h]').forEach(el => { el.style.height = '0'; });
   root.querySelectorAll('.sf-bar[data-h]').forEach(el => { el.style.height = '0'; });
   root.querySelectorAll('.sf-hbar-fill[data-w]').forEach(el => { el.style.width = '0'; });
-  // Radial gauge — reset to full offset (empty ring)
+  /* Radial gauge — reset to full offset (empty ring) */
   root.querySelectorAll('.sf-gauge-fill[data-pct]').forEach(el => {
     const circ = parseFloat(el.getAttribute('stroke-dasharray')) || 163.4;
     el.style.strokeDashoffset = circ;
   });
-  setTimeout(() => {
-    root.querySelectorAll('.sf-bar[data-h]').forEach((el, i) => {
-      setTimeout(() => { el.style.height = el.dataset.h; }, i * 70);
+  /* A single rAF ensures layout is computed before we start transitions */
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      root.querySelectorAll('.month-bar-fill[data-h]').forEach((el, i) => {
+        setTimeout(() => { el.style.height = el.dataset.h; }, i * 80);
+      });
+      root.querySelectorAll('.sf-bar[data-h]').forEach((el, i) => {
+        setTimeout(() => { el.style.height = el.dataset.h; }, i * 70);
+      });
+      root.querySelectorAll('.sf-hbar-fill[data-w]').forEach((el, i) => {
+        setTimeout(() => { el.style.width = el.dataset.w; }, i * 110);
+      });
+      root.querySelectorAll('.sf-gauge-fill[data-pct]').forEach(el => {
+        const circ = parseFloat(el.getAttribute('stroke-dasharray')) || 163.4;
+        const pct  = parseFloat(el.dataset.pct) || 0;
+        el.style.strokeDashoffset = circ - (circ * pct / 100);
+      });
     });
-    root.querySelectorAll('.sf-hbar-fill[data-w]').forEach((el, i) => {
-      setTimeout(() => { el.style.width = el.dataset.w; }, i * 110);
-    });
-    root.querySelectorAll('.sf-gauge-fill[data-pct]').forEach(el => {
-      const circ = parseFloat(el.getAttribute('stroke-dasharray')) || 163.4;
-      const pct  = parseFloat(el.dataset.pct) || 0;
-      el.style.strokeDashoffset = circ - (circ * pct / 100);
-    });
-  }, 180);
+  });
 }
 
 /* ── Progression ── */
@@ -2421,10 +2720,10 @@ window.advanceStep = advanceStep;
 
 /* Step-entry side effects */
 function onEnterStep(step) {
-  // Phase 4 second step (index 4) — Salesforce Inbox compose slides up and self-types
-  if (step === 4) {
+  // Phase 2 second sub-step (index 2) — Salesforce Inbox compose slides up and self-types
+  if (step === 2) {
     if (composeOpenTimer) clearTimeout(composeOpenTimer);
-    composeOpenTimer = setTimeout(() => { if (demoStep === 4) openEmailCompose(); }, 420);
+    composeOpenTimer = setTimeout(() => { if (demoStep === 2) openEmailCompose(); }, 420);
   }
   // Final step — offer the summary on its own after a pause
   if (step === STEPS.length - 1) {
@@ -2548,12 +2847,10 @@ const SECONDARY_EXPLAINERS = {
 /* ── Step-specific redirect nudges (1-based to match demoStep + 1) ── */
 function getStepRedirectNudge(step) {
   const nudges = {
-    1: 'To continue your morning review, click the Agentforce Alert on Mike Sullivan in Today\u2019s Priorities.',
-    2: 'To continue, click the overdue task row in My Tasks to mark it complete.',
-    3: 'To continue, click the orange \u201cReferred by Mike Sullivan\u201d attribution bar at the top of the job.',
-    4: 'To continue, click the \u201c\u2726 Send Agentforce Touchpoint\u201d button in the record header.',
-    5: 'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
-    6: 'To finish the walkthrough, click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the dashboard header.',
+    1: 'To continue, click the Westside Apartments Agentforce Alert in Today\u2019s Priorities.',
+    2: 'To continue, click the \u201c\u2726 Send Agentforce Follow-Up\u201d button in the record header.',
+    3: 'To continue, let Agentforce finish the draft and then click \u201c\u2708 Send\u201d in the compose window.',
+    4: 'To finish the walkthrough, click \u201c\ud83c\udfc6 View Franchise Summary\u201d in the dashboard header.',
   };
   return nudges[step] || 'Click the pulsing element to continue the walkthrough.';
 }
@@ -2584,7 +2881,7 @@ function sfEducate(elementKey) {
     if (complTask) {
       e.stopPropagation();
       // Only valid during Phase 2 / step index 1
-      if (demoStep !== 1) { sfEducate(''); return; }
+      if (demoStep !== 4) { sfEducate(''); return; }
       completeTaskInUI(complTask);
       return;
     }
@@ -2606,6 +2903,43 @@ function sfEducate(elementKey) {
 
     const locked = e.target.closest('[data-locked]');
     if (locked) { e.stopPropagation(); sfEducate(locked.dataset.locked); return; }
+
+    /* ── List view dropdown toggle ── */
+    const lvOpen = e.target.closest('[data-lv-open]');
+    if (lvOpen) {
+      e.stopPropagation();
+      sfClosePopover();
+      const dd = document.getElementById('lv-dropdown');
+      const isNowOpen = dd && !dd.classList.contains('open');
+      if (dd) dd.classList.toggle('open');
+      lvOpen.classList.toggle('open', isNowOpen);
+      if (isNowOpen) {
+        // move guided-pulse from the btn to the primary filter option
+        lvOpen.classList.remove('guided-pulse');
+        const ch = document.getElementById('lv-choice');
+        if (ch) ch.classList.add('guided-pulse');
+      }
+      return;
+    }
+
+    /* ── List view filter selection ── */
+    const lvFilter = e.target.closest('[data-lv-filter]');
+    if (lvFilter) {
+      e.stopPropagation();
+      const dd = document.getElementById('lv-dropdown');
+      const btn = document.getElementById('lv-dropdown-btn');
+      if (dd) dd.classList.remove('open');
+      if (btn) btn.classList.remove('open');
+      const defV  = document.getElementById('lv-default-view');
+      const filtV = document.getElementById('lv-filtered-view');
+      const titleEl = document.getElementById('lv-title');
+      if (defV)   defV.style.display  = 'none';
+      if (filtV)  filtV.style.display = '';
+      if (titleEl) titleEl.textContent = 'Lapsed Partner Referrals (\u2265 30 Days)';
+      // remove pulse from filter choice (Mike Sullivan's row is already pulsing in filtV)
+      if (lvFilter) lvFilter.classList.remove('guided-pulse');
+      return;
+    }
 
     const expand = e.target.closest('[data-expand]');
     if (expand) {
@@ -2693,6 +3027,33 @@ window.resetBrowserDemo = function () {
   sfClosePopover();
   sfCloseToast();
   document.querySelectorAll('#browser-viewport .demo-screen').forEach(el => el.classList.remove('active'));
+  /* Reset Westside task state */
+  const _wtRow = document.getElementById('task-westside');
+  if (_wtRow) {
+    delete _wtRow.dataset.completed;
+    _wtRow.classList.remove('sf-task-completed');
+    _wtRow.classList.add('overdue');
+    const _wtCb = _wtRow.querySelector('.sf-task-check');
+    if (_wtCb) _wtCb.innerHTML = '';
+  }
+  const _wtBadge = document.getElementById('task-westside-badge');
+  if (_wtBadge) { _wtBadge.className = 'slds-badge slds-badge-error'; _wtBadge.textContent = 'Overdue'; }
+  const _wtMeta = document.getElementById('task-westside-meta');
+  if (_wtMeta) _wtMeta.textContent = 'Due yesterday \u00b7 escalated by Agentforce 72-hr guard';
+
+  /* Reset list view state */
+  const _defV = document.getElementById('lv-default-view');
+  const _filtV = document.getElementById('lv-filtered-view');
+  const _lvDd  = document.getElementById('lv-dropdown');
+  const _lvBtn = document.getElementById('lv-dropdown-btn');
+  const _lvTitle = document.getElementById('lv-title');
+  const _lvChoice = document.getElementById('lv-choice');
+  if (_defV)   _defV.style.display   = '';
+  if (_filtV)  _filtV.style.display  = 'none';
+  if (_lvDd)   _lvDd.classList.remove('open');
+  if (_lvBtn)  { _lvBtn.classList.remove('open'); _lvBtn.classList.add('guided-pulse'); }
+  if (_lvTitle) _lvTitle.textContent  = 'Recently Viewed Partners';
+  if (_lvChoice) _lvChoice.classList.remove('guided-pulse');
   updateLeftPanel(0);
   const intro = document.getElementById('browser-intro');
   if (intro) {
@@ -2753,8 +3114,8 @@ function runComposeTyping() {
   const cursorB  = document.getElementById('bs-cursor-body');
   const bodyWrap = document.getElementById('bs-compose-body-wrap');
 
-  const subject = 'Thanks for sending the Eastside job over';
-  const body    = 'Hey Mike,\n\nThanks for sending the Eastside Commercial job our way — the mold crew is already on site and it looks like a 7-day scope.\n\nOne thing worth mentioning: mold work runs a good bit better for both of us than standard water jobs. If you run into moisture issues on any of your multi-family accounts this fall, send them straight to me.\n\nAppreciate you.\n\n— Melissa';
+  const subject = 'Follow-up: Restoration Scope & Estimate for Unit 2B ($14,800)';
+  const body    = 'Hi Sarah,\n\nFollowing up on the $14,800 water remediation estimate sent on Tuesday for Unit 2B at Westside Apartments.\n\nOur crew is on standby to begin containment within 24 hours of your approval. Moisture readings are at 85% — Category 2 — and early action significantly reduces the likelihood of secondary mold damage.\n\nLet me know if you have any questions on the scope. Happy to walk through it over a quick call.\n\nBest,\nMelissa\nPuroClean Northwest';
 
   // Activate subject cursor
   cursorS.classList.add('active');
@@ -2797,14 +3158,14 @@ function runComposeTyping() {
   }
 }
 
-/* Phase 4 send → bidirectional Outlook sync, then the Agentforce
-   correlation toast carries the user into Phase 5. */
+/* Phase 2 send → bidirectional Outlook sync → inline task completion →
+   then the Agentforce correlation toast carries the user into Phase 3. */
 window.sendCompose = function () {
   const sendBtn = document.getElementById('bs-compose-send-btn');
   if (!sendBtn || !sendBtn.classList.contains('ready')) return; // still typing
 
   clearComposeTimers();
-  sendBtn.textContent = '✓ Sent & Logged';
+  sendBtn.textContent = '\u2713 Sent & Logged';
   sendBtn.style.background = '#2E844A';
   sendBtn.style.animation = 'none';
   sendBtn.style.boxShadow = 'none';
@@ -2812,12 +3173,42 @@ window.sendCompose = function () {
 
   const t1 = setTimeout(() => {
     closeCompose();
-    const def = NOTIF_DEFS['mold-correlation'];
-    notifAdvanceCallback = doAdvance; // Phase 4 → Phase 5
-    notifSegueTimer = setTimeout(() => showSegueNotif(def), def.delay);
+    // Auto-complete the Westside task inline on the record
+    completeWestsideTaskInUI();
   }, 900);
   composeTimers.push(t1);
 };
+
+/* Inline task-completion animation for the Westside record task.
+   Fires automatically after the email is sent — the user does NOT click the task. */
+function completeWestsideTaskInUI() {
+  const row = document.getElementById('task-westside');
+  if (!row || row.dataset.completed) return;
+  row.dataset.completed = '1';
+
+  // Remove overdue styling and apply completed class (transitions fire)
+  row.classList.remove('overdue');
+  row.classList.add('sf-task-completed');
+
+  // Inject checkmark into checkbox
+  const cb = row.querySelector('.sf-task-check');
+  if (cb) cb.innerHTML = '<svg width="9" height="9" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  // Swap Overdue \u2192 Done badge
+  const badge = document.getElementById('task-westside-badge');
+  if (badge) { badge.className = 'slds-badge slds-badge-success'; badge.textContent = 'Done'; }
+
+  // Update sub-text
+  const meta = document.getElementById('task-westside-meta');
+  if (meta) meta.textContent = 'Completed just now \u2014 email auto-logged via Outlook';
+
+  // After a short pause, fire the mold-correlation segue to Phase 3 (ds-exec)
+  setTimeout(() => {
+    const def = NOTIF_DEFS['mold-correlation'];
+    notifAdvanceCallback = doAdvance; // Phase 2 \u2192 Phase 3
+    notifSegueTimer = setTimeout(() => showSegueNotif(def), def.delay);
+  }, 900);
+}
 
 window.openEmailCompose = openEmailCompose;
 window.closeCompose     = closeCompose;
